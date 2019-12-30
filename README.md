@@ -65,21 +65,21 @@ export const Primary = () => <Button>Primary Button</Button>;
 
 ## Options
 
-| Prop        |          | Description                                                                                                                                |
-| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `theme`     | required | Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example. |
-| `provider`  | required | Any provider component which will accept a theme object prop and children.                                                                 |
-| `overrides` | optional | Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.                |
+### `theme` | required
 
-```js
-import { addDecorator } from '@storybook/react';
-import { ThemeProvider } from 'styled-components';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
+> `object` | `Array<{ name: string, theme: object }>`
 
-import theme from 'path/to/theme';
+Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
 
-addDecorator(withThemePlayground({ theme, provider: ThemeProvider }));
-```
+### `provider` | required
+
+Any provider component which will accept a theme object prop and children.
+
+### `overrides` | optional
+
+> `object`
+
+Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.
 
 ## Multiple Themes
 
