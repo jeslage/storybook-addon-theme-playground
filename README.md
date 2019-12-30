@@ -1,18 +1,16 @@
 # storybook-addon-theme-playground
 
-## Installation
-
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel, where you can play around with your theme. It helps you or the designer to tweek some theme values directly on your components.
 
 ![Screenshot](./assets/screenshot.png)
+
+## Installation
 
 #### 1. Install the addon
 
 ```sh
 npm install -D storybook-addon-theme-playground
-```
 
-```sh
 yarn add -D storybook-addon-theme-playground
 ```
 
