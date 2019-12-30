@@ -2,7 +2,7 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import setValue from '../helper/setValue';
-import { Theme, ThemesArray } from '../types';
+import { Theme, ThemesArray, ThemeObject } from '../types';
 import events from '../events';
 
 export type SettingsContextProps = {
@@ -11,7 +11,7 @@ export type SettingsContextProps = {
   activeTheme: string;
   overrides: object;
   updateTheme: (path: any, value: any) => void;
-  updateActiveTheme: (value: string) => void;
+  updateActiveTheme: (obj: ThemeObject) => void;
 };
 
 export const SettingsContext = React.createContext<SettingsContextProps>({
@@ -36,38 +36,38 @@ const SettingsProvider: React.FC = ({ children }) => {
     channel.emit(events.updateTheme, activeTheme);
   }, [activeTheme]);
 
-  const receiveTheme = (t: object | ThemesArray) => {
-    if (Array.isArray(t)) {
-      setThemes(t);
-      setActiveThemeName(t[0].name);
-      setActiveTheme(t[0].theme);
+  const receiveTheme = (initialTheme: object | ThemesArray) => {
+    if (Array.isArray(initialTheme)) {
+      setThemes(prev => [...prev, ...initialTheme]);
+      setActiveThemeName(initialTheme[0].name);
+      setActiveTheme(initialTheme[0].theme);
     } else {
-      setActiveTheme(t);
+      setActiveTheme(initialTheme);
     }
   };
 
   React.useEffect(() => {
     channel.on(events.setTheme, receiveTheme);
+    // Set themes on every theme update due to immutability
+    channel.on(events.setThemes, t => setThemes(t));
     channel.on(events.setOverrides, o => setOverrides(o));
 
     return () => {
       channel.removeListener(events.setTheme, receiveTheme);
+      channel.removeListener(events.setThemes, t => setThemes(t));
       channel.removeListener(events.setOverrides, o => setOverrides(o));
     };
   }, []);
 
-  const updateTheme = (path, value) => {
-    const newTheme = activeTheme;
+  const updateTheme = (path: string[], value: any) => {
+    const newTheme: Theme = activeTheme;
     setValue(path, value, newTheme);
-
     setActiveTheme(prev => ({ ...prev, ...newTheme }));
   };
 
-  const updateActiveTheme = value => {
-    const newTheme: ThemesArray = themes.filter(t => t.name === value);
-
-    setActiveThemeName(newTheme[0].name);
-    setActiveTheme(newTheme[0].theme);
+  const updateActiveTheme = (obj: ThemeObject) => {
+    setActiveThemeName(obj.name);
+    setActiveTheme(obj.theme);
   };
 
   const providerValue: SettingsContextProps = {

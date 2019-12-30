@@ -36,6 +36,11 @@ export const withThemePlayground = ({
   React.useEffect(() => {
     channel.on(events.updateTheme, t => {
       setCurrentTheme(t);
+
+      // Set themes on every theme update due to immutability
+      if (Array.isArray(theme)) {
+        channel.emit(events.setThemes, theme);
+      }
     });
 
     channel.emit(events.setTheme, theme);

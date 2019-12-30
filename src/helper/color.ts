@@ -7,3 +7,11 @@ export const getSecondaryColor = theme => {
     ? theme.color.mediumdark
     : theme.color.mediumdark;
 };
+
+export const getTextColor = theme => {
+  return theme.color.inverseText;
+};
+
+export const getCodeBackground = theme => {
+  return theme.base === 'dark' ? theme.color.darker : theme.color.darkest;
+};
