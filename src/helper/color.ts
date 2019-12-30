@@ -3,19 +3,13 @@ export const getPrimaryColor = theme => {
 };
 
 export const getSecondaryColor = theme => {
-  return theme.base === 'dark'
-    ? theme.color.mediumdark
-    : theme.color.mediumdark;
+  return theme.color.mediumdark;
 };
 
 export const getTextColor = theme => {
   return theme.color.defaultText;
 };
 
-export const getInverseTextColor = theme => {
-  return theme.color.inverseText;
-};
-
-export const getCodeBackground = theme => {
-  return theme.base === 'dark' ? theme.color.darker : theme.color.light;
+export const getBorderColor = theme => {
+  return theme.base === 'dark' ? theme.color.dark : theme.color.medium;
 };

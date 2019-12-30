@@ -1,11 +1,5 @@
 import { styled } from '@storybook/theming';
-import {
-  getInverseTextColor,
-  getPrimaryColor,
-  getTextColor,
-  getSecondaryColor,
-  getCodeBackground
-} from '../../helper/color';
+import { getTextColor, getBorderColor } from '../../helper/color';
 
 const StyledCode = styled.div`
   position: relative;
@@ -14,32 +8,35 @@ const StyledCode = styled.div`
     margin: 0.5rem 0 0;
     border-radius: 5px;
     width: 100%;
-    background: ${({ theme }) => getCodeBackground(theme)};
+    background: none;
+    border: 1px solid ${({ theme }) => getBorderColor(theme)};
+
     color: ${({ theme }) => getTextColor(theme)};
   }
 
   pre {
     margin: 0;
     padding: 1rem;
+    font-size: 14px;
   }
 
   button {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: -2px;
+    right: -2px;
     outline: none;
     border: none;
     padding: 5px 10px;
-    border-radius: 5px;
-    text-transform: uppercase;
+    border-radius: 5px 0px 5px 0px;
     font-weight: bold;
     font-size: 12px;
     cursor: pointer;
-    color: ${({ theme }) => getInverseTextColor(theme)};
-    background: ${({ theme }) => getPrimaryColor(theme)};
+    background: none;
+    color: ${({ theme }) => getTextColor(theme)};
+    border: 1px solid ${({ theme }) => getBorderColor(theme)};
 
     &:active {
-      color: ${({ theme }) => getInverseTextColor(theme)};
+      color: ${({ theme }) => getTextColor(theme)};
     }
 
     &:disabled {
