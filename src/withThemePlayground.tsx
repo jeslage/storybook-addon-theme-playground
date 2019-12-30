@@ -1,10 +1,10 @@
 import * as React from 'react';
 import addons from '@storybook/addons';
 
-import { ThemeProvider } from '@storybook/theming';
+import { Theme } from './types';
 
 interface ThemeProviderProps {
-  theme: Array<{ name: string; theme: object }> | object;
+  theme: Theme;
   provider: any;
   overrides: object;
 }
@@ -14,17 +14,28 @@ export const withThemePlayground = ({
   provider,
   overrides
 }: ThemeProviderProps) => story => {
+  if (!provider) {
+    throw Error(
+      'Missing ThemeProvider in withThemePlayground decorator options.'
+    );
+  }
+
+  if (!theme) {
+    throw Error('Missing theme key in withThemePlayground decorator options.');
+  }
+
   const channel = addons.getChannel();
+
   const [currentTheme, setCurrentTheme] = React.useState(
     Array.isArray(theme) ? theme[0].theme : theme
   );
 
-  const Provider = provider || ThemeProvider;
+  const ThemeProvider = provider;
 
   React.useEffect(() => {
-    channel.on('storybook-addon-theme-playground/updateTheme', t =>
-      setCurrentTheme(t)
-    );
+    channel.on('storybook-addon-theme-playground/updateTheme', t => {
+      setCurrentTheme(t);
+    });
     channel.emit('storybook-addon-theme-playground/setTheme', theme);
 
     if (overrides) {
@@ -38,5 +49,5 @@ export const withThemePlayground = ({
     };
   }, []);
 
-  return <Provider theme={currentTheme}>{story()}</Provider>;
+  return <ThemeProvider theme={currentTheme}>{story()}</ThemeProvider>;
 };

@@ -2,11 +2,10 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import setValue from '../helper/setValue';
-
-type ThemesArray = Array<{ name: string; theme: object }>;
+import { Theme, ThemesArray } from '../types';
 
 export type SettingsContextProps = {
-  theme: ThemesArray | object;
+  theme: Theme;
   themes: ThemesArray;
   activeTheme: string;
   overrides: object;
@@ -61,8 +60,9 @@ const SettingsProvider: React.FC = ({ children }) => {
         'storybook-addon-theme-playground/setTheme',
         receiveTheme
       );
-      channel.removeListener('storybook-addon-theme-playground/setOverrides', o =>
-        setOverrides(o)
+      channel.removeListener(
+        'storybook-addon-theme-playground/setOverrides',
+        o => setOverrides(o)
       );
     };
   }, []);

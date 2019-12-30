@@ -22,55 +22,54 @@ import 'storybook-addon-theme-playground/dist/register';
 
 #### 3. Add decorator
 
-Add to `.storybook/config.js`
+Add to `.storybook/config.js`.
 
 ```js
 import { addDecorator } from '@storybook/react';
+import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
 
-addDecorator(withThemePlayground({ theme }));
+const options = {
+  theme,
+  provider: ThemeProvider
+};
+
+addDecorator(withThemePlayground(options));
 ```
 
 ... or to particular story
 
 ```js
 import React from 'react';
-import Button from './Button';
+import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
+
+import Button from './Button';
 
 import theme from 'path/to/theme';
 
+const options = {
+  theme,
+  provider: ThemeProvider
+};
+
 export default {
   title: 'Button with theme',
-  decorators: [withThemePlayground({ theme })]
+  decorators: [withThemePlayground(options)]
 };
 
 export const Primary = () => <Button>Primary Button</Button>;
 ```
 
-#### 4. Add multiple themes
+## Options
 
-It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
-
-```js
-import defaultTheme from 'path/to/default/theme';
-import anotherTheme from 'path/to/another/theme';
-
-addDecorator(
-  withThemePlayground({
-    theme: [
-      { name: 'Theme', theme: defaultTheme },
-      { name: 'Another Theme', theme: anotherTheme }
-    ]
-  })
-);
-```
-
-## ThemeProvider
-
-By default `storybook-addon-theme-playground` is using the `emotion` ThemeProvider which comes with the storybook packages. But you also can add a custom ThemeProvider, for example from `styled-components`.
+| Prop        |          | Description                                                                                                                                |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `theme`     | required | Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example. |
+| `provider`  | required | Any provider component which will accept a theme object prop and children.                                                                 |
+| `overrides` | optional | Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.                |
 
 ```js
 import { addDecorator } from '@storybook/react';
@@ -80,6 +79,26 @@ import { withThemePlayground } from 'storybook-addon-theme-playground';
 import theme from 'path/to/theme';
 
 addDecorator(withThemePlayground({ theme, provider: ThemeProvider }));
+```
+
+## Multiple Themes
+
+It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
+
+```js
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from 'path/to/default/theme';
+import anotherTheme from 'path/to/another/theme';
+
+const options = {
+  theme: [
+    { name: 'Theme', theme: defaultTheme },
+    { name: 'Another Theme', theme: anotherTheme }
+  ],
+  provider: ThemeProvider
+};
+
+addDecorator(withThemePlayground(options));
 ```
 
 ## Overrides
