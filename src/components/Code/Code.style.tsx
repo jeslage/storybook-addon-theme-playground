@@ -1,9 +1,10 @@
 import { styled } from '@storybook/theming';
 import {
-  getCodeBackground,
+  getInverseTextColor,
   getPrimaryColor,
   getTextColor,
-  getSecondaryColor
+  getSecondaryColor,
+  getCodeBackground
 } from '../../helper/color';
 
 const StyledCode = styled.div`
@@ -14,7 +15,7 @@ const StyledCode = styled.div`
     border-radius: 5px;
     width: 100%;
     background: ${({ theme }) => getCodeBackground(theme)};
-    color: ${({ theme }) => getPrimaryColor(theme)};
+    color: ${({ theme }) => getTextColor(theme)};
   }
 
   pre {
@@ -34,12 +35,11 @@ const StyledCode = styled.div`
     font-weight: bold;
     font-size: 12px;
     cursor: pointer;
-    color: ${({ theme }) => getTextColor(theme)};
+    color: ${({ theme }) => getInverseTextColor(theme)};
     background: ${({ theme }) => getPrimaryColor(theme)};
 
     &:active {
-      background: ${({ theme }) => getSecondaryColor(theme)};
-      color: ${({ theme }) => getTextColor(theme)};
+      color: ${({ theme }) => getInverseTextColor(theme)};
     }
 
     &:disabled {

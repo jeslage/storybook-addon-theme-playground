@@ -9,9 +9,13 @@ export const getSecondaryColor = theme => {
 };
 
 export const getTextColor = theme => {
+  return theme.color.defaultText;
+};
+
+export const getInverseTextColor = theme => {
   return theme.color.inverseText;
 };
 
 export const getCodeBackground = theme => {
-  return theme.base === 'dark' ? theme.color.darker : theme.color.darkest;
+  return theme.base === 'dark' ? theme.color.darker : theme.color.light;
 };
