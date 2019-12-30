@@ -2,6 +2,7 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import { Theme } from './types';
+import events from './events';
 
 interface ThemeProviderProps {
   theme: Theme;
@@ -33,19 +34,18 @@ export const withThemePlayground = ({
   const ThemeProvider = provider;
 
   React.useEffect(() => {
-    channel.on('storybook-addon-theme-playground/updateTheme', t => {
+    channel.on(events.updateTheme, t => {
       setCurrentTheme(t);
     });
-    channel.emit('storybook-addon-theme-playground/setTheme', theme);
+
+    channel.emit(events.setTheme, theme);
 
     if (overrides) {
-      channel.emit('storybook-addon-theme-playground/setOverrides', overrides);
+      channel.emit(events.setOverrides, overrides);
     }
 
     return () => {
-      channel.removeListener('storybook-theme/updateTheme', t =>
-        setCurrentTheme(t)
-      );
+      channel.removeListener(events.updateTheme, t => setCurrentTheme(t));
     };
   }, []);
 
