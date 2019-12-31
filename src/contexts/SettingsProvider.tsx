@@ -40,7 +40,12 @@ const SettingsProvider: React.FC = ({ children }) => {
 
   React.useEffect(() => {
     // TODO: Debounce updating
-    channel.emit(events.updateTheme, activeTheme);
+    const timeout = setTimeout(() => {
+      channel.emit(events.updateTheme, activeTheme);
+    }, 300);
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [activeTheme]);
 
   const receiveTheme = (initialTheme: object | ThemesArray) => {
@@ -52,6 +57,7 @@ const SettingsProvider: React.FC = ({ children }) => {
       setActiveTheme(initialTheme);
     }
   };
+
   const receiveConfig = (initialConfig: ConfigProps) => {
     const { labelFormat } = initialConfig;
 

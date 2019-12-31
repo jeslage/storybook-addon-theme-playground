@@ -15,7 +15,8 @@
     "prepare": "npm run build",
     "prettier-write": "prettier --write \"src/**/*.tsx\"",
     "test": "echo \"No test specified\"",
-    "type-check": "tsc --pretty --noEmit"
+    "type-check": "tsc --pretty --noEmit",
+    "publish": "yarn build && npm publish && cd example && yarn && yarn deploy"
   },
   "author": "Johannes Eslage",
   "license": "MIT",
