@@ -21,8 +21,8 @@ const StyledCode = styled.div`
 
   button {
     position: absolute;
-    bottom: -2px;
-    right: -2px;
+    bottom: 0;
+    right: 0;
     outline: none;
     border: none;
     padding: 5px 10px;
