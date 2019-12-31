@@ -207,7 +207,7 @@ Typography.story = {
   ]
 };
 
-/* Typography  */
+/* Spacings  */
 
 export const Spacings = () => {
   const Spacing = styled.div`
@@ -261,13 +261,16 @@ export const Spacings = () => {
 };
 
 const defaultSpacingTheme = {
-  spacings: [20, 40, 60, 90]
+  name: 'Spacings 1',
+  theme: {
+    spacings: [20, 40, 60, 90]
+  }
 };
 
 Spacings.story = {
   decorators: [
     withThemePlayground({
-      theme: defaultSpacingTheme,
+      theme: [defaultSpacingTheme],
       provider: ThemeProvider
     })
   ]
