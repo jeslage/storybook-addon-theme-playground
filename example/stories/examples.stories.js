@@ -159,13 +159,15 @@ Rectangle.story = {
 
 export const Typography = () => {
   const Headline = styled.h1`
-    font-family: ${props => props.theme.fontFamily};
-    font-size: ${props => props.theme.fontSize.headline};
+    font-family: ${props => props.theme.headline.fontFamily};
+    font-size: ${props => props.theme.headline.fontSize};
+    font-variation-settings: 'wght' ${props => props.theme.headline.fontWeight};
   `;
 
   const Copy = styled.p`
-    font-family: ${props => props.theme.fontFamily};
-    font-size: ${props => props.theme.fontSize.copy};
+    font-family: ${props => props.theme.copy.fontFamily};
+    font-size: ${props => props.theme.copy.fontSize};
+    font-variation-settings: 'wght' ${props => props.theme.copy.fontWeight};
   `;
 
   return (
@@ -179,10 +181,15 @@ export const Typography = () => {
 const defaultTypoTheme = {
   name: 'Typograhy 1',
   theme: {
-    fontFamily: 'sans-serif',
-    fontSize: {
-      headline: '30px',
-      copy: '14px'
+    headline: {
+      fontFamily: "'Hepta Slab', sans-serif",
+      fontWeight: 700,
+      fontSize: '52px'
+    },
+    copy: {
+      fontFamily: "'Crimson Pro', serif",
+      fontWeight: 200,
+      fontSize: '20px'
     }
   }
 };
@@ -190,10 +197,15 @@ const defaultTypoTheme = {
 const anotherTypoTheme = {
   name: 'Typograhy 2',
   theme: {
-    fontFamily: 'serif',
-    fontSize: {
-      headline: '52px',
-      copy: '40px'
+    headline: {
+      fontFamily: "'Crimson Pro', serif",
+      fontWeight: 700,
+      fontSize: '30px'
+    },
+    copy: {
+      fontFamily: "'Hepta Slab', sans-serif",
+      fontWeight: 200,
+      fontSize: '14px'
     }
   }
 };
@@ -202,7 +214,19 @@ Typography.story = {
   decorators: [
     withThemePlayground({
       theme: [defaultTypoTheme, anotherTypoTheme],
-      provider: ThemeProvider
+      provider: ThemeProvider,
+      overrides: {
+        'headline.fontWeight': {
+          type: 'range',
+          max: 900,
+          min: 1
+        },
+        'copy.fontWeight': {
+          type: 'range',
+          max: 900,
+          min: 1
+        }
+      }
     })
   ]
 };
@@ -223,7 +247,7 @@ export const Spacings = () => {
       transform: translateY(-50%);
       width: 100%;
       text-align: center;
-      font-family: sans-serif;
+      font-family: "sans-serif";
       font-size: 12px;
       content: "${props => props.theme.spacings[0]}";
     }
