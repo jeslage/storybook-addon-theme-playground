@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 1.0.0 - 2019-12-30
+## 1.0.0 - 2019-12-31
 
--   Initial release
+- Initial release
 
 [unreleased]: https://github.com/jeslage/storybook-addon-theme-provider/compare/v1.0.0...HEAD
