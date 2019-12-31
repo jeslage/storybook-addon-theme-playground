@@ -30,6 +30,7 @@ const Panel = () => {
             )}
             <SettingsItem obj={theme} arr={[]} />
           </div>
+
           <Code value={theme} />
         </>
       )}

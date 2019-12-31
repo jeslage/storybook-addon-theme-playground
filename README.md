@@ -3,6 +3,7 @@
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel, where you can play around with your theme. It helps you or the designer to tweek some theme values directly on your components.
 
 ![Screenshot](./assets/screenshot.png)
+[Example](https://storybook-addon-theme-playground.now.sh)
 
 ## Installation
 

@@ -4,7 +4,7 @@ export default {
     v.startsWith('rgb') ||
     l.toLowerCase().includes('color'),
 
-  number: v => typeof v === 'number' || !isNaN(v),
+  number: v => typeof v === 'number',
   string: v => typeof v === 'string',
   object: v => typeof v === 'object',
   array: v => Array.isArray(v),

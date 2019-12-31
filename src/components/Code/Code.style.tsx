@@ -10,7 +10,6 @@ const StyledCode = styled.div`
     width: 100%;
     background: none;
     border: 1px solid ${({ theme }) => getBorderColor(theme)};
-
     color: ${({ theme }) => getTextColor(theme)};
   }
 
