@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Config key to options
+- Debouncing of theme updates
+- Description prop to every component
+-
+
+### Changed
+
+- Exchanged `Select` with `RadioGroup` component for theme selection
+- Example with variable fonts
+
+### Fixed
+
+- `Code` component copy button styling
+
 ## [1.0.1]- 2019-12-31
 
 - Bumped up version number due to npm issues
