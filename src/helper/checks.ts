@@ -2,6 +2,7 @@ export default {
   color: (v, l = '') =>
     (v.startsWith('#') && (v.length === 4 || v.length === 7)) ||
     v.startsWith('rgb') ||
+    v.startsWith('rgba') ||
     l.toLowerCase().includes('color'),
 
   number: v => typeof v === 'number',
