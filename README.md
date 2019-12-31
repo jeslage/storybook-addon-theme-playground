@@ -216,15 +216,33 @@ addDecorator(
 
 `storybook-addon-theme-playground` will render the following components based on the value.
 
-| typeof value                                                             | Component   |
-| ------------------------------------------------------------------------ | ----------- |
-| `boolean`                                                                | Switch      |
-| `number`                                                                 | Counter     |
-| `string`                                                                 | Input       |
-| `string && string.length >= 40`                                          | Textarea    |
-| `string && string.endsWith(px||rem||em||%)`                              | Range       |
-| `string && string.startsWith(#||rgba||rgba) || label.includes("color")`  | ColorPicker |
-| `object && Object.keys(object).includes(top && right && bottom && left)` | Shorthand   |
+### `Switch`
+
+> `boolean`
+
+### `Counter`
+
+> `number`
+
+### `Input`
+
+> `string`
+
+### `Textarea`
+
+> `string` && `string.length >= 40`
+
+### `Range`
+
+> `string` && `string.endsWith("px" || "rem" || "em" || "%")`
+
+### `Color`
+
+> `string` && `string.startsWith("#" || "rgba" || "rgba")`|| `label.includes("color")`
+
+### `Shorthand`
+
+> `object` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
 
 ## Roadmap
 
