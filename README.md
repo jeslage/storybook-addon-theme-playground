@@ -1,14 +1,17 @@
 # storybook-addon-theme-playground
 
-## Installation
-
-Yet another theme addon for storybook.
+`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where you can tweek the theme values directly.
 
 ![Screenshot](./assets/screenshot.png)
+[Example](https://storybook-addon-theme-playground.now.sh)
+
+## Installation
 
 #### 1. Install the addon
 
 ```sh
+npm install -D storybook-addon-theme-playground
+
 yarn add -D storybook-addon-theme-playground
 ```
 
@@ -22,55 +25,7 @@ import 'storybook-addon-theme-playground/dist/register';
 
 #### 3. Add decorator
 
-Add to `.storybook/config.js`
-
-```js
-import { addDecorator } from '@storybook/react';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
-
-import theme from 'path/to/theme';
-
-addDecorator(withThemePlayground({ theme }));
-```
-
-... or to particular story
-
-```js
-import React from 'react';
-import Button from './Button';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
-
-import theme from 'path/to/theme';
-
-export default {
-    title: 'Button with theme',
-    decorators: [withThemePlayground({ theme })]
-};
-
-export const Primary = () => <Button>Primary Button</Button>;
-```
-
-#### 4. Add multiple themes
-
-It is also possible to add multiple themes. Just add an `Array` to the `theme` key.
-
-```js
-import defaultTheme from 'path/to/default/theme';
-import anotherTheme from 'path/to/another/theme';
-
-addDecorator(
-    withThemePlayground({
-        theme: [
-            { name: 'Theme', theme: defaultTheme },
-            { name: 'Another Theme', theme: anotherTheme }
-        ]
-    })
-);
-```
-
-## ThemeProvider
-
-By default `storybook-addon-theme-playground` is using the `emotion` ThemeProvider which comes with the storybook packages. But you also can add a custom ThemeProvider, for example from `styled-components`.
+Add to `.storybook/config.js`.
 
 ```js
 import { addDecorator } from '@storybook/react';
@@ -79,7 +34,74 @@ import { withThemePlayground } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
 
-addDecorator(withThemePlayground({ theme, provider: ThemeProvider }));
+const options = {
+  theme,
+  provider: ThemeProvider
+};
+
+addDecorator(withThemePlayground(options));
+```
+
+... or to particular story
+
+```js
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import { withThemePlayground } from 'storybook-addon-theme-playground';
+
+import Button from './Button';
+
+import theme from 'path/to/theme';
+
+const options = {
+  theme,
+  provider: ThemeProvider
+};
+
+export default {
+  title: 'Button with theme',
+  decorators: [withThemePlayground(options)]
+};
+
+export const Primary = () => <Button>Primary Button</Button>;
+```
+
+## Options
+
+### `theme` | required
+
+> `object` | `Array<{ name: string, theme: object }>`
+
+Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
+
+### `provider` | required
+
+Any provider component which will accept a theme object prop and children.
+
+### `overrides` | optional
+
+> `object`
+
+Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.
+
+## Multiple Themes
+
+It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
+
+```js
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from 'path/to/default/theme';
+import anotherTheme from 'path/to/another/theme';
+
+const options = {
+  theme: [
+    { name: 'Theme', theme: defaultTheme },
+    { name: 'Another Theme', theme: anotherTheme }
+  ],
+  provider: ThemeProvider
+};
+
+addDecorator(withThemePlayground(options));
 ```
 
 ## Overrides
@@ -98,23 +120,23 @@ import { withThemePlayground } from 'storybook-addon-theme-playground';
 import theme from 'path/to/theme';
 
 const overrides = {
-    'button.color.spacing': {
-        type: 'counter',
-        label: 'Button Spacing',
-        description: 'Spacing for all buttons',
-        min: 1,
-        max: 10,
-        steps: 1,
-        suffix: 'rem'
-    },
-    'button.color.primary': {
-        type: 'color',
-        label: 'Button Primary Color'
-    }
+  'button.color.spacing': {
+    type: 'counter',
+    label: 'Button Spacing',
+    description: 'Spacing for all buttons',
+    min: 1,
+    max: 10,
+    steps: 1,
+    suffix: 'rem'
+  },
+  'button.color.primary': {
+    type: 'color',
+    label: 'Button Primary Color'
+  }
 };
 
 addDecorator(
-    withThemePlayground({ theme, overrides, provider: ThemeProvider })
+  withThemePlayground({ theme, overrides, provider: ThemeProvider })
 );
 ```
 
@@ -122,37 +144,37 @@ addDecorator(
 
 ### Color
 
-```ts
-'theme.object.path': {
+```js
+'theme.path': {
   type: 'color',
-  label: string
+  label: String | 'theme.path'
 }
 ```
 
 ### Counter
 
-```ts
-'theme.object.path': {
+```js
+'theme.path': {
   type: 'counter',
-  label: string,
-  description: string,
-  min: number,
-  max: number,
-  steps: number,
-  suffix: string
+  label: String | 'theme.path',
+  description: String | null,
+  min: Number | 0,
+  max: Number | 100,
+  steps: Number | 1,
+  suffix: String | null
 }
 ```
 
 ### Select
 
-```ts
-'theme.object.path': {
+```js
+'theme.path': {
   type: 'select',
-  label: string,
+  label: String | 'theme.path',
   options: [
     {
-      value: string,
-      label: string
+      value: String,
+      label: String
     }
   ]
 }
@@ -160,36 +182,36 @@ addDecorator(
 
 ### Shorthand
 
-```ts
-'theme.object.path': {
+```js
+'theme.path': {
   type: 'shorthand',
-  label: string,
-  description: string
+  label: String | 'theme.path',
+  description: String | null
 }
 ```
 
 ### Switch
 
-```ts
-'theme.object.path': {
+```js
+'theme.path': {
   type: 'switch',
-  label: string
+  label: String | 'theme.path'
 }
 ```
 
 ### Range
 
-```ts
-'theme.object.path': {
+```js
+'theme.path': {
   type: 'range',
-  label: string,
-  min: number,
-  max: number,
-  steps: number,
-  suffix: string
+  label: String | 'theme.path',
+  min: Number | 0,
+  max: Number | 100,
+  steps: Number | 1,
+  suffix: String | null
 }
 ```
 
 ## Roadmap
 
--   [ ] Add testing
+- [ ] Add testing

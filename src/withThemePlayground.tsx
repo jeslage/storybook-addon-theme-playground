@@ -1,10 +1,11 @@
 import * as React from 'react';
 import addons from '@storybook/addons';
 
-import { ThemeProvider } from '@storybook/theming';
+import { Theme } from './types';
+import events from './events';
 
 interface ThemeProviderProps {
-  theme: Array<{ name: string; theme: object }> | object;
+  theme: Theme;
   provider: any;
   overrides: object;
 }
@@ -14,29 +15,44 @@ export const withThemePlayground = ({
   provider,
   overrides
 }: ThemeProviderProps) => story => {
+  if (!provider) {
+    throw Error(
+      'Missing ThemeProvider in withThemePlayground decorator options.'
+    );
+  }
+
+  if (!theme) {
+    throw Error('Missing theme key in withThemePlayground decorator options.');
+  }
+
   const channel = addons.getChannel();
+
   const [currentTheme, setCurrentTheme] = React.useState(
     Array.isArray(theme) ? theme[0].theme : theme
   );
 
-  const Provider = provider || ThemeProvider;
+  const ThemeProvider = provider;
 
   React.useEffect(() => {
-    channel.on('storybook-addon-theme-playground/updateTheme', t =>
-      setCurrentTheme(t)
-    );
-    channel.emit('storybook-addon-theme-playground/setTheme', theme);
+    channel.on(events.updateTheme, t => {
+      setCurrentTheme(t);
+
+      // Set themes on every theme update due to immutability
+      if (Array.isArray(theme)) {
+        channel.emit(events.setThemes, theme);
+      }
+    });
+
+    channel.emit(events.setTheme, theme);
 
     if (overrides) {
-      channel.emit('storybook-addon-theme-playground/setOverrides', overrides);
+      channel.emit(events.setOverrides, overrides);
     }
 
     return () => {
-      channel.removeListener('storybook-theme/updateTheme', t =>
-        setCurrentTheme(t)
-      );
+      channel.removeListener(events.updateTheme, t => setCurrentTheme(t));
     };
   }, []);
 
-  return <Provider theme={currentTheme}>{story()}</Provider>;
+  return <ThemeProvider theme={currentTheme}>{story()}</ThemeProvider>;
 };

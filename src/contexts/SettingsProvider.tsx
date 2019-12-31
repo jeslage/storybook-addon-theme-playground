@@ -2,16 +2,16 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import setValue from '../helper/setValue';
-
-type ThemesArray = Array<{ name: string; theme: object }>;
+import { Theme, ThemesArray, ThemeObject } from '../types';
+import events from '../events';
 
 export type SettingsContextProps = {
-  theme: ThemesArray | object;
+  theme: Theme;
   themes: ThemesArray;
   activeTheme: string;
   overrides: object;
   updateTheme: (path: any, value: any) => void;
-  updateActiveTheme: (value: string) => void;
+  updateActiveTheme: (obj: ThemeObject) => void;
 };
 
 export const SettingsContext = React.createContext<SettingsContextProps>({
@@ -32,53 +32,42 @@ const SettingsProvider: React.FC = ({ children }) => {
   const [overrides, setOverrides] = React.useState({});
 
   React.useEffect(() => {
-    const timeout = window.setTimeout(() => {
-      channel.emit('storybook-addon-theme-playground/updateTheme', activeTheme);
-    }, 200);
-    return () => {
-      window.clearTimeout(timeout);
-    };
+    // TODO: Debounce updating
+    channel.emit(events.updateTheme, activeTheme);
   }, [activeTheme]);
 
-  const receiveTheme = (t: object) => {
-    if (Array.isArray(t)) {
-      setThemes(t);
-      setActiveThemeName(t[0].name);
-      setActiveTheme(t[0].theme);
+  const receiveTheme = (initialTheme: object | ThemesArray) => {
+    if (Array.isArray(initialTheme)) {
+      setThemes(prev => [...prev, ...initialTheme]);
+      setActiveThemeName(initialTheme[0].name);
+      setActiveTheme(initialTheme[0].theme);
     } else {
-      setActiveTheme(t);
+      setActiveTheme(initialTheme);
     }
   };
 
   React.useEffect(() => {
-    channel.on('storybook-addon-theme-playground/setTheme', receiveTheme);
-    channel.on('storybook-addon-theme-playground/setOverrides', o =>
-      setOverrides(o)
-    );
+    channel.on(events.setTheme, receiveTheme);
+    // Set themes on every theme update due to immutability
+    channel.on(events.setThemes, t => setThemes(t));
+    channel.on(events.setOverrides, o => setOverrides(o));
 
     return () => {
-      channel.removeListener(
-        'storybook-addon-theme-playground/setTheme',
-        receiveTheme
-      );
-      channel.removeListener('storybook-addon-theme-playground/setOverrides', o =>
-        setOverrides(o)
-      );
+      channel.removeListener(events.setTheme, receiveTheme);
+      channel.removeListener(events.setThemes, t => setThemes(t));
+      channel.removeListener(events.setOverrides, o => setOverrides(o));
     };
   }, []);
 
-  const updateTheme = (path, value) => {
-    const newTheme = activeTheme;
+  const updateTheme = (path: string[], value: any) => {
+    const newTheme: Theme = activeTheme;
     setValue(path, value, newTheme);
-
     setActiveTheme(prev => ({ ...prev, ...newTheme }));
   };
 
-  const updateActiveTheme = value => {
-    const newTheme: ThemesArray = themes.filter(t => t.name === value);
-
-    setActiveThemeName(newTheme[0].name);
-    setActiveTheme(newTheme[0].theme);
+  const updateActiveTheme = (obj: ThemeObject) => {
+    setActiveThemeName(obj.name);
+    setActiveTheme(obj.theme);
   };
 
   const providerValue: SettingsContextProps = {

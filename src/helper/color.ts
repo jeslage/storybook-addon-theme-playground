@@ -3,7 +3,13 @@ export const getPrimaryColor = theme => {
 };
 
 export const getSecondaryColor = theme => {
-  return theme.base === 'dark'
-    ? theme.color.mediumdark
-    : theme.color.mediumdark;
+  return theme.color.mediumdark;
+};
+
+export const getTextColor = theme => {
+  return theme.color.defaultText;
+};
+
+export const getBorderColor = theme => {
+  return theme.base === 'dark' ? theme.color.dark : theme.color.medium;
 };
