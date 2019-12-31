@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## 1.0.1 - 2019-12-31
+## [1.0.1]- 2019-12-31
 
 - Bumped up version number due to npm issues
 
@@ -15,4 +15,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/jeslage/storybook-addon-theme-provider/compare/v1.0.0...HEAD
+[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.0.1...develop
+[1.0.1]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.0.0...v.1.0.1
