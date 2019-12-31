@@ -12,11 +12,11 @@
     "build": "npm run clean && tsc -p .",
     "clean": "rimraf dist",
     "lint": "eslint ./src --ext ts --ext tsx",
+    "publish": "yarn build && npm publish && cd example && yarn && yarn deploy",
     "prepare": "npm run build",
     "prettier-write": "prettier --write \"src/**/*.tsx\"",
     "test": "echo \"No test specified\"",
-    "type-check": "tsc --pretty --noEmit",
-    "publish": "yarn build && npm publish && cd example && yarn && yarn deploy"
+    "type-check": "tsc --pretty --noEmit"
   },
   "author": "Johannes Eslage",
   "license": "MIT",
