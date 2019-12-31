@@ -84,7 +84,7 @@ Any provider component which will accept a theme object prop and children.
 
 `object` | optional
 
-Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.
+Optional [override components](#override-components) of [default components](#default-components). Look at the [Overrides](#overrides) section for detailed documentation.
 
 ### `config`
 
@@ -258,7 +258,8 @@ addDecorator(
 
 > `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
 
-## Roadmap
+## Roadmap for next release
 
-- [ ] Add descriptions to every component
+- [x] Add descriptions to every component
+- [x] Add config to options
 - [ ] Add testing
