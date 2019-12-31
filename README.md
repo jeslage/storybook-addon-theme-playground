@@ -68,31 +68,31 @@ export const Primary = () => <Button>Primary Button</Button>;
 
 ## Options
 
-### `theme` - `object` | `Array<{ name: string, theme: object }>`
+### `theme`
 
-> requred
+`object` | `Array<{ name: string, theme: object }>` | required
 
 Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
 
 ### `provider`
 
-> required
+`any` | required
 
 Any provider component which will accept a theme object prop and children.
 
-### `overrides` - `object`
+### `overrides`
 
-> optional
+`object` | optional
 
 Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.
 
-### `config` - `object`
+### `config`
 
-> optional
+`object` | optional
 
-**`labelFormat` - `"path" || "startCase" || (path: string[]) => string`**
+### `config.labelFormat`
 
-> default: `"path"`
+`"path" || "startCase" || (path: string[]) => string` | default: `"path"`
 
 ## Multiple Themes
 
