@@ -100,7 +100,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
               <Select
                 key={pathString}
                 label={label || pathString}
-                initialValue={value}
+                value={value}
                 onChange={val => updateTheme(path, val)}
                 options={options}
               />

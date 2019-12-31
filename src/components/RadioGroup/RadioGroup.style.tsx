@@ -1,5 +1,5 @@
-import { styled } from "@storybook/theming";
-import { getSecondaryColor, getPrimaryColor } from "../../helper/color";
+import { styled } from '@storybook/theming';
+import { getSecondaryColor } from '../../helper/color';
 
 const StyledRadioGroup = styled.div`
   display: flex;
@@ -19,33 +19,6 @@ const StyledRadioGroup = styled.div`
       height: auto;
       margin-right: 15px;
       fill: ${({ theme }) => getSecondaryColor(theme)};
-    }
-  }
-
-  .radioGroup__icon {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    margin: 0 0 0 10px;
-    border-radius: 5px;
-    opacity: 0.5;
-
-    svg {
-      width: 20px;
-      height: auto;
-      fill: ${({ theme }) => getPrimaryColor(theme)};
-    }
-  }
-
-  .radioGroup__radio {
-    cursor: pointer;
-
-    input {
-      display: none;
-    }
-
-    input:checked + .radioGroup__icon {
-      opacity: 1;
     }
   }
 `;

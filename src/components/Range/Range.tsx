@@ -1,7 +1,7 @@
-import * as React from "react";
-import { HandleChange } from "../../interfaces/index";
+import * as React from 'react';
+import { HandleChange } from '../../interfaces/index';
 
-import StyledRange from "./Range.style";
+import StyledRange from './Range.style';
 
 export interface Props {
   iconBefore?: HTMLElement;
@@ -13,6 +13,7 @@ export interface Props {
   max?: number;
   steps?: number;
   suffix?: string;
+  description?: string;
 }
 
 const Range: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const Range: React.FC<Props> = ({
   min = 0,
   max = 100,
   steps = 1,
+  description,
   suffix
 }) => {
   const updateValue = (val: number) => {
@@ -34,7 +36,7 @@ const Range: React.FC<Props> = ({
     const { value: eventValue, validity } = event.target;
 
     if (validity.valid) {
-      if (eventValue !== "") {
+      if (eventValue !== '') {
         updateValue(parseFloat(eventValue));
       } else {
         updateValue(0);
@@ -56,12 +58,19 @@ const Range: React.FC<Props> = ({
   return (
     <StyledRange>
       <label htmlFor={label}>
-        {(label || iconBefore) && (
-          <p className="range__label" title={title}>
-            {iconBefore}
-            {label && label}
-          </p>
-        )}
+        <div className="range__text">
+          {(label || iconBefore) && (
+            <p className="range__label" title={title}>
+              {iconBefore}
+              {label && label}
+            </p>
+          )}
+          {description && (
+            <p className="range__description">
+              <small>{description}</small>
+            </p>
+          )}
+        </div>
 
         <span>
           <input

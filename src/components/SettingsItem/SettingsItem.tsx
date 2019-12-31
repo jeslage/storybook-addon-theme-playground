@@ -43,6 +43,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
         if (overrides[pathString]) {
           return (
             <OverridesItem
+              key={pathString}
               value={value}
               path={path}
               overrideConfig={overrides[pathString]}

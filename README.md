@@ -106,7 +106,7 @@ addDecorator(withThemePlayground(options));
 
 ## Overrides
 
-`storybook-addon-theme-playground` will render a default component based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to your decorator.
+`storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to your decorator.
 
 As a key use the theme object path, e.g `'button.color.spacing'`
 
@@ -205,6 +205,7 @@ addDecorator(
 'theme.path': {
   type: 'range',
   label: String | 'theme.path',
+  description: String | null,
   min: Number | 0,
   max: Number | 100,
   steps: Number | 1,
@@ -246,4 +247,5 @@ addDecorator(
 
 ## Roadmap
 
+- [ ] Add descriptions to every component
 - [ ] Add testing

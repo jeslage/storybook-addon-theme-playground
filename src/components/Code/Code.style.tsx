@@ -23,6 +23,7 @@ const StyledCode = styled.div`
     position: absolute;
     bottom: 0;
     right: 0;
+    margin: 0;
     outline: none;
     border: none;
     padding: 5px 10px;

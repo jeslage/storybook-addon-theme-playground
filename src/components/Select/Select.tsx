@@ -8,7 +8,7 @@ export interface Props {
   title?: string;
   name?: string;
   onChange: (val: string) => void;
-  initialValue: string;
+  value: string;
   options: Array<Option>;
 }
 
@@ -20,18 +20,18 @@ export interface Option {
 const Select: React.FC<Props> = ({
   options,
   iconBefore,
-  initialValue,
+  value,
   label,
   title,
   name,
   onChange,
   ...props
 }) => {
-  const [currentValue, setCurrentValue] = React.useState(initialValue);
+  const [currentValue, setCurrentValue] = React.useState(value);
 
   React.useEffect(() => {
-    setCurrentValue(initialValue);
-  }, [initialValue]);
+    setCurrentValue(value);
+  }, [value]);
 
   return (
     <StyledSelect {...props}>
