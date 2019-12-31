@@ -222,8 +222,8 @@ addDecorator(
 | `number`                                                                 | Counter     |
 | `string`                                                                 | Input       |
 | `string && string.length >= 40`                                          | Textarea    |
-| `string && string.endsWith(px|rem|em|%)`                                 | Range       |
-| `string && string.startsWith(#|rgba|rgba) || label.includes("color")`    | ColorPicker |
+| `string && string.endsWith(px||rem||em||%)`                              | Range       |
+| `string && string.startsWith(#||rgba||rgba) || label.includes("color")`  | ColorPicker |
 | `object && Object.keys(object).includes(top && right && bottom && left)` | Shorthand   |
 
 ## Roadmap
