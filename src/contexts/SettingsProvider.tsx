@@ -52,19 +52,33 @@ const SettingsProvider: React.FC = ({ children }) => {
       setActiveTheme(initialTheme);
     }
   };
+  const receiveConfig = (initialConfig: ConfigProps) => {
+    const { labelFormat } = initialConfig;
 
+    if (
+      labelFormat !== 'path' &&
+      labelFormat !== 'startCase' &&
+      typeof labelFormat !== 'function'
+    ) {
+      console.warn(
+        "config.labelFormat needs to be one of 'path' || 'startCase' || (path: string[]) => string - Fallback to 'path'"
+      );
+    }
+
+    setConfig(initialConfig);
+  };
   React.useEffect(() => {
     channel.on(events.setTheme, receiveTheme);
     // Set themes on every theme update due to immutability
     channel.on(events.setThemes, t => setThemes(t));
     channel.on(events.setOverrides, o => setOverrides(o));
-    channel.on(events.setConfig, c => setConfig(c));
+    channel.on(events.setConfig, receiveConfig);
 
     return () => {
       channel.removeListener(events.setTheme, receiveTheme);
       channel.removeListener(events.setThemes, t => setThemes(t));
       channel.removeListener(events.setOverrides, o => setOverrides(o));
-      channel.removeListener(events.setConfig, c => setConfig(c));
+      channel.removeListener(events.setConfig, receiveConfig);
     };
   }, []);
 

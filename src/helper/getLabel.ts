@@ -12,8 +12,8 @@ export default (path: string[], format: any) => {
   }
 
   if (format === 'path') {
-    return path;
+    return label;
   }
 
-  return path;
+  return label;
 };
