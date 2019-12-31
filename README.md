@@ -147,7 +147,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'color',
-  label: String | 'theme.path'
+  label: String | 'Theme Path',
+  description: String | null
 }
 ```
 
@@ -156,7 +157,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'counter',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,
   max: Number | 100,
@@ -170,7 +171,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'select',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
+  description: String | null
   options: [
     {
       value: String,
@@ -185,7 +187,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'shorthand',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
   description: String | null
 }
 ```
@@ -195,7 +197,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'switch',
-  label: String | 'theme.path'
+  label: String | 'Theme Path',
+  description: String | null
 }
 ```
 
@@ -204,7 +207,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'range',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,
   max: Number | 100,

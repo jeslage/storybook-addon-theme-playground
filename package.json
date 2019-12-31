@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "lint": "eslint ./src --ext ts --ext tsx",
     "prepare": "npm run build",
-    "prettier-write": "prettier --write \"src/**/*.js\"",
+    "prettier-write": "prettier --write \"src/**/*.tsx\"",
     "test": "echo \"No test specified\"",
     "type-check": "tsc --pretty --noEmit"
   },
