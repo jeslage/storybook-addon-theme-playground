@@ -94,6 +94,12 @@ Optional [override components](#override-components) of [default components](#de
 
 `"path" || "startCase" || (path: string[]) => string` | default: `"path"`
 
+### `config.debounce`
+
+`boolean` | default: `true`
+
+Set to `false` updating the theme values will not be debounced.
+
 ## Multiple Themes
 
 It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.

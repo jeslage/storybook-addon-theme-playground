@@ -21,7 +21,8 @@ export const SettingsContext = React.createContext<SettingsContextProps>({
   activeTheme: '',
   overrides: {},
   config: {
-    labelFormat: 'startCase'
+    labelFormat: 'startCase',
+    debounce: true
   },
   updateTheme: () => {},
   updateActiveTheme: () => {}
@@ -35,17 +36,22 @@ const SettingsProvider: React.FC = ({ children }) => {
 
   const [overrides, setOverrides] = React.useState({});
   const [config, setConfig] = React.useState({
-    labelFormat: 'startCase'
+    labelFormat: 'startCase',
+    debounce: true
   });
 
   React.useEffect(() => {
     // TODO: Debounce updating
-    const timeout = setTimeout(() => {
+    if (config.debounce) {
+      const timeout = setTimeout(() => {
+        channel.emit(events.updateTheme, activeTheme);
+      }, 300);
+      return () => {
+        clearTimeout(timeout);
+      };
+    } else {
       channel.emit(events.updateTheme, activeTheme);
-    }, 300);
-    return () => {
-      clearTimeout(timeout);
-    };
+    }
   }, [activeTheme]);
 
   const receiveTheme = (initialTheme: object | ThemesArray) => {
@@ -71,8 +77,9 @@ const SettingsProvider: React.FC = ({ children }) => {
       );
     }
 
-    setConfig(initialConfig);
+    setConfig(prev => ({ ...prev, ...initialConfig }));
   };
+
   React.useEffect(() => {
     channel.on(events.setTheme, receiveTheme);
     // Set themes on every theme update due to immutability
