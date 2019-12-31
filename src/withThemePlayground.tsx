@@ -1,19 +1,21 @@
 import * as React from 'react';
 import addons from '@storybook/addons';
 
-import { Theme } from './types';
+import { Theme, ConfigProps } from './types';
 import events from './events';
 
 interface ThemeProviderProps {
   theme: Theme;
   provider: any;
   overrides: object;
+  config: ConfigProps;
 }
 
 export const withThemePlayground = ({
   theme,
   provider,
-  overrides
+  overrides,
+  config
 }: ThemeProviderProps) => story => {
   if (!provider) {
     throw Error(
@@ -47,6 +49,10 @@ export const withThemePlayground = ({
 
     if (overrides) {
       channel.emit(events.setOverrides, overrides);
+    }
+
+    if (config) {
+      channel.emit(events.setConfig, config);
     }
 
     return () => {

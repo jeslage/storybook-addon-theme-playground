@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { startCase } from 'lodash';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
+
+import is from '../../helper/checks';
+import getLabel from '../../helper/getLabel';
 
 import Counter from '../Counter/Counter';
 import Colorpicker from '../ColorPicker/ColorPicker';
@@ -9,8 +11,6 @@ import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea';
 import Switch from '../Switch/Switch';
 import Range from '../Range/Range';
-
-import is from '../../helper/checks';
 import Shorthand from '../Shorthand/Shorthand';
 import OverridesItem from '../OverridesItem/OverridesItem';
 
@@ -30,7 +30,7 @@ interface SettingsProps {
 }
 
 const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
-  const { updateTheme, overrides } = React.useContext(SettingsContext);
+  const { updateTheme, overrides, config } = React.useContext(SettingsContext);
 
   const keys: string[] = Object.keys(obj).sort(descending);
 
@@ -40,7 +40,8 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
         const value = obj[key];
         const path = [...arr, key];
         const pathString = path.join('.');
-        const pathLabel = startCase(pathString);
+
+        const pathLabel = getLabel(path, config.labelFormat);
 
         if (overrides[pathString]) {
           return (

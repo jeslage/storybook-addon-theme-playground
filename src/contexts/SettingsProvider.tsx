@@ -2,7 +2,7 @@ import * as React from 'react';
 import addons from '@storybook/addons';
 
 import setValue from '../helper/setValue';
-import { Theme, ThemesArray, ThemeObject } from '../types';
+import { Theme, ThemesArray, ThemeObject, ConfigProps } from '../types';
 import events from '../events';
 
 export type SettingsContextProps = {
@@ -10,6 +10,7 @@ export type SettingsContextProps = {
   themes: ThemesArray;
   activeTheme: string;
   overrides: object;
+  config: ConfigProps;
   updateTheme: (path: any, value: any) => void;
   updateActiveTheme: (obj: ThemeObject) => void;
 };
@@ -19,6 +20,9 @@ export const SettingsContext = React.createContext<SettingsContextProps>({
   themes: [],
   activeTheme: '',
   overrides: {},
+  config: {
+    labelFormat: 'startCase'
+  },
   updateTheme: () => {},
   updateActiveTheme: () => {}
 });
@@ -30,6 +34,9 @@ const SettingsProvider: React.FC = ({ children }) => {
   const [activeTheme, setActiveTheme] = React.useState({});
 
   const [overrides, setOverrides] = React.useState({});
+  const [config, setConfig] = React.useState({
+    labelFormat: 'startCase'
+  });
 
   React.useEffect(() => {
     // TODO: Debounce updating
@@ -51,11 +58,13 @@ const SettingsProvider: React.FC = ({ children }) => {
     // Set themes on every theme update due to immutability
     channel.on(events.setThemes, t => setThemes(t));
     channel.on(events.setOverrides, o => setOverrides(o));
+    channel.on(events.setConfig, c => setConfig(c));
 
     return () => {
       channel.removeListener(events.setTheme, receiveTheme);
       channel.removeListener(events.setThemes, t => setThemes(t));
       channel.removeListener(events.setOverrides, o => setOverrides(o));
+      channel.removeListener(events.setConfig, c => setConfig(c));
     };
   }, []);
 
@@ -74,6 +83,7 @@ const SettingsProvider: React.FC = ({ children }) => {
     theme: activeTheme,
     activeTheme: activeThemeName,
     themes,
+    config,
     overrides,
     updateTheme,
     updateActiveTheme
