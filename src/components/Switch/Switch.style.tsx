@@ -1,5 +1,5 @@
-import { styled } from "@storybook/theming";
-import { getPrimaryColor, getSecondaryColor } from "../../helper/color";
+import { styled } from '@storybook/theming';
+import { getPrimaryColor } from '../../helper/color';
 
 interface SwitchProps {
   readonly active: boolean;
@@ -9,22 +9,6 @@ const StyledSwitch = styled.div<SwitchProps>`
   display: flex;
   align-items: center;
   margin: 1.5em 0;
-
-  .switch__label {
-    flex-grow: 2;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: ${({ theme }) => getPrimaryColor(theme)};
-
-    svg {
-      width: 20px;
-      height: auto;
-      margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
-    }
-  }
 
   button {
     position: relative;
@@ -48,7 +32,7 @@ const StyledSwitch = styled.div<SwitchProps>`
       height: 20px;
       border-radius: 20px;
       background: ${({ theme }) => getPrimaryColor(theme)};
-      transform: translateX(${props => (props.active ? "30px" : "0")});
+      transform: translateX(${props => (props.active ? '30px' : '0')});
       will-change: transform;
       transition: transform 0.2s ease-in-out;
 

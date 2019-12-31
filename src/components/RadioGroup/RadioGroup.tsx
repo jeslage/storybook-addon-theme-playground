@@ -2,9 +2,11 @@ import * as React from 'react';
 
 import StyledRadioGroup from './RadioGroup.style';
 import RadioOption, { RadioOptionProps } from '../RadioOption/RadioOption';
+import Label from '../Label/Label';
 export interface Props {
   iconBefore?: HTMLElement;
-  label?: string;
+  label: string;
+  description?: string;
   onChange: (val: string) => void;
   value: string;
   name: string;
@@ -12,6 +14,7 @@ export interface Props {
 
 const RadioGroup: React.FC<Props> = ({
   label,
+  description,
   iconBefore,
   name,
   value,
@@ -20,12 +23,8 @@ const RadioGroup: React.FC<Props> = ({
 }) => {
   return (
     <StyledRadioGroup>
-      {(label || iconBefore) && (
-        <p className="radioGroup__label">
-          {iconBefore}
-          {label && label}
-        </p>
-      )}
+      <Label iconBefore={iconBefore} label={label} description={description} />
+
       {React.Children.map(
         children,
         (child: React.ReactElement<RadioOptionProps>) => {

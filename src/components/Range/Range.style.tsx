@@ -1,38 +1,12 @@
 import { styled } from '@storybook/theming';
 import { getSecondaryColor, getPrimaryColor } from '../../helper/color';
 
-const StyledRange = styled.div`
+const StyledRange = styled.label`
   margin: 1.5em 0;
 
-  label {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .range__text {
-    flex-grow: 2;
-    padding-right: 20px;
-  }
-
-  .range__description {
-    margin: 0;
-    margin-top: 10px;
-  }
-
-  .range__label {
-    margin: 0;
-    display: flex;
-    font-size: 14px;
-    align-items: center;
-
-    svg {
-      width: 20px;
-      height: auto;
-      margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
-    }
-  }
+  display: flex;
+  align-items: center;
+  position: relative;
 
   span {
     margin-right: 10px;

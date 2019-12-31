@@ -1,11 +1,12 @@
 import * as React from 'react';
 
 import StyledSelect from './Select.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
   label?: string;
-  title?: string;
+  description?: string;
   name?: string;
   onChange: (val: string) => void;
   value: string;
@@ -22,10 +23,9 @@ const Select: React.FC<Props> = ({
   iconBefore,
   value,
   label,
-  title,
+  description,
   name,
-  onChange,
-  ...props
+  onChange
 }) => {
   const [currentValue, setCurrentValue] = React.useState(value);
 
@@ -34,35 +34,29 @@ const Select: React.FC<Props> = ({
   }, [value]);
 
   return (
-    <StyledSelect {...props}>
-      <label htmlFor={label}>
-        {(label || iconBefore) && (
-          <p className="select__label" title={title}>
-            {iconBefore}
-            {label && label}
-          </p>
-        )}
-        <select
-          value={currentValue}
-          onChange={event => {
-            const { value } = event.target;
+    <StyledSelect htmlFor={label}>
+      <Label iconBefore={iconBefore} label={label} description={description} />
 
-            setCurrentValue(value);
+      <select
+        value={currentValue}
+        onChange={event => {
+          const { value } = event.target;
 
-            if (onChange) {
-              onChange(value);
-            }
-          }}
-          name={name}
-        >
-          {options.map(option => (
-            <option value={option.value} key={option.value}>
-              {option.label || option.value}
-            </option>
-          ))}
-        </select>
-        <div className="select__icon" />
-      </label>
+          setCurrentValue(value);
+
+          if (onChange) {
+            onChange(value);
+          }
+        }}
+        name={name}
+      >
+        {options.map(option => (
+          <option value={option.value} key={option.value}>
+            {option.label || option.value}
+          </option>
+        ))}
+      </select>
+      <div className="select__icon" />
     </StyledSelect>
   );
 };

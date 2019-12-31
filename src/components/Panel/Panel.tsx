@@ -22,7 +22,7 @@ const Panel = () => {
           <div className="panel__content">
             {themes.length > 1 && (
               <RadioGroup
-                label="Themes"
+                label="Theme"
                 name="themes"
                 value={activeTheme}
                 onChange={val =>

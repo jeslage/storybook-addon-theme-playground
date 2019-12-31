@@ -1,29 +1,12 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor, getSecondaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper/color';
 
-const StyledSelect = styled.div`
+const StyledSelect = styled.label`
   margin: 1.5em 0;
 
-  label {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .select__label {
-    flex-grow: 2;
-    margin: 0;
-    display: flex;
-    font-size: 14px;
-    align-items: center;
-
-    svg {
-      width: 20px;
-      height: auto;
-      margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
-    }
-  }
+  display: flex;
+  align-items: center;
+  position: relative;
 
   select {
     background: none;

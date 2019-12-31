@@ -1,34 +1,10 @@
-import { styled } from "@storybook/theming";
-import { getSecondaryColor, getPrimaryColor } from "../../helper/color";
+import { styled } from '@storybook/theming';
+import { getPrimaryColor } from '../../helper/color';
 
 const StyledShorthand = styled.div`
   display: flex;
   align-items: center;
   margin: 1.5em 0;
-
-  .shorthand__text {
-    flex-grow: 2;
-    padding-right: 20px;
-  }
-
-  .shorthand__label {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-
-    svg {
-      width: 20px;
-      height: auto;
-      margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
-    }
-  }
-
-  .shorthand__description {
-    margin: 0;
-    margin-top: 10px;
-  }
 
   .shorthand__shorthand {
     display: flex;

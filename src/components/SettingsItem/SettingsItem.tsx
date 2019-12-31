@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { startCase } from 'lodash';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
@@ -39,6 +40,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
         const value = obj[key];
         const path = [...arr, key];
         const pathString = path.join('.');
+        const pathLabel = startCase(pathString);
 
         if (overrides[pathString]) {
           return (
@@ -57,7 +59,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
               <Shorthand
                 value={value}
                 key={pathString}
-                label={pathString}
+                label={pathLabel}
                 onChange={val => updateTheme(path, val)}
               />
             );
@@ -76,7 +78,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
           return (
             <Switch
               key={pathString}
-              label={pathString}
+              label={pathLabel}
               value={value}
               onChange={val => updateTheme(path, val)}
             />
@@ -87,7 +89,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
           return (
             <Counter
               key={pathString}
-              label={pathString}
+              label={pathLabel}
               value={parseFloat(value)}
               onChange={val => updateTheme(path, val)}
             />
@@ -99,7 +101,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
             return (
               <Colorpicker
                 key={pathString}
-                label={pathString}
+                label={pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
               />
@@ -112,7 +114,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
             return (
               <Range
                 key={pathString}
-                label={pathString}
+                label={pathLabel}
                 suffix={suffix}
                 value={parseFloat(number)}
                 onChange={val => updateTheme(path, `${val}${suffix}`)}
@@ -124,7 +126,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
             return (
               <Textarea
                 key={pathString}
-                label={pathString}
+                label={pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
               />
@@ -134,7 +136,7 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
           return (
             <Input
               key={pathString}
-              label={pathString}
+              label={pathLabel}
               value={value}
               onChange={val => updateTheme(path, val)}
             />

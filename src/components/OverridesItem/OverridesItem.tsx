@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { startCase } from 'lodash';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 import is from '../../helper/checks';
@@ -32,6 +33,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
   const { type, label, options, ...rest } = overrideConfig;
 
   const pathString = path.join('.');
+  const pathLabel = startCase(pathString);
 
   if (is.object(value) && !is.shorthand(value)) {
     console.warn(
@@ -49,7 +51,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Counter
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -59,7 +61,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Switch
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -69,7 +71,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <ColorPicker
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -79,7 +81,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Range
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -89,7 +91,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Shorthand
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -99,10 +101,11 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Select
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 options={options}
+                {...rest}
               />
             );
           default:

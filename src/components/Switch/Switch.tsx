@@ -1,10 +1,12 @@
 import * as React from 'react';
 
 import StyledSwitch from './Switch.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
   label?: string;
+  description?: string;
   onChange: (val: boolean) => void;
   value: boolean;
 }
@@ -13,16 +15,12 @@ const Switch: React.FC<Props> = ({
   iconBefore,
   label,
   onChange,
-  value,
-  ...props
+  description,
+  value
 }) => (
-  <StyledSwitch active={value} {...props}>
-    {(label || iconBefore) && (
-      <p className="switch__label">
-        {iconBefore}
-        {label && label}
-      </p>
-    )}
+  <StyledSwitch active={value}>
+    <Label iconBefore={iconBefore} label={label} description={description} />
+
     <button
       onClick={() => {
         if (onChange) onChange(!value);

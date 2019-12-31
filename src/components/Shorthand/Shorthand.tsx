@@ -3,11 +3,11 @@ import { HandleChange } from '../../interfaces/index';
 
 import is from '../../helper/checks';
 import StyledShorthand from './Shorthand.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
   label?: string;
-  title?: string;
   name?: string;
   description?: string;
   onChange: (val: ShorthandObject) => void;
@@ -23,7 +23,6 @@ interface ShorthandObject {
 
 const Shorthand: React.FC<Props> = ({
   label,
-  title,
   description,
   value,
   onChange,
@@ -57,19 +56,8 @@ const Shorthand: React.FC<Props> = ({
 
   return (
     <StyledShorthand>
-      <div className="shorthand__text">
-        {(label || iconBefore) && (
-          <p className="shorthand__label" title={title}>
-            {iconBefore}
-            {label && label}
-          </p>
-        )}
-        {description && (
-          <p className="shorthand__description">
-            <small>{description}</small>
-          </p>
-        )}
-      </div>
+      <Label iconBefore={iconBefore} label={label} description={description} />
+
       <div className="shorthand__shorthand">
         <input
           type="text"

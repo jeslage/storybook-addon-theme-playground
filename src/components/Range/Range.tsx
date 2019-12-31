@@ -2,11 +2,11 @@ import * as React from 'react';
 import { HandleChange } from '../../interfaces/index';
 
 import StyledRange from './Range.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
   label?: string;
-  title?: string;
   onChange: (val: number) => void;
   value: number;
   min?: number;
@@ -20,7 +20,6 @@ const Range: React.FC<Props> = ({
   iconBefore,
   value,
   label,
-  title,
   onChange,
   min = 0,
   max = 100,
@@ -56,42 +55,28 @@ const Range: React.FC<Props> = ({
   };
 
   return (
-    <StyledRange>
-      <label htmlFor={label}>
-        <div className="range__text">
-          {(label || iconBefore) && (
-            <p className="range__label" title={title}>
-              {iconBefore}
-              {label && label}
-            </p>
-          )}
-          {description && (
-            <p className="range__description">
-              <small>{description}</small>
-            </p>
-          )}
-        </div>
+    <StyledRange htmlFor={label}>
+      <Label iconBefore={iconBefore} label={label} description={description} />
 
-        <span>
-          <input
-            type="text"
-            pattern="[0-9.]*"
-            value={value}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {suffix}
-        </span>
-
+      <span>
         <input
-          type="range"
-          step={steps}
-          min={min}
-          max={max}
+          type="text"
+          pattern="[0-9.]*"
           value={value}
-          onChange={e => updateValue(parseFloat(e.target.value))}
+          onChange={handleChange}
+          onBlur={handleBlur}
         />
-      </label>
+        {suffix}
+      </span>
+
+      <input
+        type="range"
+        step={steps}
+        min={min}
+        max={max}
+        value={value}
+        onChange={e => updateValue(parseFloat(e.target.value))}
+      />
     </StyledRange>
   );
 };
