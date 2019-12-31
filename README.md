@@ -238,11 +238,11 @@ addDecorator(
 
 ### `Color`
 
-> `string` && `string.startsWith("#" || "rgba" || "rgba")`|| `label.includes("color")`
+> `string` && `string.startsWith("#" || "rgba" || "rgba")` || `label.includes("color")`
 
 ### `Shorthand`
 
-> `object` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
+> `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
 
 ## Roadmap
 
