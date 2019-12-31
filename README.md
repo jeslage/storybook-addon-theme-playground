@@ -90,6 +90,8 @@ Optional [override components](#override-components) of [default components](#de
 
 `object` | optional
 
+You can also add an additional config object. Look at the [Config](#config) section for detailed documentation.
+
 ### `config.labelFormat`
 
 `"path" || "startCase" || (path: string[]) => string` | default: `"path"`
@@ -118,6 +120,33 @@ const options = {
 };
 
 addDecorator(withThemePlayground(options));
+```
+
+## Config
+
+**Example**
+
+```js
+import { ThemeProvider } from 'styled-components';
+
+addDecorator(
+  withThemePlayground({
+    theme: { button: { color: '#000' } },
+    provider: ThemeProvider,
+    config: {
+      // One of "path"
+      labelFormat: 'path', // "button.color"
+      // or "startCase"
+      labelFormat: 'startCase', // "Button Color"
+      // or a custom function
+      labelFormat: path => {
+        // path is equal to ["button", "color"]
+        return path.join('-'); // "button-color"
+      },
+      debounce: true || false
+    }
+  })
+);
 ```
 
 ## Overrides
