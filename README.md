@@ -1,5 +1,7 @@
 # storybook-addon-theme-playground
 
+[![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://badge.fury.io/js/storybook-addon-theme-playground)
+
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where you can tweek the theme values directly.
 
 ![Screenshot](./assets/screenshot.png)
@@ -94,7 +96,7 @@ You can also add an additional config object. Look at the [Config](#config) sect
 
 ### `config.labelFormat`
 
-`"path" || "startCase" || (path: string[]) => string` | default: `"path"`
+`"path" || "startCase" || (path: string[]) => string` | default: `"startCase"`
 
 ### `config.debounce`
 
