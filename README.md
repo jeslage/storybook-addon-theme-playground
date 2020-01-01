@@ -106,7 +106,7 @@ Set to `false` updating the theme values will not be debounced.
 
 `boolean` | default: `true`
 
-Set to `false` no component will be rendered.
+Set to `false` no code component will be rendered.
 
 ## Multiple Themes
 
@@ -149,7 +149,8 @@ addDecorator(
         // path is equal to ["button", "color"]
         return path.join('-'); // "button-color"
       },
-      debounce: true || false
+      debounce: true || false,
+      showConfig: true || false
     }
   })
 );
