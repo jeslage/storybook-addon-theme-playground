@@ -11,9 +11,13 @@ import RadioOption from '../RadioOption/RadioOption';
 import StyledPanel from './Panel.style';
 
 const Panel = () => {
-  const { theme, themes, activeTheme, updateActiveTheme } = React.useContext(
-    SettingsContext
-  );
+  const {
+    theme,
+    themes,
+    activeTheme,
+    updateActiveTheme,
+    config
+  } = React.useContext(SettingsContext);
 
   return (
     <StyledPanel>
@@ -36,8 +40,7 @@ const Panel = () => {
             )}
             <SettingsItem obj={theme} arr={[]} />
           </div>
-
-          <Code value={theme} />
+          {config.showCode && <Code value={theme} />}
         </>
       )}
     </StyledPanel>

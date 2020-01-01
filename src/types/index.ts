@@ -4,4 +4,5 @@ export type Theme = ThemesArray | object;
 export type ConfigProps = {
   labelFormat: any;
   debounce: boolean;
+  showCode: boolean;
 };

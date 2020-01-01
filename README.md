@@ -102,6 +102,12 @@ You can also add an additional config object. Look at the [Config](#config) sect
 
 Set to `false` updating the theme values will not be debounced.
 
+### `config.showCode`
+
+`boolean` | default: `true`
+
+Set to `false` no component will be rendered.
+
 ## Multiple Themes
 
 It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
@@ -153,7 +159,7 @@ addDecorator(
 
 `storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to your decorator.
 
-As a key use the theme object path, e.g `'button.color.spacing'`
+As a key use the theme object path, e.g `'button.spacing'`
 
 **Example**
 
@@ -165,12 +171,12 @@ import { withThemePlayground } from 'storybook-addon-theme-playground';
 import theme from 'path/to/theme';
 
 const overrides = {
-  'button.color.spacing': {
+  'button.spacing': {
     type: 'counter',
     label: 'Button Spacing',
     description: 'Spacing for all buttons',
     min: 1,
-    max: 10,
+    max: 20,
     steps: 1,
     suffix: 'rem'
   },

@@ -22,7 +22,8 @@ export const SettingsContext = React.createContext<SettingsContextProps>({
   overrides: {},
   config: {
     labelFormat: 'startCase',
-    debounce: true
+    debounce: true,
+    showCode: true
   },
   updateTheme: () => {},
   updateActiveTheme: () => {}
@@ -37,7 +38,8 @@ const SettingsProvider: React.FC = ({ children }) => {
   const [overrides, setOverrides] = React.useState({});
   const [config, setConfig] = React.useState({
     labelFormat: 'startCase',
-    debounce: true
+    debounce: true,
+    showCode: true
   });
 
   React.useEffect(() => {
