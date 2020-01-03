@@ -1,4 +1,5 @@
 export default {
+  receiveOptions: 'storybook-addon-theme-playground/receiveOptions',
   setTheme: 'storybook-addon-theme-playground/setTheme',
   setThemes: 'storybook-addon-theme-playground/setThemes',
   updateTheme: 'storybook-addon-theme-playground/updateTheme',

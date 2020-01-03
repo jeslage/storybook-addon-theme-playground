@@ -11,12 +11,8 @@ interface ThemeProviderProps {
   config: ConfigProps;
 }
 
-export const withThemePlayground = ({
-  theme,
-  provider,
-  overrides,
-  config
-}: ThemeProviderProps) => story => {
+export const withThemePlayground = (options: ThemeProviderProps) => story => {
+  const { theme, provider, overrides, config } = options;
   if (!provider) {
     throw Error(
       'Missing ThemeProvider in withThemePlayground decorator options.'
@@ -45,15 +41,7 @@ export const withThemePlayground = ({
       }
     });
 
-    channel.emit(events.setTheme, theme);
-
-    if (overrides) {
-      channel.emit(events.setOverrides, overrides);
-    }
-
-    if (config) {
-      channel.emit(events.setConfig, config);
-    }
+    channel.emit(events.receiveOptions, { theme, overrides, config });
 
     return () => {
       channel.removeListener(events.updateTheme, t => setCurrentTheme(t));

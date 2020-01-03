@@ -4,7 +4,6 @@ import { getPrimaryColor } from '../../helper/color';
 const StyledRadioOption = styled.label`
   position: relative;
   cursor: pointer;
-  text-transform: uppercase;
   font-weigt: bold;
   font-size: 12px;
 

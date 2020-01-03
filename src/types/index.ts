@@ -3,6 +3,12 @@ export type ThemesArray = Array<ThemeObject>;
 export type Theme = ThemesArray | object;
 export type ConfigProps = {
   labelFormat: any;
-  debounce: boolean;
   showCode: boolean;
+  debounce: boolean;
+};
+
+export type OptionsType = {
+  theme: object | ThemesArray;
+  overrides: object;
+  config: ConfigProps;
 };
