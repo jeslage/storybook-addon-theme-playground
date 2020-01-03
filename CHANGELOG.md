@@ -12,12 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Config key to options
 - Debouncing of theme updates
 - Description prop to every component
--
 
 ### Changed
 
 - Exchanged `Select` with `RadioGroup` component for theme selection
 - Example with variable fonts
+- Moved to one global decorator instead of multiple stories with different decorators
 
 ### Fixed
 

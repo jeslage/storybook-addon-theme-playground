@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://badge.fury.io/js/storybook-addon-theme-playground)
 
-`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where you can tweek the theme values directly.
+`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweeked directly.
 
 ![Screenshot](./assets/screenshot.png)
 [Example](https://storybook-addon-theme-playground.now.sh)
@@ -22,7 +22,7 @@ yarn add -D storybook-addon-theme-playground
 Add to `.storybook/addons.js`
 
 ```js
-import 'storybook-addon-theme-playground/dist/register';
+import 'storybook-addon-theme-playground/register';
 ```
 
 #### 3. Add decorator
@@ -74,7 +74,7 @@ export const Primary = () => <Button>Primary Button</Button>;
 
 `object` | `Array<{ name: string, theme: object }>` | required
 
-Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
+The theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
 
 ### `provider`
 
@@ -92,7 +92,7 @@ Optional [override components](#override-components) of [default components](#de
 
 `object` | optional
 
-You can also add an additional config object. Look at the [Config](#config) section for detailed documentation.
+An additional config object can be added. Look at the [Config](#config) section for detailed documentation.
 
 ### `config.labelFormat`
 
@@ -112,7 +112,7 @@ Set to `false` no code component will be rendered.
 
 ## Multiple Themes
 
-It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
+To add multiple themes, add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
 
 ```js
 import { ThemeProvider } from 'styled-components';
@@ -160,7 +160,7 @@ addDecorator(
 
 ## Overrides
 
-`storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to your decorator.
+`storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to the decorator.
 
 As a key use the theme object path, e.g `'button.spacing'`
 
@@ -302,8 +302,13 @@ addDecorator(
 
 > `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
 
-## Roadmap for next release
+## Roadmap
 
 - [x] Add descriptions to every component
 - [x] Add config to options
+- [ ] Performance optimizations on multiple withThemeProvider decorators
+- [ ] Memoize values and functions
+- [ ] Add lz-string encoding and store theme inside query params
+- [ ] Update themes state handling
+- [ ] Pull request on storybooks addon website
 - [ ] Add testing
