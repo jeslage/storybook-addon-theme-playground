@@ -4,7 +4,6 @@ import { getPrimaryColor } from '../../helper/color';
 const StyledShorthand = styled.div`
   display: flex;
   align-items: center;
-  margin: 1.5em 0;
 
   .shorthand__shorthand {
     display: flex;
@@ -18,7 +17,7 @@ const StyledShorthand = styled.div`
     display: inline-block;
     max-width: 50px;
     padding: 5px 5px 4px;
-    margin: 0 5px;
+    margin: 0 0 0 10px;
     font-size: 14px;
     font-family: inherit;
     text-align: center;

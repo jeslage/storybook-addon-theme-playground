@@ -5,7 +5,6 @@ const StyledTextarea = styled.label`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 1.5em;
 
   textarea {
     width: 100%;

@@ -33,12 +33,14 @@ const Code: React.FC<CodeProps> = ({ value }) => {
 
   return (
     <StyledCode>
-      <code>
-        <pre>{JSON.stringify(value, null, 2)}</pre>
-      </code>
-      <button type="button" onClick={copyToClipboard} disabled={copied}>
-        {copied ? 'Copied' : 'Copy'}
-      </button>
+      <div className="code__wrapper">
+        <code>
+          <pre>{JSON.stringify(value, null, 2)}</pre>
+        </code>
+        <button type="button" onClick={copyToClipboard} disabled={copied}>
+          {copied ? 'Copied' : 'Copy'}
+        </button>
+      </div>
     </StyledCode>
   );
 };

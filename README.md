@@ -307,7 +307,6 @@ addDecorator(
 - [x] Add descriptions to every component
 - [x] Add config to options
 - [ ] Performance optimizations on multiple withThemeProvider decorators
-- [ ] Memoize values and functions
 - [ ] Add lz-string encoding and store theme inside query params
 - [ ] Update themes state handling
 - [ ] Pull request on storybooks addon website

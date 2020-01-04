@@ -25,18 +25,20 @@ const Panel = () => {
         <>
           <div className="panel__content">
             {themes.length > 1 && (
-              <RadioGroup
-                label="Theme"
-                name="themes"
-                value={activeTheme}
-                onChange={val =>
-                  updateActiveTheme(themes.filter(t => t.name === val)[0])
-                }
-              >
-                {themes.map(t => (
-                  <RadioOption key={t.name} label={t.name} value={t.name} />
-                ))}
-              </RadioGroup>
+              <div className="panel__themes">
+                <RadioGroup
+                  label="Active Theme"
+                  name="themes"
+                  value={activeTheme}
+                  onChange={val =>
+                    updateActiveTheme(themes.filter(t => t.name === val)[0])
+                  }
+                >
+                  {themes.map(t => (
+                    <RadioOption key={t.name} label={t.name} value={t.name} />
+                  ))}
+                </RadioGroup>
+              </div>
             )}
             <SettingsItem obj={theme} arr={[]} />
           </div>

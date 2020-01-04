@@ -2,8 +2,6 @@ import { styled } from '@storybook/theming';
 import { getSecondaryColor, getPrimaryColor } from '../../helper/color';
 
 const StyledRange = styled.label`
-  margin: 1.5em 0;
-
   display: flex;
   align-items: center;
   position: relative;

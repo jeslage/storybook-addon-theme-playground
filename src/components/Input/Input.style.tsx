@@ -3,7 +3,7 @@ import { getPrimaryColor } from '../../helper/color';
 
 const StyledInput = styled.label`
   display: flex;
-  margin: 1.5em 0;
+  align-items: center;
 
   input {
     width: 100%;
@@ -11,10 +11,11 @@ const StyledInput = styled.label`
     appeareance: none;
     resize: none;
     background: none;
-    padding: 0 0 10px;
+    padding: 10px;
+    border-radius: 5px;
     text-align: right;
     max-width: 200px;
-    border-bottom: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
     color: ${({ theme }) => getPrimaryColor(theme)};
     outline: none;
   }
