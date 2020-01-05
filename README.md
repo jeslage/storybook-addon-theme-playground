@@ -308,5 +308,5 @@ addDecorator(
 - [x] Add config to options
 - [ ] Performance optimizations on multiple withThemeProvider decorators
 - [ ] Update themes state handling
-- [ ] Pull request on storybooks addon website
+- [x] Pull request on storybooks addon website
 - [ ] Add testing
