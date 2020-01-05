@@ -1,16 +1,7 @@
 import styled from 'styled-components';
 
-export const Title = styled.h2`
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  background: #f4f4f4;
-  color: #323232;
-  font-weight: normal;
-  margin: 0;
-  padding: 0.5rem 1.5rem;
-`;
-
 export const Content = styled.div`
+  border-top: 1px solid #f4f4f4;
   padding: 0.5rem 1.5rem;
 `;
 

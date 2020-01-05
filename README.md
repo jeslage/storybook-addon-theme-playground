@@ -304,10 +304,9 @@ addDecorator(
 
 ## Roadmap
 
-- [x] Add descriptions to every component
+- [x] Add descriptions prop to every component
 - [x] Add config to options
 - [ ] Performance optimizations on multiple withThemeProvider decorators
-- [ ] Add lz-string encoding and store theme inside query params
 - [ ] Update themes state handling
 - [ ] Pull request on storybooks addon website
 - [ ] Add testing
