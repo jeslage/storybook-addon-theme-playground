@@ -17,6 +17,7 @@ export type SettingsContextProps = {
   activeTheme: string;
   overrides: object;
   config: ConfigProps;
+  loading: boolean;
   updateTheme: (path: any, value: any) => void;
   updateActiveTheme: (obj: ThemeObject) => void;
 };
@@ -35,6 +36,7 @@ export const SettingsContext = React.createContext<SettingsContextProps>({
     debounce: true,
     showCode: true
   },
+  loading: false,
   updateTheme: () => {},
   updateActiveTheme: () => {}
 });
@@ -46,6 +48,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   const [themes, setThemes] = React.useState<ThemesArray>([]);
   const [activeThemeName, setActiveThemeName] = React.useState('');
   const [activeTheme, setActiveTheme] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
 
   const [overrides, setOverrides] = React.useState({});
   const [config, setConfig] = React.useState({
@@ -57,9 +60,11 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   React.useEffect(() => {
     if (config.debounce) {
       const timeout = setTimeout(() => {
+        setLoading(false);
         api.emit(events.updateTheme, activeTheme);
       }, 500);
       return () => {
+        setLoading(true);
         clearTimeout(timeout);
       };
     } else {
@@ -125,7 +130,8 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     config,
     overrides,
     updateTheme,
-    updateActiveTheme
+    updateActiveTheme,
+    loading
   };
 
   return (

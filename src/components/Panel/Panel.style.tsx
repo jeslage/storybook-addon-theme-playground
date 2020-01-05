@@ -7,6 +7,7 @@ const StyledPanel = styled.div`
   flex-direction: column;
 
   .panel__content {
+    position: relative;
     flex-grow: 2;
   }
 
