@@ -12,8 +12,9 @@
     "build": "npm run clean && tsc -p .",
     "clean": "rimraf dist",
     "lint": "eslint ./src --ext ts --ext tsx",
-    "publish": "yarn build && npm publish && cd example && yarn && yarn deploy",
+    "prepublish": "yarn prettier-write && yarn lint && yarn type-check",
     "prepare": "npm run build",
+    "deploy-example": "cd example && yarn deploy",
     "prettier-write": "prettier --write \"src/**/*.tsx\"",
     "test": "echo \"No test specified\"",
     "type-check": "tsc --pretty --noEmit"
