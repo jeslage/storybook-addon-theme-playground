@@ -16,8 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Exchanged `Select` with `RadioGroup` component for theme selection
-- Example with variable fonts
-- Moved to one global decorator instead of multiple stories with different decorators
+- Updated styling of `SettingsItem`
+- Example with variable fonts, updated example stylings
+- Updated example to one global decorator instead of multiple stories with different decorators
 
 ### Fixed
 
