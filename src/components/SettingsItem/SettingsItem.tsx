@@ -2,16 +2,19 @@ import * as React from 'react';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
+import is from '../../helper/checks';
+import getLabel from '../../helper/getLabel';
+
 import Counter from '../Counter/Counter';
 import Colorpicker from '../ColorPicker/ColorPicker';
 import Input from '../Input/Input';
 import Textarea from '../Textarea/Textarea';
 import Switch from '../Switch/Switch';
 import Range from '../Range/Range';
-
-import is from '../../helper/checks';
 import Shorthand from '../Shorthand/Shorthand';
 import OverridesItem from '../OverridesItem/OverridesItem';
+
+import { StyledSettingsItem } from './SettingsItem.style';
 
 const descending = (a: string, b: string) => {
   if (a < b) {
@@ -29,36 +32,41 @@ interface SettingsProps {
 }
 
 const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
-  const { updateTheme, overrides } = React.useContext(SettingsContext);
+  const { updateTheme, overrides, config } = React.useContext(SettingsContext);
 
   const keys: string[] = Object.keys(obj).sort(descending);
 
   return (
-    <React.Fragment>
+    <>
       {keys.map(key => {
         const value = obj[key];
         const path = [...arr, key];
         const pathString = path.join('.');
 
+        const pathLabel = getLabel(path, config.labelFormat);
+
         if (overrides[pathString]) {
           return (
-            <OverridesItem
-              value={value}
-              path={path}
-              overrideConfig={overrides[pathString]}
-            />
+            <StyledSettingsItem key={pathString}>
+              <OverridesItem
+                value={value}
+                path={path}
+                overrideConfig={overrides[pathString]}
+              />
+            </StyledSettingsItem>
           );
         }
 
         if (is.object(value)) {
           if (is.shorthand(value)) {
             return (
-              <Shorthand
-                value={value}
-                key={pathString}
-                label={pathString}
-                onChange={val => updateTheme(path, val)}
-              />
+              <StyledSettingsItem key={pathString}>
+                <Shorthand
+                  value={value}
+                  label={pathLabel}
+                  onChange={val => updateTheme(path, val)}
+                />
+              </StyledSettingsItem>
             );
           }
 
@@ -67,41 +75,44 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
 
         if (is.array(value)) {
           return value.map((item, index) => (
-            <SettingsItem key={pathString} obj={item} arr={[...path, index]} />
+            <SettingsItem obj={item} arr={[...path, index]} key={pathString} />
           ));
         }
 
         if (is.boolean(value)) {
           return (
-            <Switch
-              key={pathString}
-              label={pathString}
-              value={value}
-              onChange={val => updateTheme(path, val)}
-            />
+            <StyledSettingsItem key={pathString}>
+              <Switch
+                label={pathLabel}
+                value={value}
+                onChange={val => updateTheme(path, val)}
+              />
+            </StyledSettingsItem>
           );
         }
 
         if (is.number(value)) {
           return (
-            <Counter
-              key={pathString}
-              label={pathString}
-              value={parseFloat(value)}
-              onChange={val => updateTheme(path, val)}
-            />
+            <StyledSettingsItem key={pathString}>
+              <Counter
+                label={pathLabel}
+                value={parseFloat(value)}
+                onChange={val => updateTheme(path, val)}
+              />
+            </StyledSettingsItem>
           );
         }
 
         if (is.string(value)) {
           if (is.color(value, key)) {
             return (
-              <Colorpicker
-                key={pathString}
-                label={pathString}
-                value={value}
-                onChange={val => updateTheme(path, val)}
-              />
+              <StyledSettingsItem key={pathString}>
+                <Colorpicker
+                  label={pathLabel}
+                  value={value}
+                  onChange={val => updateTheme(path, val)}
+                />
+              </StyledSettingsItem>
             );
           }
 
@@ -109,38 +120,41 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
             const [, number, suffix] = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
 
             return (
-              <Range
-                key={pathString}
-                label={pathString}
-                suffix={suffix}
-                value={parseFloat(number)}
-                onChange={val => updateTheme(path, `${val}${suffix}`)}
-              />
+              <StyledSettingsItem key={pathString}>
+                <Range
+                  label={pathLabel}
+                  suffix={suffix}
+                  value={parseFloat(number)}
+                  onChange={val => updateTheme(path, `${val}${suffix}`)}
+                />
+              </StyledSettingsItem>
             );
           }
 
           if (is.text(value)) {
             return (
-              <Textarea
-                key={pathString}
-                label={pathString}
-                value={value}
-                onChange={val => updateTheme(path, val)}
-              />
+              <StyledSettingsItem key={pathString}>
+                <Textarea
+                  label={pathLabel}
+                  value={value}
+                  onChange={val => updateTheme(path, val)}
+                />
+              </StyledSettingsItem>
             );
           }
 
           return (
-            <Input
-              key={pathString}
-              label={pathString}
-              value={value}
-              onChange={val => updateTheme(path, val)}
-            />
+            <StyledSettingsItem key={pathString}>
+              <Input
+                label={pathLabel}
+                value={value}
+                onChange={val => updateTheme(path, val)}
+              />
+            </StyledSettingsItem>
           );
         }
       })}
-    </React.Fragment>
+    </>
   );
 };
 

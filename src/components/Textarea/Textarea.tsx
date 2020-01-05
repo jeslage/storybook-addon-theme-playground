@@ -1,17 +1,27 @@
 import * as React from 'react';
 
 import StyledTextarea from './Textarea.style';
+import Label from '../Label/Label';
 
 export interface Props {
-  label?: string;
+  label: string;
+  iconBefore?: HTMLElement;
+  description?: string;
   onChange: (val: string) => void;
   value: string;
 }
 
-const Textarea: React.FC<Props> = ({ label, value, onChange }) => {
+const Textarea: React.FC<Props> = ({
+  label,
+  iconBefore,
+  description,
+  value,
+  onChange
+}) => {
   return (
     <StyledTextarea>
-      {label && <p>{label}</p>}
+      <Label iconBefore={iconBefore} label={label} description={description} />
+
       <textarea
         rows={10}
         value={value}

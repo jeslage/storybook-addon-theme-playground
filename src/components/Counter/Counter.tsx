@@ -1,13 +1,13 @@
-import * as React from "react";
-import { HandleChange } from "../../interfaces/index";
+import * as React from 'react';
+import { HandleChange } from '../../interfaces/index';
 
-import StyledCounter from "./Counter.style";
+import StyledCounter from './Counter.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
-  label?: string;
+  label: string;
   onChange: (val: number) => void;
-  title?: string;
   value: number;
   description?: string;
   min?: number;
@@ -18,7 +18,6 @@ export interface Props {
 
 const Counter: React.FC<Props> = ({
   label,
-  title,
   description,
   min = 0,
   max = 100,
@@ -37,7 +36,7 @@ const Counter: React.FC<Props> = ({
     const numberValue: number = parseFloat(eventValue);
 
     if (validity.valid) {
-      if (eventValue !== "") {
+      if (eventValue !== '') {
         updateValue(numberValue);
       } else {
         updateValue(0);
@@ -58,19 +57,7 @@ const Counter: React.FC<Props> = ({
 
   return (
     <StyledCounter>
-      <div className="counter__text">
-        {(label || iconBefore) && (
-          <p className="counter__label" title={title}>
-            {iconBefore}
-            {label && label}
-          </p>
-        )}
-        {description && (
-          <p className="counter__description">
-            <small>{description}</small>
-          </p>
-        )}
-      </div>
+      <Label iconBefore={iconBefore} label={label} description={description} />
 
       <div className="counter__counter">
         <button

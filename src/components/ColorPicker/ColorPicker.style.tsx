@@ -1,10 +1,9 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor, getSecondaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper/color';
 
 const StlyedColorPicker = styled.div`
   display: flex;
   align-items: center;
-  margin: 1.5em 0;
 
   .colorPicker__cover {
     position: fixed;
@@ -31,21 +30,6 @@ const StlyedColorPicker = styled.div`
       display: block;
       border-radius: 30px;
       height: 20px;
-    }
-  }
-
-  .colorPicker__label {
-    flex-grow: 2;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-
-    svg {
-      width: 20px;
-      height: auto;
-      margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
     }
   }
 

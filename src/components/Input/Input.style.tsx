@@ -1,17 +1,9 @@
-import { styled } from "@storybook/theming";
-import { getPrimaryColor } from "../../helper/color";
+import { styled } from '@storybook/theming';
+import { getPrimaryColor } from '../../helper/color';
 
 const StyledInput = styled.label`
   display: flex;
-  margin: 1.5em 0;
-
-  p {
-    flex-shrink: 0;
-    flex-grow: 2;
-    margin: 0;
-    margin-right: 1.5em;
-    font-size: 14px;
-  }
+  align-items: center;
 
   input {
     width: 100%;
@@ -19,10 +11,11 @@ const StyledInput = styled.label`
     appeareance: none;
     resize: none;
     background: none;
-    padding: 0 0 10px;
+    padding: 10px;
+    border-radius: 5px;
     text-align: right;
     max-width: 200px;
-    border-bottom: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
     color: ${({ theme }) => getPrimaryColor(theme)};
     outline: none;
   }

@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Yet another theme addon for storybook. It provides a panel where you can tweek the theme values directly.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,8 +12,9 @@
     "build": "npm run clean && tsc -p .",
     "clean": "rimraf dist",
     "lint": "eslint ./src --ext ts --ext tsx",
+    "publish": "yarn build && npm publish && cd example && yarn && yarn deploy",
     "prepare": "npm run build",
-    "prettier-write": "prettier --write \"src/**/*.js\"",
+    "prettier-write": "prettier --write \"src/**/*.tsx\"",
     "test": "echo \"No test specified\"",
     "type-check": "tsc --pretty --noEmit"
   },

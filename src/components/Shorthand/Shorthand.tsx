@@ -1,12 +1,13 @@
-import * as React from "react";
-import { HandleChange } from "../../interfaces/index";
+import * as React from 'react';
+import { HandleChange } from '../../interfaces/index';
 
-import StyledShorthand from "./Shorthand.style";
+import is from '../../helper/checks';
+import StyledShorthand from './Shorthand.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
   label?: string;
-  title?: string;
   name?: string;
   description?: string;
   onChange: (val: ShorthandObject) => void;
@@ -22,12 +23,17 @@ interface ShorthandObject {
 
 const Shorthand: React.FC<Props> = ({
   label,
-  title,
   description,
   value,
   onChange,
   iconBefore
 }) => {
+  if (!is.object(value) && !is.shorthand(value)) {
+    throw Error(
+      'Value of shorthand component must be an object with the following keys: { top: Number, right: Number, bottom: Number, left: Number }'
+    );
+  }
+
   const { top, left, right, bottom } = value;
   const updateValue = (key: string, val: number) => {
     const newValue = {
@@ -41,7 +47,7 @@ const Shorthand: React.FC<Props> = ({
   const handleChange = (event: HandleChange) => {
     const { value: eventValue, name } = event.target;
 
-    if (eventValue !== "") {
+    if (eventValue !== '') {
       updateValue(name, parseFloat(eventValue));
     } else {
       updateValue(name, 0);
@@ -50,19 +56,8 @@ const Shorthand: React.FC<Props> = ({
 
   return (
     <StyledShorthand>
-      <div className="shorthand__text">
-        {(label || iconBefore) && (
-          <p className="shorthand__label" title={title}>
-            {iconBefore}
-            {label && label}
-          </p>
-        )}
-        {description && (
-          <p className="shorthand__description">
-            <small>{description}</small>
-          </p>
-        )}
-      </div>
+      <Label iconBefore={iconBefore} label={label} description={description} />
+
       <div className="shorthand__shorthand">
         <input
           type="text"

@@ -1,20 +1,18 @@
 import * as React from 'react';
 import addons from '@storybook/addons';
 
-import { Theme } from './types';
+import { Theme, ConfigProps } from './types';
 import events from './events';
 
 interface ThemeProviderProps {
   theme: Theme;
   provider: any;
   overrides: object;
+  config: ConfigProps;
 }
 
-export const withThemePlayground = ({
-  theme,
-  provider,
-  overrides
-}: ThemeProviderProps) => story => {
+export const withThemePlayground = (options: ThemeProviderProps) => story => {
+  const { theme, provider, overrides, config } = options;
   if (!provider) {
     throw Error(
       'Missing ThemeProvider in withThemePlayground decorator options.'
@@ -43,11 +41,7 @@ export const withThemePlayground = ({
       }
     });
 
-    channel.emit(events.setTheme, theme);
-
-    if (overrides) {
-      channel.emit(events.setOverrides, overrides);
-    }
+    channel.emit(events.receiveOptions, { theme, overrides, config });
 
     return () => {
       channel.removeListener(events.updateTheme, t => setCurrentTheme(t));

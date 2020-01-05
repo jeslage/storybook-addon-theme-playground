@@ -1,36 +1,17 @@
-import { styled } from "@storybook/theming";
-import { getSecondaryColor, getPrimaryColor } from "../../helper/color";
+import { styled } from '@storybook/theming';
+import { getSecondaryColor, getPrimaryColor } from '../../helper/color';
 
-const StyledRange = styled.div`
-  margin: 1.5em 0;
-
-  label {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .range__label {
-    flex-grow: 2;
-    margin: 0;
-    display: flex;
-    font-size: 14px;
-    align-items: center;
-
-    svg {
-      width: 20px;
-      height: auto;
-      margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
-    }
-  }
+const StyledRange = styled.label`
+  display: flex;
+  align-items: center;
+  position: relative;
 
   span {
     margin-right: 10px;
     font-size: 14px;
   }
 
-  input[type="text"] {
+  input[type='text'] {
     border: none;
     border-bottom: 1px solid transparent;
     outline: none;
@@ -48,18 +29,18 @@ const StyledRange = styled.div`
     }
   }
 
-  input[type="range"] {
+  input[type='range'] {
     appearance: none;
     width: 120px;
     margin: 0;
     background: none;
   }
 
-  input[type="range"]:focus {
+  input[type='range']:focus {
     outline: none;
   }
 
-  input[type="range"]::-webkit-slider-runnable-track {
+  input[type='range']::-webkit-slider-runnable-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -67,7 +48,7 @@ const StyledRange = styled.div`
     border-radius: 2px;
   }
 
-  input[type="range"]::-moz-range-track {
+  input[type='range']::-moz-range-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -75,7 +56,7 @@ const StyledRange = styled.div`
     border-radius: 2px;
   }
 
-  input[type="range"]::-ms-track {
+  input[type='range']::-ms-track {
     width: 100%;
     height: 4px;
     cursor: pointer;
@@ -83,7 +64,7 @@ const StyledRange = styled.div`
     border-radius: 2px;
   }
 
-  input[type="range"]::-ms-thumb {
+  input[type='range']::-ms-thumb {
     height: 20px;
     width: 20px;
     border-radius: 10px;
@@ -93,7 +74,7 @@ const StyledRange = styled.div`
     margin-top: -8px;
   }
 
-  input[type="range"]::-moz-range-thumb {
+  input[type='range']::-moz-range-thumb {
     height: 20px;
     width: 20px;
     border-radius: 10px;
@@ -103,7 +84,7 @@ const StyledRange = styled.div`
     margin-top: -8px;
   }
 
-  input[type="range"]::-webkit-slider-thumb {
+  input[type='range']::-webkit-slider-thumb {
     height: 20px;
     width: 20px;
     border-radius: 10px;

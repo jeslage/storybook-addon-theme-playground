@@ -1,17 +1,26 @@
-import * as React from "react";
+import * as React from 'react';
 
-import StyledInput from "./Input.style";
+import StyledInput from './Input.style';
+import Label from '../Label/Label';
 
 export interface Props {
-  label?: string;
+  label: string;
+  description?: string;
+  iconBefore?: HTMLElement;
   onChange: (val: string) => void;
   value?: string;
 }
 
-const Input: React.FC<Props> = ({ label, value, onChange }) => {
+const Input: React.FC<Props> = ({
+  label,
+  iconBefore,
+  description,
+  value,
+  onChange
+}) => {
   return (
     <StyledInput>
-      {label && <p>{label}</p>}
+      <Label iconBefore={iconBefore} label={label} description={description} />
 
       <input
         type="text"

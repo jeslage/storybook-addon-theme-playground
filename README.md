@@ -1,6 +1,8 @@
 # storybook-addon-theme-playground
 
-`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where you can tweek the theme values directly.
+[![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://badge.fury.io/js/storybook-addon-theme-playground)
+
+`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweeked directly.
 
 ![Screenshot](./assets/screenshot.png)
 [Example](https://storybook-addon-theme-playground.now.sh)
@@ -20,7 +22,7 @@ yarn add -D storybook-addon-theme-playground
 Add to `.storybook/addons.js`
 
 ```js
-import 'storybook-addon-theme-playground/dist/register';
+import 'storybook-addon-theme-playground/register';
 ```
 
 #### 3. Add decorator
@@ -68,25 +70,49 @@ export const Primary = () => <Button>Primary Button</Button>;
 
 ## Options
 
-### `theme` | required
+### `theme`
 
-> `object` | `Array<{ name: string, theme: object }>`
+`object` | `Array<{ name: string, theme: object }>` | required
 
-Your theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
+The theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
 
-### `provider` | required
+### `provider`
+
+`any` | required
 
 Any provider component which will accept a theme object prop and children.
 
-### `overrides` | optional
+### `overrides`
 
-> `object`
+`object` | optional
 
-Optional override components of default components. Look at the [Overrides](#overrides) section for detailed documentation.
+Optional [override components](#override-components) of [default components](#default-components). Look at the [Overrides](#overrides) section for detailed documentation.
+
+### `config`
+
+`object` | optional
+
+An additional config object can be added. Look at the [Config](#config) section for detailed documentation.
+
+### `config.labelFormat`
+
+`"path" || "startCase" || (path: string[]) => string` | default: `"startCase"`
+
+### `config.debounce`
+
+`boolean` | default: `true`
+
+Set to `false` updating the theme values will not be debounced.
+
+### `config.showCode`
+
+`boolean` | default: `true`
+
+Set to `false` no code component will be rendered.
 
 ## Multiple Themes
 
-It is also possible to add multiple themes. Just add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
+To add multiple themes, add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
 
 ```js
 import { ThemeProvider } from 'styled-components';
@@ -104,11 +130,39 @@ const options = {
 addDecorator(withThemePlayground(options));
 ```
 
+## Config
+
+**Example**
+
+```js
+import { ThemeProvider } from 'styled-components';
+
+addDecorator(
+  withThemePlayground({
+    theme: { button: { color: '#000' } },
+    provider: ThemeProvider,
+    config: {
+      // One of "path"
+      labelFormat: 'path', // "button.color"
+      // or "startCase"
+      labelFormat: 'startCase', // "Button Color"
+      // or a custom function
+      labelFormat: path => {
+        // path is equal to ["button", "color"]
+        return path.join('-'); // "button-color"
+      },
+      debounce: true || false,
+      showConfig: true || false
+    }
+  })
+);
+```
+
 ## Overrides
 
-`storybook-addon-theme-playground` will render a default component based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to your decorator.
+`storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to the decorator.
 
-As a key use the theme object path, e.g `'button.color.spacing'`
+As a key use the theme object path, e.g `'button.spacing'`
 
 **Example**
 
@@ -120,12 +174,12 @@ import { withThemePlayground } from 'storybook-addon-theme-playground';
 import theme from 'path/to/theme';
 
 const overrides = {
-  'button.color.spacing': {
+  'button.spacing': {
     type: 'counter',
     label: 'Button Spacing',
     description: 'Spacing for all buttons',
     min: 1,
-    max: 10,
+    max: 20,
     steps: 1,
     suffix: 'rem'
   },
@@ -147,7 +201,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'color',
-  label: String | 'theme.path'
+  label: String | 'Theme Path',
+  description: String | null
 }
 ```
 
@@ -156,7 +211,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'counter',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,
   max: Number | 100,
@@ -170,7 +225,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'select',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
+  description: String | null
   options: [
     {
       value: String,
@@ -185,7 +241,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'shorthand',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
   description: String | null
 }
 ```
@@ -195,7 +251,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'switch',
-  label: String | 'theme.path'
+  label: String | 'Theme Path',
+  description: String | null
 }
 ```
 
@@ -204,7 +261,8 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'range',
-  label: String | 'theme.path',
+  label: String | 'Theme Path',
+  description: String | null,
   min: Number | 0,
   max: Number | 100,
   steps: Number | 1,
@@ -212,6 +270,43 @@ addDecorator(
 }
 ```
 
+## Default components
+
+`storybook-addon-theme-playground` will render the following components based on the value.
+
+### `Switch`
+
+> `boolean`
+
+### `Counter`
+
+> `number`
+
+### `Input`
+
+> `string`
+
+### `Textarea`
+
+> `string` && `string.length >= 40`
+
+### `Range`
+
+> `string` && `string.endsWith("px" || "rem" || "em" || "%")`
+
+### `Color`
+
+> `string` && `string.startsWith("#" || "rgba" || "rgba")` || `label.includes("color")`
+
+### `Shorthand`
+
+> `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
+
 ## Roadmap
 
+- [x] Add descriptions prop to every component
+- [x] Add config to options
+- [ ] Performance optimizations on multiple withThemeProvider decorators
+- [ ] Update themes state handling
+- [ ] Pull request on storybooks addon website
 - [ ] Add testing

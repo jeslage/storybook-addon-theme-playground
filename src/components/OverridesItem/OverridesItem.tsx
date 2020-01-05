@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 import is from '../../helper/checks';
+import getLabel from '../../helper/getLabel';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
 import Counter from '../Counter/Counter';
 import Range from '../Range/Range';
 import Select, { Option } from '../Select/Select';
-
 import Shorthand from '../Shorthand/Shorthand';
 import Switch from '../Switch/Switch';
 
@@ -28,10 +28,11 @@ const OverridesItem: React.FC<OverrideProps> = ({
   path,
   overrideConfig
 }) => {
-  const { updateTheme } = React.useContext(SettingsContext);
+  const { updateTheme, config } = React.useContext(SettingsContext);
   const { type, label, options, ...rest } = overrideConfig;
 
   const pathString = path.join('.');
+  const pathLabel = getLabel(path, config.labelFormat);
 
   if (is.object(value) && !is.shorthand(value)) {
     console.warn(
@@ -49,7 +50,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Counter
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -59,7 +60,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Switch
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -69,7 +70,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <ColorPicker
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -79,7 +80,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Range
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -89,7 +90,7 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Shorthand
                 key={pathString}
-                label={label || pathString}
+                label={label || pathLabel}
                 value={value}
                 onChange={val => updateTheme(path, val)}
                 {...rest}
@@ -99,10 +100,11 @@ const OverridesItem: React.FC<OverrideProps> = ({
             return (
               <Select
                 key={pathString}
-                label={label || pathString}
-                initialValue={value}
+                label={label || pathLabel}
+                value={value}
                 onChange={val => updateTheme(path, val)}
                 options={options}
+                {...rest}
               />
             );
           default:

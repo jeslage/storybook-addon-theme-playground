@@ -2,18 +2,19 @@ import * as React from 'react';
 import { ChromePicker } from 'react-color';
 
 import StyledColorPicker from './ColorPicker.style';
+import Label from '../Label/Label';
 
 export interface Props {
   iconBefore?: HTMLElement;
+  description?: string;
   label: string;
   onChange: (hex: string) => void;
-  title?: string;
   value: string;
 }
 
 const ColorPicker: React.FC<Props> = ({
   iconBefore,
-  title,
+  description,
   label,
   onChange,
   value
@@ -22,12 +23,8 @@ const ColorPicker: React.FC<Props> = ({
 
   return (
     <StyledColorPicker>
-      {(label || iconBefore) && (
-        <p className="colorPicker__label" title={title}>
-          {iconBefore}
-          {label && label}
-        </p>
-      )}
+      <Label iconBefore={iconBefore} label={label} description={description} />
+
       <div className="colorPicker__wrapper">
         <button
           type="button"

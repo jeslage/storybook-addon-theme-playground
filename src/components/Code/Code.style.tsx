@@ -2,10 +2,15 @@ import { styled } from '@storybook/theming';
 import { getTextColor, getBorderColor } from '../../helper/color';
 
 const StyledCode = styled.div`
-  position: relative;
+  margin: 1.5rem 1rem;
+  padding-bottom: 1.5rem;
+
+  .code__wrapper {
+    position: relative;
+  }
 
   code {
-    margin: 0.5rem 0 0;
+    margin: 0;
     border-radius: 5px;
     width: 100%;
     background: none;
@@ -21,12 +26,13 @@ const StyledCode = styled.div`
 
   button {
     position: absolute;
-    bottom: -2px;
-    right: -2px;
+    top: 0;
+    right: 0;
+    margin: 0;
     outline: none;
     border: none;
     padding: 5px 10px;
-    border-radius: 5px 0px 5px 0px;
+    border-radius: 0px 5px 0px 5px;
     font-weight: bold;
     font-size: 12px;
     cursor: pointer;
