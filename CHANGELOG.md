@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Ability to hide specific theme values or objects
+- Added debounceRate to config
 - Loading state for debounced theme updates
 
 ## [1.1.0]- 2020-01-05

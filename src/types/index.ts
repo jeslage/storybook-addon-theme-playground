@@ -5,6 +5,7 @@ export type ConfigProps = {
   labelFormat: any;
   showCode: boolean;
   debounce: boolean;
+  debounceRate: number;
 };
 
 export type OptionsType = {

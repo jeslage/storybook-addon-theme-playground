@@ -104,6 +104,10 @@ An additional config object can be added. Look at the [Config](#config) section 
 
 Set to `false` updating the theme values will not be debounced.
 
+### `config.bebounceRate`
+
+`number` | default: `500`
+
 ### `config.showCode`
 
 `boolean` | default: `true`
@@ -152,6 +156,7 @@ addDecorator(
         return path.join('-'); // "button-color"
       },
       debounce: true || false,
+      debounceRate: 500,
       showConfig: true || false
     }
   })

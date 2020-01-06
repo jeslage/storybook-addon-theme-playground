@@ -26,16 +26,19 @@ export type SettingsProviderProps = {
   api: API;
 };
 
+const defaultConfig = {
+  labelFormat: 'startCase',
+  debounce: true,
+  debounceRate: 500,
+  showCode: true
+};
+
 export const SettingsContext = React.createContext<SettingsContextProps>({
   theme: {},
   themes: [],
   activeTheme: '',
   overrides: {},
-  config: {
-    labelFormat: 'startCase',
-    debounce: true,
-    showCode: true
-  },
+  config: defaultConfig,
   loading: false,
   updateTheme: () => {},
   updateActiveTheme: () => {}
@@ -45,24 +48,21 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   api,
   children
 }) => {
+  const [mounted, setMounted] = React.useState(false);
   const [themes, setThemes] = React.useState<ThemesArray>([]);
   const [activeThemeName, setActiveThemeName] = React.useState('');
   const [activeTheme, setActiveTheme] = React.useState({});
   const [loading, setLoading] = React.useState(false);
 
   const [overrides, setOverrides] = React.useState({});
-  const [config, setConfig] = React.useState({
-    labelFormat: 'startCase',
-    debounce: true,
-    showCode: true
-  });
+  const [config, setConfig] = React.useState(defaultConfig);
 
   React.useEffect(() => {
-    if (config.debounce) {
+    if (config.debounce && mounted) {
       const timeout = setTimeout(() => {
         setLoading(false);
         api.emit(events.updateTheme, activeTheme);
-      }, 500);
+      }, config.debounceRate);
       return () => {
         setLoading(true);
         clearTimeout(timeout);
@@ -105,10 +105,12 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   React.useEffect(() => {
     api.on(events.receiveOptions, getInitialOptions);
     api.on(events.setThemes, setThemes);
+    setMounted(true);
 
     return () => {
       api.off(events.receiveOptions, getInitialOptions);
       api.off(events.setThemes, setThemes);
+      setMounted(false);
     };
   }, []);
 
