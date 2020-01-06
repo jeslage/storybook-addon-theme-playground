@@ -20,6 +20,19 @@ const ColorPicker: React.FC<Props> = ({
   value
 }) => {
   const [visible, setVisible] = React.useState(false);
+  const content = React.useRef(null);
+
+  const handleOutsideClick = e => {
+    if (!content.current.contains(e.target) && visible) setVisible(false);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('mousedown', handleOutsideClick);
+
+    return () => {
+      window.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [event, handleOutsideClick]);
 
   return (
     <StyledColorPicker>
@@ -43,7 +56,7 @@ const ColorPicker: React.FC<Props> = ({
               aria-label="Close color picker"
               className="colorPicker__cover"
             />
-            <div className="colorPicker__content">
+            <div className="colorPicker__content" ref={content}>
               <ChromePicker
                 disableAlpha
                 color={value}
