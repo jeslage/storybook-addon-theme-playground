@@ -325,9 +325,6 @@ const overrides = {
 
 ## Roadmap
 
-- [x] Add descriptions prop to every component
-- [x] Add config to options
 - [ ] Performance optimizations on multiple withThemeProvider decorators
 - [ ] Update themes state handling
-- [x] Pull request on storybooks addon website
 - [ ] Add testing
