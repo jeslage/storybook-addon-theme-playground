@@ -68,6 +68,9 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
         clearTimeout(timeout);
       };
     } else {
+      if (loading) {
+        setLoading(false);
+      }
       api.emit(events.updateTheme, activeTheme);
     }
   }, [activeTheme]);
@@ -89,6 +92,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
       const { labelFormat } = config;
 
       if (
+        labelFormat &&
         labelFormat !== 'path' &&
         labelFormat !== 'startCase' &&
         typeof labelFormat !== 'function'
@@ -98,7 +102,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
         );
       }
 
-      setConfig(config);
+      setConfig(prev => ({ ...prev, ...config }));
     }
   };
 

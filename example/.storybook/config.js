@@ -98,7 +98,7 @@ const options = {
 
 addParameters({
   options: {
-    theme: themes.light
+    theme: themes.dark
   }
 });
 

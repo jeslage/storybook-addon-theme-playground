@@ -7,8 +7,9 @@ import StyledLoading from './Loading.style';
 const Loading: React.FC = () => {
   const { loading } = React.useContext(SettingsContext);
   return (
-    <StyledLoading loading={loading}>
+    <StyledLoading isLoading={loading}>
       <div />
+      <span>Updating</span>
     </StyledLoading>
   );
 };
