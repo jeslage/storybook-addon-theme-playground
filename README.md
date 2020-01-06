@@ -194,6 +194,21 @@ addDecorator(
 );
 ```
 
+### Hide specific theme values
+
+It is also possible to hide specific theme values or objects, e.g.:
+
+```js
+const overrides = {
+  breakpoints: {
+    hidden: true
+  },
+  'button.spacing': {
+    hidden: true
+  }
+};
+```
+
 ## Override components
 
 ### Color
@@ -201,6 +216,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'color',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
 }
@@ -211,6 +227,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'counter',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,
@@ -225,6 +242,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'select',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
   options: [
@@ -241,6 +259,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'shorthand',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
 }
@@ -251,6 +270,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'switch',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
 }
@@ -261,6 +281,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'range',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,

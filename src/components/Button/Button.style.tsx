@@ -1,5 +1,5 @@
-import { styled } from "@storybook/theming";
-import { getPrimaryColor } from "../../helper/color";
+import { styled } from '@storybook/theming';
+import { getPrimaryColor } from '../../helper/color';
 
 const StyledButton = styled.button`
   display: flex;

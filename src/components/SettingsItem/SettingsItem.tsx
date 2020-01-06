@@ -46,6 +46,10 @@ const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
         const pathLabel = getLabel(path, config.labelFormat);
 
         if (overrides[pathString]) {
+          if (overrides[pathString].hidden) {
+            return null;
+          }
+
           return (
             <StyledSettingsItem key={pathString}>
               <OverridesItem

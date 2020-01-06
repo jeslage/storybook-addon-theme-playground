@@ -13,6 +13,7 @@ interface ThemeProviderProps {
 
 export const withThemePlayground = (options: ThemeProviderProps) => story => {
   const { theme, provider, overrides, config } = options;
+
   if (!provider) {
     throw Error(
       'Missing ThemeProvider in withThemePlayground decorator options.'
