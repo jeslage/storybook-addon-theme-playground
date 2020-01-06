@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://badge.fury.io/js/storybook-addon-theme-playground)
 
-`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweeked directly.
+`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
 
 ![Screenshot](./assets/screenshot.png)
 [Example](https://storybook-addon-theme-playground.now.sh)
