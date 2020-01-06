@@ -20,10 +20,11 @@ const ColorPicker: React.FC<Props> = ({
   value
 }) => {
   const [visible, setVisible] = React.useState(false);
-  const content = React.useRef(null);
+  const content = React.useRef<HTMLDivElement>(null);
 
   const handleOutsideClick = e => {
-    if (!content.current.contains(e.target) && visible) setVisible(false);
+    if (content.current && !content.current.contains(e.target) && visible)
+      setVisible(false);
   };
 
   React.useEffect(() => {
