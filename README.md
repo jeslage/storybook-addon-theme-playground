@@ -80,7 +80,7 @@ The theme `object` or multiple themes as an `array` of `objects`. Look at the [M
 
 `any` | required
 
-Any provider component which will accept a theme object prop and children.
+Any provider component which will accept a theme object prop and children. `storybook-addon-theme-playground` has no default provider due to extendability.
 
 ### `overrides`
 
