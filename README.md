@@ -107,7 +107,7 @@ An additional config object can be added. Look at the [Config](#config) section 
 
 Set to `false` updating the theme values will not be debounced.
 
-### `config.bebounceRate`
+### `config.debounceRate`
 
 `number` | default: `500`
 
@@ -333,6 +333,6 @@ const overrides = {
 
 ## Roadmap
 
+- [x] Update themes state handling
 - [ ] Performance optimizations on multiple withThemeProvider decorators
-- [ ] Update themes state handling
 - [ ] Add testing

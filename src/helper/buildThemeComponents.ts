@@ -1,9 +1,9 @@
 import { is } from './';
-import { Theme } from '../types';
+import { Theme, Overrides } from '../types';
 
 const buildThemeComponents = (
   theme: Theme,
-  overrides: any,
+  overrides: Overrides,
   arr: string[] = []
 ) => {
   let themeComponents = {};

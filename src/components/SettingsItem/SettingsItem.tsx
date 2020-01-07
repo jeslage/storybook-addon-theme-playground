@@ -15,20 +15,23 @@ import Shorthand from '../Shorthand/Shorthand';
 import { StyledSettingsItem } from './SettingsItem.style';
 
 interface ComponentProps {
-  label: string;
-  value: any;
+  type: string;
+  path: string;
+  props: { label: string; value: any };
+  overrideProps: any;
+  update: (path: string, value: any) => void;
 }
 
 const unitMatch = (value: any) =>
   value.toString().match(/^(\d+(?:\.\d+)?)(.*)$/);
 
-const renderComponent = (
-  type: string,
-  path: string,
-  props: ComponentProps,
-  overrideProps: any,
-  update: (path: string, value: any) => void
-) => {
+const Component: React.FC<ComponentProps> = ({
+  type,
+  path,
+  overrideProps,
+  props,
+  update
+}) => {
   const { value, label } = props;
   const unit = unitMatch(value);
 
@@ -48,7 +51,8 @@ const renderComponent = (
       return (
         <Counter
           label={label}
-          value={value}
+          suffix={unit && unit[2]}
+          value={parseFloat(unit[1])}
           onChange={val => update(path, val)}
           {...overrideProps}
         />
@@ -104,6 +108,12 @@ const renderComponent = (
   }
 };
 
+function areEqual(prev, next) {
+  return prev.props.value === next.props.value;
+}
+
+export const MemoizedComponent = React.memo(Component, areEqual);
+
 const SettingsItem = () => {
   const {
     updateTheme,
@@ -126,9 +136,17 @@ const SettingsItem = () => {
             label
           };
 
+          const componentProps = {
+            type,
+            path,
+            props,
+            overrideProps: overrides[path],
+            update: updateTheme
+          };
+
           return activeComponents[path] ? (
             <StyledSettingsItem key={path}>
-              {renderComponent(type, path, props, overrides[path], updateTheme)}
+              <MemoizedComponent {...componentProps} />
             </StyledSettingsItem>
           ) : null;
         })}

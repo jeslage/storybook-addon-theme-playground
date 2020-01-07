@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { API } from '@storybook/api';
 
 import { setValue } from '../helper';
 import {
@@ -7,25 +6,13 @@ import {
   ThemesArray,
   ThemeObject,
   ConfigProps,
-  OptionsType
+  OptionsType,
+  Overrides,
+  SettingsContextProps,
+  SettingsProviderProps
 } from '../types';
 import events from '../events';
 import buildThemeComponents from '../helper/buildThemeComponents';
-
-export type SettingsContextProps = {
-  themes: ThemesArray;
-  activeTheme: ThemeObject;
-  themeComponents: {};
-  overrides: object;
-  config: ConfigProps;
-  isLoading: boolean;
-  updateTheme: (path: any, value: any) => void;
-  updateActiveTheme: (obj: ThemeObject) => void;
-};
-
-export type SettingsProviderProps = {
-  api: API;
-};
 
 const defaultConfig = {
   labelFormat: 'startCase',
@@ -63,8 +50,8 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   const [isMounted, setIsMounted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [overrides, setOverrides] = React.useState({});
-  const [config, setConfig] = React.useState(defaultConfig);
+  const [overrides, setOverrides] = React.useState<Overrides>({});
+  const [config, setConfig] = React.useState<ConfigProps>(defaultConfig);
 
   React.useEffect(() => {
     if (config.debounce && isMounted && activeTheme.theme) {
@@ -92,8 +79,8 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
       setActiveTheme({ ...theme[0] });
 
       const components = {};
-      theme.forEach(t => {
-        components[t.name] = buildThemeComponents(t.theme, overrides);
+      theme.forEach(({ name, theme }) => {
+        components[name] = buildThemeComponents(theme, overrides);
       });
 
       setThemeComponents(components);
@@ -138,6 +125,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
 
   const updateTheme = (path: string, value: any) => {
     const { theme, name } = activeTheme;
+
     const newTheme: Theme = theme;
     setValue(path, value, newTheme);
 
@@ -152,8 +140,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     }));
   };
 
-  const updateActiveTheme = (obj: ThemeObject) => {
-    const { name, theme } = obj;
+  const updateActiveTheme = ({ name, theme }: ThemeObject) => {
     setActiveTheme({ name, theme });
   };
 
