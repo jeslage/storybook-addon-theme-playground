@@ -5,9 +5,9 @@ import { SettingsContext } from '../../contexts/SettingsProvider';
 import StyledLoading from './Loading.style';
 
 const Loading: React.FC = () => {
-  const { loading } = React.useContext(SettingsContext);
+  const { isLoading } = React.useContext(SettingsContext);
   return (
-    <StyledLoading isLoading={loading}>
+    <StyledLoading isLoading={isLoading}>
       <div />
       <span>Updating</span>
     </StyledLoading>

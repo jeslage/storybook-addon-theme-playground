@@ -17,7 +17,7 @@ export type SettingsContextProps = {
   activeTheme: string;
   overrides: object;
   config: ConfigProps;
-  loading: boolean;
+  isLoading: boolean;
   updateTheme: (path: any, value: any) => void;
   updateActiveTheme: (obj: ThemeObject) => void;
 };
@@ -39,7 +39,7 @@ export const SettingsContext = React.createContext<SettingsContextProps>({
   activeTheme: '',
   overrides: {},
   config: defaultConfig,
-  loading: false,
+  isLoading: false,
   updateTheme: () => {},
   updateActiveTheme: () => {}
 });
@@ -48,28 +48,29 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   api,
   children
 }) => {
-  const [mounted, setMounted] = React.useState(false);
   const [themes, setThemes] = React.useState<ThemesArray>([]);
   const [activeThemeName, setActiveThemeName] = React.useState('');
   const [activeTheme, setActiveTheme] = React.useState({});
-  const [loading, setLoading] = React.useState(false);
+
+  const [isMounted, setIsMounted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [overrides, setOverrides] = React.useState({});
   const [config, setConfig] = React.useState(defaultConfig);
 
   React.useEffect(() => {
-    if (config.debounce && mounted) {
+    if (config.debounce && isMounted) {
       const timeout = setTimeout(() => {
-        setLoading(false);
+        setIsLoading(false);
         api.emit(events.updateTheme, activeTheme);
       }, config.debounceRate);
       return () => {
-        setLoading(true);
+        setIsLoading(true);
         clearTimeout(timeout);
       };
     } else {
-      if (loading) {
-        setLoading(false);
+      if (isLoading) {
+        setIsLoading(false);
       }
       api.emit(events.updateTheme, activeTheme);
     }
@@ -109,12 +110,12 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   React.useEffect(() => {
     api.on(events.receiveOptions, getInitialOptions);
     api.on(events.setThemes, setThemes);
-    setMounted(true);
+    setIsMounted(true);
 
     return () => {
       api.off(events.receiveOptions, getInitialOptions);
       api.off(events.setThemes, setThemes);
-      setMounted(false);
+      setIsMounted(false);
     };
   }, []);
 
@@ -137,7 +138,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     overrides,
     updateTheme,
     updateActiveTheme,
-    loading
+    isLoading
   };
 
   return (
