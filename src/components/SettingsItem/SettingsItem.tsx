@@ -108,11 +108,10 @@ const Component: React.FC<ComponentProps> = ({
   }
 };
 
-function areEqual(prev, next) {
-  return prev.props.value === next.props.value;
-}
-
-export const MemoizedComponent = React.memo(Component, areEqual);
+export const MemoizedComponent = React.memo(
+  Component,
+  (prev, next) => prev.props.value === next.props.value
+);
 
 const SettingsItem = () => {
   const {
