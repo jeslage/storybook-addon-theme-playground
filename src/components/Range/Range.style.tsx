@@ -1,5 +1,5 @@
 import { styled } from '@storybook/theming';
-import { getSecondaryColor, getPrimaryColor } from '../../helper/color';
+import { getSecondaryColor, getPrimaryColor } from '../../helper';
 
 const StyledRange = styled.label`
   display: flex;

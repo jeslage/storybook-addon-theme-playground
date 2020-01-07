@@ -1,5 +1,5 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StlyedColorPicker = styled.div`
   display: flex;

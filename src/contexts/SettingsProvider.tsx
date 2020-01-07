@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { API } from '@storybook/api';
 
-import setValue from '../helper/setValue';
+import { setValue } from '../helper';
 import {
   Theme,
   ThemesArray,
@@ -10,11 +10,12 @@ import {
   OptionsType
 } from '../types';
 import events from '../events';
+import buildThemeComponents from '../helper/buildThemeComponents';
 
 export type SettingsContextProps = {
-  theme: Theme;
   themes: ThemesArray;
-  activeTheme: string;
+  activeTheme: ThemeObject;
+  themeComponents: {};
   overrides: object;
   config: ConfigProps;
   isLoading: boolean;
@@ -33,24 +34,31 @@ const defaultConfig = {
   showCode: true
 };
 
-export const SettingsContext = React.createContext<SettingsContextProps>({
-  theme: {},
+const defaultProps = {
   themes: [],
-  activeTheme: '',
+  themeComponents: {},
+  activeTheme: { name: '__default', theme: {} },
   overrides: {},
   config: defaultConfig,
   isLoading: false,
   updateTheme: () => {},
   updateActiveTheme: () => {}
-});
+};
+
+export const SettingsContext = React.createContext<SettingsContextProps>(
+  defaultProps
+);
 
 const SettingsProvider: React.FC<SettingsProviderProps> = ({
   api,
   children
 }) => {
+  const [themeComponents, setThemeComponents] = React.useState({});
   const [themes, setThemes] = React.useState<ThemesArray>([]);
-  const [activeThemeName, setActiveThemeName] = React.useState('');
-  const [activeTheme, setActiveTheme] = React.useState({});
+  const [activeTheme, setActiveTheme] = React.useState<ThemeObject>({
+    name: '',
+    theme: {}
+  });
 
   const [isMounted, setIsMounted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -59,10 +67,10 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   const [config, setConfig] = React.useState(defaultConfig);
 
   React.useEffect(() => {
-    if (config.debounce && isMounted) {
+    if (config.debounce && isMounted && activeTheme.theme) {
       const timeout = setTimeout(() => {
         setIsLoading(false);
-        api.emit(events.updateTheme, activeTheme);
+        api.emit(events.updateTheme, activeTheme.theme);
       }, config.debounceRate);
       return () => {
         setIsLoading(true);
@@ -72,7 +80,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
       if (isLoading) {
         setIsLoading(false);
       }
-      api.emit(events.updateTheme, activeTheme);
+      api.emit(events.updateTheme, activeTheme.theme);
     }
   }, [activeTheme]);
 
@@ -81,10 +89,19 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
 
     if (Array.isArray(theme)) {
       setThemes(theme);
-      setActiveThemeName(theme[0].name);
-      setActiveTheme(theme[0].theme);
+      setActiveTheme({ ...theme[0] });
+
+      const components = {};
+      theme.forEach(t => {
+        components[t.name] = buildThemeComponents(t.theme, overrides);
+      });
+
+      setThemeComponents(components);
     } else {
-      setActiveTheme(theme);
+      setActiveTheme({ name: '__default', theme });
+      setThemeComponents({
+        __default: buildThemeComponents(theme, overrides)
+      });
     }
 
     if (overrides) setOverrides(overrides);
@@ -119,21 +136,31 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     };
   }, []);
 
-  const updateTheme = (path: string[], value: any) => {
-    const newTheme: Theme = activeTheme;
+  const updateTheme = (path: string, value: any) => {
+    const { theme, name } = activeTheme;
+    const newTheme: Theme = theme;
     setValue(path, value, newTheme);
-    setActiveTheme(prev => ({ ...prev, ...newTheme }));
+
+    setActiveTheme({ name, theme: newTheme });
+
+    setThemeComponents(prev => ({
+      ...prev,
+      [name]: {
+        ...prev[name],
+        [path]: { type: prev[name][path].type, value }
+      }
+    }));
   };
 
   const updateActiveTheme = (obj: ThemeObject) => {
-    setActiveThemeName(obj.name);
-    setActiveTheme(obj.theme);
+    const { name, theme } = obj;
+    setActiveTheme({ name, theme });
   };
 
   const providerValue: SettingsContextProps = {
-    theme: activeTheme,
-    activeTheme: activeThemeName,
+    activeTheme,
     themes,
+    themeComponents,
     config,
     overrides,
     updateTheme,
