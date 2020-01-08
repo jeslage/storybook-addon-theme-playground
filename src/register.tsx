@@ -7,9 +7,7 @@ import { AddonPanel } from '@storybook/components';
 import Panel from './components/Panel/Panel';
 import SettingsProvider from './contexts/SettingsProvider';
 
-export default addons.register('storybook-addon-theme-playground', api => {
-  // Also need to set a unique name to the panel.
-
+addons.register('storybook-addon-theme-playground', api => {
   addons.addPanel('storybook-addon-theme-playground/panel', {
     title: 'Theme Playground',
     render: ({ active, key }) => (

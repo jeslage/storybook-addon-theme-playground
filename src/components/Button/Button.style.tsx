@@ -1,5 +1,9 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor, getInverseTextColor } from '../../helper';
+import {
+  getPrimaryColor,
+  getInverseTextColor,
+  getBorderColor
+} from '../../helper';
 
 const StyledButton = styled.button`
   outline: none;
@@ -17,7 +21,14 @@ const StyledButton = styled.button`
   background: transparent;
   border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
 
+  &:hover {
+    background: ${({ theme }) => getBorderColor(theme)};
+    border-color: ${({ theme }) => getBorderColor(theme)};
+    color: ${({ theme }) => getInverseTextColor(theme)};
+  }
+
   &:active {
+    color: ${({ theme }) => getInverseTextColor(theme)};
     background: ${({ theme }) => getPrimaryColor(theme)};
     color: ${({ theme }) => getInverseTextColor(theme)};
   }

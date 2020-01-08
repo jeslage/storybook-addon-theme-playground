@@ -1,2 +1,2 @@
 // eslint-disable-next-line no-undef
-require('./dist/register.js').default;
+require('./dist/register.js');

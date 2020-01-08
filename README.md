@@ -25,7 +25,7 @@ yarn add -D storybook-addon-theme-playground
 Add to `.storybook/addons.js`
 
 ```js
-import 'storybook-addon-theme-playground/register';
+import 'storybook-addon-theme-playground/dist/register';
 ```
 
 #### 3. Add decorator
