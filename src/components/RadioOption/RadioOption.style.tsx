@@ -1,10 +1,9 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor, getInverseTextColor } from '../../helper';
 
 const StyledRadioOption = styled.label`
   position: relative;
   cursor: pointer;
-  font-weigt: bold;
   font-size: 12px;
 
   input {
@@ -21,13 +20,13 @@ const StyledRadioOption = styled.label`
   div {
     display: flex;
     align-items: center;
-    padding: 5px;
+    padding: 0.5rem 0.75rem;
     margin: 0 0 0 10px;
-    border-radius: 5px;
+    border-radius: 3rem;
+    opacity: 0.5;
     color: ${({ theme }) => getPrimaryColor(theme)};
     border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
-    opacity: 0.5;
-    pointer-events: none;
+    transition: all 0.2s ease-in-out;
 
     svg {
       width: 20px;
@@ -36,8 +35,14 @@ const StyledRadioOption = styled.label`
     }
   }
 
+  div:hover {
+    opacity: 1;
+  }
+
   input:checked + div {
     opacity: 1;
+    background: ${({ theme }) => getPrimaryColor(theme)};
+    color: ${({ theme }) => getInverseTextColor(theme)};
   }
 `;
 

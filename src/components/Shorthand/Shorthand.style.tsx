@@ -1,9 +1,10 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StyledShorthand = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 
   .shorthand__shorthand {
     display: flex;

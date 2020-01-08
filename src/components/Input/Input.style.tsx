@@ -1,9 +1,10 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StyledInput = styled.label`
   display: flex;
   align-items: center;
+  width: 100%;
 
   input {
     width: 100%;

@@ -2,8 +2,7 @@ import * as React from 'react';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
-import is from '../../helper/checks';
-import getLabel from '../../helper/getLabel';
+import { getLabel } from '../../helper';
 
 import Counter from '../Counter/Counter';
 import Colorpicker from '../ColorPicker/ColorPicker';
@@ -12,148 +11,157 @@ import Textarea from '../Textarea/Textarea';
 import Switch from '../Switch/Switch';
 import Range from '../Range/Range';
 import Shorthand from '../Shorthand/Shorthand';
-import OverridesItem from '../OverridesItem/OverridesItem';
 
 import { StyledSettingsItem } from './SettingsItem.style';
 
-const descending = (a: string, b: string) => {
-  if (a < b) {
-    return -1;
-  }
-  if (b > a) {
-    return 1;
-  }
-  return 0;
-};
-
-interface SettingsProps {
-  obj: object;
-  arr: string[];
+interface ComponentProps {
+  type: string;
+  path: string;
+  props: { label: string; value: any };
+  overrideProps: any;
+  update: (path: string, value: any) => void;
 }
 
-const SettingsItem: React.FC<SettingsProps> = ({ obj, arr }) => {
-  const { updateTheme, overrides, config } = React.useContext(SettingsContext);
+const unitMatch = (value: any) =>
+  value.toString().match(/^(\d+(?:\.\d+)?)(.*)$/);
 
-  const keys: string[] = Object.keys(obj).sort(descending);
+const Component: React.FC<ComponentProps> = ({
+  type,
+  path,
+  overrideProps,
+  props,
+  update
+}) => {
+  const { value, label } = props;
+  const unit = unitMatch(value);
+
+  if (overrideProps && overrideProps.hidden) return null;
+
+  switch (type) {
+    case 'colorpicker':
+      return (
+        <Colorpicker
+          label={label}
+          value={value}
+          onChange={val => update(path, val)}
+          {...overrideProps}
+        />
+      );
+    case 'counter':
+      return (
+        <Counter
+          label={label}
+          suffix={unit && unit[2]}
+          value={parseFloat(unit[1])}
+          onChange={val => update(path, val)}
+          {...overrideProps}
+        />
+      );
+    case 'range':
+      return (
+        <Range
+          label={props.label}
+          suffix={unit && unit[2]}
+          value={parseFloat(unit[1])}
+          onChange={val => update(path, `${val}${unit[2]}`)}
+          {...overrideProps}
+        />
+      );
+    case 'input':
+      return (
+        <Input
+          label={label}
+          value={value}
+          onChange={val => update(path, val)}
+          {...overrideProps}
+        />
+      );
+    case 'shorthand':
+      return (
+        <Shorthand
+          label={label}
+          value={value}
+          onChange={val => update(path, val)}
+          {...overrideProps}
+        />
+      );
+    case 'switch':
+      return (
+        <Switch
+          label={label}
+          value={value}
+          onChange={val => update(path, val)}
+          {...overrideProps}
+        />
+      );
+    case 'textarea':
+      return (
+        <Textarea
+          label={label}
+          value={value}
+          onChange={val => update(path, val)}
+          {...overrideProps}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+const areEqual = (prev, next) => {
+  const prevDescription =
+    prev.overrideProps && prev.overrideProps.description
+      ? prev.overrideProps.description
+      : null;
+
+  const nextDescription =
+    next.overrideProps && next.overrideProps.description
+      ? next.overrideProps.description
+      : null;
+
+  return (
+    prev.props.value === next.props.value && prevDescription === nextDescription
+  );
+};
+
+export const MemoizedComponent = React.memo(Component, areEqual);
+
+const SettingsItem = () => {
+  const {
+    updateTheme,
+    overrides,
+    config,
+    themeComponents,
+    activeTheme: { name }
+  } = React.useContext(SettingsContext);
+
+  const activeComponents = themeComponents[name] || null;
 
   return (
     <>
-      {keys.map(key => {
-        const value = obj[key];
-        const path = [...arr, key];
-        const pathString = path.join('.');
+      {activeComponents &&
+        Object.keys(activeComponents).map(path => {
+          const { value, type } = activeComponents[path];
+          const label = getLabel(path, config.labelFormat);
+          const props = {
+            value,
+            label
+          };
 
-        const pathLabel = getLabel(path, config.labelFormat);
+          const componentProps = {
+            type,
+            path,
+            props,
+            overrideProps: overrides[path],
+            update: updateTheme
+          };
 
-        if (overrides[pathString]) {
-          return (
-            <StyledSettingsItem key={pathString}>
-              <OverridesItem
-                value={value}
-                path={path}
-                overrideConfig={overrides[pathString]}
-              />
+          return activeComponents[path] ? (
+            <StyledSettingsItem key={path}>
+              <MemoizedComponent {...componentProps} />
             </StyledSettingsItem>
-          );
-        }
-
-        if (is.object(value)) {
-          if (is.shorthand(value)) {
-            return (
-              <StyledSettingsItem key={pathString}>
-                <Shorthand
-                  value={value}
-                  label={pathLabel}
-                  onChange={val => updateTheme(path, val)}
-                />
-              </StyledSettingsItem>
-            );
-          }
-
-          return <SettingsItem obj={value} arr={path} key={pathString} />;
-        }
-
-        if (is.array(value)) {
-          return value.map((item, index) => (
-            <SettingsItem obj={item} arr={[...path, index]} key={pathString} />
-          ));
-        }
-
-        if (is.boolean(value)) {
-          return (
-            <StyledSettingsItem key={pathString}>
-              <Switch
-                label={pathLabel}
-                value={value}
-                onChange={val => updateTheme(path, val)}
-              />
-            </StyledSettingsItem>
-          );
-        }
-
-        if (is.number(value)) {
-          return (
-            <StyledSettingsItem key={pathString}>
-              <Counter
-                label={pathLabel}
-                value={parseFloat(value)}
-                onChange={val => updateTheme(path, val)}
-              />
-            </StyledSettingsItem>
-          );
-        }
-
-        if (is.string(value)) {
-          if (is.color(value, key)) {
-            return (
-              <StyledSettingsItem key={pathString}>
-                <Colorpicker
-                  label={pathLabel}
-                  value={value}
-                  onChange={val => updateTheme(path, val)}
-                />
-              </StyledSettingsItem>
-            );
-          }
-
-          if (is.unit(value)) {
-            const [, number, suffix] = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
-
-            return (
-              <StyledSettingsItem key={pathString}>
-                <Range
-                  label={pathLabel}
-                  suffix={suffix}
-                  value={parseFloat(number)}
-                  onChange={val => updateTheme(path, `${val}${suffix}`)}
-                />
-              </StyledSettingsItem>
-            );
-          }
-
-          if (is.text(value)) {
-            return (
-              <StyledSettingsItem key={pathString}>
-                <Textarea
-                  label={pathLabel}
-                  value={value}
-                  onChange={val => updateTheme(path, val)}
-                />
-              </StyledSettingsItem>
-            );
-          }
-
-          return (
-            <StyledSettingsItem key={pathString}>
-              <Input
-                label={pathLabel}
-                value={value}
-                onChange={val => updateTheme(path, val)}
-              />
-            </StyledSettingsItem>
-          );
-        }
-      })}
+          ) : null;
+        })}
     </>
   );
 };

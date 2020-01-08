@@ -1,10 +1,11 @@
 import { styled } from '@storybook/theming';
-import { getSecondaryColor, getPrimaryColor } from '../../helper/color';
+import { getSecondaryColor, getPrimaryColor } from '../../helper';
 
 const StyledRange = styled.label`
   display: flex;
   align-items: center;
   position: relative;
+  width: 100%;
 
   span {
     margin-right: 10px;

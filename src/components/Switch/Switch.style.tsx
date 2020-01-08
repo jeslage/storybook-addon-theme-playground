@@ -1,5 +1,5 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 interface SwitchProps {
   readonly active: boolean;
@@ -9,6 +9,7 @@ const StyledSwitch = styled.div<SwitchProps>`
   display: flex;
   align-items: center;
   margin: 1.5em 0;
+  width: 100%;
 
   button {
     position: relative;

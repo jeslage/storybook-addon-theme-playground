@@ -1,8 +1,11 @@
 # storybook-addon-theme-playground
 
-[![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://badge.fury.io/js/storybook-addon-theme-playground)
+[![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://www.npmjs.com/package/storybook-addon-theme-playground)
+[![npm downloads](https://img.shields.io/npm/dw/storybook-addon-theme-playground.svg?style=flat)](https://www.npmjs.com/package/storybook-addon-theme-playground)
+[![license](https://img.shields.io/npm/l/storybook-addon-theme-playground)](https://www.npmjs.com/package/storybook-addon-theme-playground)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
-`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweeked directly.
+`storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
 
 ![Screenshot](./assets/screenshot.png)
 [Example](https://storybook-addon-theme-playground.now.sh)
@@ -22,7 +25,7 @@ yarn add -D storybook-addon-theme-playground
 Add to `.storybook/addons.js`
 
 ```js
-import 'storybook-addon-theme-playground/register';
+import 'storybook-addon-theme-playground/dist/register';
 ```
 
 #### 3. Add decorator
@@ -80,7 +83,7 @@ The theme `object` or multiple themes as an `array` of `objects`. Look at the [M
 
 `any` | required
 
-Any provider component which will accept a theme object prop and children.
+Any provider component which will accept a theme object prop and children. `storybook-addon-theme-playground` has no default provider due to extendability.
 
 ### `overrides`
 
@@ -103,6 +106,10 @@ An additional config object can be added. Look at the [Config](#config) section 
 `boolean` | default: `true`
 
 Set to `false` updating the theme values will not be debounced.
+
+### `config.debounceRate`
+
+`number` | default: `500`
 
 ### `config.showCode`
 
@@ -152,6 +159,7 @@ addDecorator(
         return path.join('-'); // "button-color"
       },
       debounce: true || false,
+      debounceRate: 500,
       showConfig: true || false
     }
   })
@@ -194,6 +202,21 @@ addDecorator(
 );
 ```
 
+### Hide specific theme values
+
+It is also possible to hide specific theme values or objects, e.g.:
+
+```js
+const overrides = {
+  breakpoints: {
+    hidden: true
+  },
+  'button.spacing': {
+    hidden: true
+  }
+};
+```
+
 ## Override components
 
 ### Color
@@ -201,6 +224,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'color',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
 }
@@ -211,6 +235,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'counter',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,
@@ -225,6 +250,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'select',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
   options: [
@@ -241,6 +267,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'shorthand',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
 }
@@ -251,6 +278,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'switch',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
 }
@@ -261,6 +289,7 @@ addDecorator(
 ```js
 'theme.path': {
   type: 'range',
+  hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null,
   min: Number | 0,
@@ -304,9 +333,7 @@ addDecorator(
 
 ## Roadmap
 
-- [x] Add descriptions prop to every component
-- [x] Add config to options
+- [x] Update themes state handling
+- [ ] Add reset button for theme states
 - [ ] Performance optimizations on multiple withThemeProvider decorators
-- [ ] Update themes state handling
-- [ ] Pull request on storybooks addon website
 - [ ] Add testing

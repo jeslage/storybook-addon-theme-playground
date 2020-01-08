@@ -1,10 +1,11 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StyledTextarea = styled.label`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 100%;
 
   textarea {
     width: 100%;

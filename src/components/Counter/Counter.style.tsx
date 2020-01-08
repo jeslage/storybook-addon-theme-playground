@@ -1,9 +1,10 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StyledCounter = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 
   .counter__counter {
     display: flex;

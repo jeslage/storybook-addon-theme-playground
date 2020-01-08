@@ -3,16 +3,17 @@ import * as React from 'react';
 import StyledRadioGroup from './RadioGroup.style';
 import RadioOption, { RadioOptionProps } from '../RadioOption/RadioOption';
 import Label from '../Label/Label';
-export interface Props {
+export interface RadioGroupProps {
   iconBefore?: HTMLElement;
   label: string;
   description?: string;
   onChange: (val: string) => void;
   value: string;
   name: string;
+  children?: React.ReactNode;
 }
 
-const RadioGroup: React.FC<Props> = ({
+const RadioGroup: React.FC<RadioGroupProps> = ({
   label,
   description,
   iconBefore,
@@ -43,4 +44,7 @@ const RadioGroup: React.FC<Props> = ({
   );
 };
 
-export default RadioGroup;
+export default React.memo(
+  RadioGroup,
+  (prev, next) => prev.value === next.value
+);

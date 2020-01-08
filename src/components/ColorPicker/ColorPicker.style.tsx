@@ -1,9 +1,10 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StlyedColorPicker = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 
   .colorPicker__cover {
     position: fixed;
@@ -41,7 +42,7 @@ const StlyedColorPicker = styled.div`
     position: absolute;
     right: 0;
     top: 40px;
-    z-index: 2;
+    z-index: 1;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 2px, rgba(0, 0, 0, 0.15) 0px 4px 8px;

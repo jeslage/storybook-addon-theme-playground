@@ -2,8 +2,12 @@ import * as React from 'react';
 
 import StyledButton from './Button.style';
 
-const Button: React.FC = ({ children }) => (
-  <StyledButton type="button">{children}</StyledButton>
+export type ButtonProps = { onClick: () => void };
+
+const Button: React.FC<ButtonProps> = ({ children, onClick }) => (
+  <StyledButton type="button" onClick={onClick}>
+    {children}
+  </StyledButton>
 );
 
 export default Button;

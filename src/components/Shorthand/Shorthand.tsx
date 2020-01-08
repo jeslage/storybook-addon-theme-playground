@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { HandleChange } from '../../interfaces/index';
 
-import is from '../../helper/checks';
+import { is } from '../../helper';
 import StyledShorthand from './Shorthand.style';
 import Label from '../Label/Label';
 

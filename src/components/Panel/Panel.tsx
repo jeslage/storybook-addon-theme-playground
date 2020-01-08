@@ -1,27 +1,30 @@
 import * as React from 'react';
 
+import { Icons } from '@storybook/components';
+
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
 import Code from '../Code/Code';
 import SettingsItem from '../SettingsItem/SettingsItem';
-
+import Loading from '../Loading/Loading';
 import RadioGroup from '../RadioGroup/RadioGroup';
 import RadioOption from '../RadioOption/RadioOption';
 
 import StyledPanel from './Panel.style';
+import Button from '../Button/Button';
 
 const Panel = () => {
   const {
-    theme,
     themes,
-    activeTheme,
+    activeTheme: { theme, name },
     updateActiveTheme,
-    config
+    config,
+    resetThemes
   } = React.useContext(SettingsContext);
 
   return (
     <StyledPanel>
-      {theme && Object.entries(theme).length > 0 && (
+      {Object.entries(theme).length > 0 && (
         <>
           <div className="panel__content">
             {themes.length > 1 && (
@@ -29,7 +32,7 @@ const Panel = () => {
                 <RadioGroup
                   label="Active Theme"
                   name="themes"
-                  value={activeTheme}
+                  value={name}
                   onChange={val =>
                     updateActiveTheme(themes.filter(t => t.name === val)[0])
                   }
@@ -40,9 +43,20 @@ const Panel = () => {
                 </RadioGroup>
               </div>
             )}
-            <SettingsItem obj={theme} arr={[]} />
+            <SettingsItem />
+            {config.showCode && <Code value={theme} />}
+            <div className="panel__settings-wrapper">
+              <div className="panel__settings">
+                <Loading />
+                <div className="panel__buttons">
+                  <Button onClick={() => resetThemes()}>
+                    <Icons icon="undo" />
+                    Reset
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
-          {config.showCode && <Code value={theme} />}
         </>
       )}
     </StyledPanel>

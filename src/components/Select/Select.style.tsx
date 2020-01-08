@@ -1,8 +1,9 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper/color';
+import { getPrimaryColor } from '../../helper';
 
 const StyledSelect = styled.label`
   margin: 1.5em 0;
+  width: 100%;
 
   display: flex;
   align-items: center;

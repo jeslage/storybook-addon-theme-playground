@@ -1,131 +1,157 @@
 import * as React from 'react';
-import { API } from '@storybook/api';
 
-import setValue from '../helper/setValue';
+import { updateValueBasedOnPath } from '../helper';
 import {
   Theme,
   ThemesArray,
   ThemeObject,
   ConfigProps,
-  OptionsType
+  OptionsType,
+  Overrides,
+  SettingsContextProps,
+  SettingsProviderProps
 } from '../types';
 import events from '../events';
+import buildThemeComponents from '../helper/buildThemeComponents';
 
-export type SettingsContextProps = {
-  theme: Theme;
-  themes: ThemesArray;
-  activeTheme: string;
-  overrides: object;
-  config: ConfigProps;
-  updateTheme: (path: any, value: any) => void;
-  updateActiveTheme: (obj: ThemeObject) => void;
+const defaultConfig = {
+  labelFormat: 'startCase',
+  debounce: true,
+  debounceRate: 500,
+  showCode: true
 };
 
-export type SettingsProviderProps = {
-  api: API;
-};
-
-export const SettingsContext = React.createContext<SettingsContextProps>({
-  theme: {},
+const defaultProps = {
   themes: [],
-  activeTheme: '',
+  themeComponents: {},
+  activeTheme: { name: '__default', theme: {} },
   overrides: {},
-  config: {
-    labelFormat: 'startCase',
-    debounce: true,
-    showCode: true
-  },
+  config: defaultConfig,
+  isLoading: false,
   updateTheme: () => {},
-  updateActiveTheme: () => {}
-});
+  updateActiveTheme: () => {},
+  resetThemes: () => {}
+};
+
+export const SettingsContext = React.createContext<SettingsContextProps>(
+  defaultProps
+);
 
 const SettingsProvider: React.FC<SettingsProviderProps> = ({
   api,
   children
 }) => {
+  const [themeComponents, setThemeComponents] = React.useState({});
   const [themes, setThemes] = React.useState<ThemesArray>([]);
-  const [activeThemeName, setActiveThemeName] = React.useState('');
-  const [activeTheme, setActiveTheme] = React.useState({});
-
-  const [overrides, setOverrides] = React.useState({});
-  const [config, setConfig] = React.useState({
-    labelFormat: 'startCase',
-    debounce: true,
-    showCode: true
+  const [activeTheme, setActiveTheme] = React.useState<ThemeObject>({
+    name: '',
+    theme: {}
   });
 
+  const [isMounted, setIsMounted] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const [overrides, setOverrides] = React.useState<Overrides>({});
+  const [config, setConfig] = React.useState<ConfigProps>(defaultConfig);
+
   React.useEffect(() => {
-    if (config.debounce) {
+    if (config.debounce && isMounted && activeTheme.theme) {
       const timeout = setTimeout(() => {
-        api.emit(events.updateTheme, activeTheme);
-      }, 500);
+        setIsLoading(false);
+        api.emit(events.updateTheme, activeTheme.theme);
+      }, config.debounceRate);
       return () => {
+        setIsLoading(true);
         clearTimeout(timeout);
       };
     } else {
-      api.emit(events.updateTheme, activeTheme);
+      if (isLoading) {
+        setIsLoading(false);
+      }
+      api.emit(events.updateTheme, activeTheme.theme);
     }
   }, [activeTheme]);
 
-  const getInitialOptions = (options: OptionsType) => {
+  const updateThemeComponents = (theme: Theme, overrides: Overrides) => {
+    const components: { [key: string]: any } = {};
+
+    if (Array.isArray(theme)) {
+      theme.forEach(({ name, theme }) => {
+        components[name] = buildThemeComponents(theme, overrides);
+      });
+    } else {
+      components.__default = buildThemeComponents(theme, overrides);
+    }
+
+    setThemeComponents(components);
+  };
+
+  const getInitialOptions = React.useCallback((options: OptionsType) => {
     const { theme, overrides, config } = options;
+
+    updateThemeComponents(theme, overrides || {});
 
     if (Array.isArray(theme)) {
       setThemes(theme);
-      setActiveThemeName(theme[0].name);
-      setActiveTheme(theme[0].theme);
+      setActiveTheme({ ...theme[0] });
     } else {
-      setActiveTheme(theme);
+      setActiveTheme({ name: '__default', theme });
     }
 
     if (overrides) setOverrides(overrides);
-
-    if (config) {
-      const { labelFormat } = config;
-
-      if (
-        labelFormat !== 'path' &&
-        labelFormat !== 'startCase' &&
-        typeof labelFormat !== 'function'
-      ) {
-        console.warn(
-          "config.labelFormat needs to be one of 'path' || 'startCase' || (path: string[]) => string - Fallback to 'path'"
-        );
-      }
-
-      setConfig(config);
-    }
-  };
+    if (config) setConfig(prev => ({ ...prev, ...config }));
+  }, []);
 
   React.useEffect(() => {
     api.on(events.receiveOptions, getInitialOptions);
-    api.on(events.setThemes, setThemes);
+    api.on(events.resetOptions, getInitialOptions);
+    setIsMounted(true);
 
     return () => {
       api.off(events.receiveOptions, getInitialOptions);
-      api.off(events.setThemes, setThemes);
+      api.off(events.resetOptions, getInitialOptions);
+      setIsMounted(false);
     };
   }, []);
 
-  const updateTheme = (path: string[], value: any) => {
-    const newTheme: Theme = activeTheme;
-    setValue(path, value, newTheme);
-    setActiveTheme(prev => ({ ...prev, ...newTheme }));
-  };
+  const updateTheme = React.useCallback(
+    (path: string, value: any) => {
+      const { theme, name } = activeTheme;
 
-  const updateActiveTheme = (obj: ThemeObject) => {
-    setActiveThemeName(obj.name);
-    setActiveTheme(obj.theme);
-  };
+      // Update theme object value based on path and set active theme state
+      const newTheme: Theme = theme;
+      updateValueBasedOnPath(path, value, newTheme);
+      setActiveTheme({ name, theme: newTheme });
+
+      // Set new theme components state
+      setThemeComponents(prev => ({
+        ...prev,
+        [name]: {
+          ...prev[name],
+          [path]: { type: prev[name][path].type, value }
+        }
+      }));
+    },
+    [activeTheme]
+  );
+
+  const updateActiveTheme = React.useCallback(
+    ({ name, theme }: ThemeObject) => {
+      setActiveTheme({ name, theme });
+    },
+    [activeTheme.theme]
+  );
 
   const providerValue: SettingsContextProps = {
-    theme: activeTheme,
-    activeTheme: activeThemeName,
+    activeTheme,
     themes,
+    themeComponents,
     config,
     overrides,
     updateTheme,
-    updateActiveTheme
+    updateActiveTheme,
+    isLoading,
+    resetThemes: () => api.emit(events.reset)
   };
 
   return (
