@@ -35,6 +35,17 @@ const ColorPicker: React.FC<Props> = ({
     };
   }, [event, handleOutsideClick]);
 
+  const handleChange = ({ hex, rgb }) => {
+    if (onChange) {
+      let newColor = hex;
+
+      if (rgb.a < 1) {
+        newColor = `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`;
+      }
+
+      onChange(newColor);
+    }
+  };
   return (
     <StyledColorPicker>
       <Label iconBefore={iconBefore} label={label} description={description} />
@@ -58,13 +69,7 @@ const ColorPicker: React.FC<Props> = ({
               className="colorPicker__cover"
             />
             <div className="colorPicker__content" ref={content}>
-              <ChromePicker
-                disableAlpha
-                color={value}
-                onChangeComplete={color => {
-                  if (onChange) onChange(color.hex);
-                }}
-              />
+              <ChromePicker color={value} onChangeComplete={handleChange} />
             </div>
           </>
         )}
