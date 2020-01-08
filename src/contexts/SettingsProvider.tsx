@@ -29,7 +29,8 @@ const defaultProps = {
   config: defaultConfig,
   isLoading: false,
   updateTheme: () => {},
-  updateActiveTheme: () => {}
+  updateActiveTheme: () => {},
+  resetThemes: () => {}
 };
 
 export const SettingsContext = React.createContext<SettingsContextProps>(
@@ -74,11 +75,13 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   const updateThemeComponents = (theme: Theme, overrides: Overrides) => {
     const components: { [key: string]: any } = {};
 
-    Array.isArray(theme)
-      ? theme.forEach(({ name, theme }) => {
-          components[name] = buildThemeComponents(theme, overrides);
-        })
-      : (components.__default = buildThemeComponents(theme, overrides));
+    if (Array.isArray(theme)) {
+      theme.forEach(({ name, theme }) => {
+        components[name] = buildThemeComponents(theme, overrides);
+      });
+    } else {
+      components.__default = buildThemeComponents(theme, overrides);
+    }
 
     setThemeComponents(components);
   };
@@ -86,48 +89,27 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
   const getInitialOptions = React.useCallback((options: OptionsType) => {
     const { theme, overrides, config } = options;
 
-    updateThemeComponents(theme, overrides);
+    updateThemeComponents(theme, overrides || {});
 
     if (Array.isArray(theme)) {
       setThemes(theme);
       setActiveTheme({ ...theme[0] });
-
-      const components = {};
-      theme.forEach(({ name, theme }) => {
-        components[name] = buildThemeComponents(theme, overrides);
-      });
     } else {
       setActiveTheme({ name: '__default', theme });
     }
 
     if (overrides) setOverrides(overrides);
-
-    if (config) {
-      const { labelFormat } = config;
-
-      if (
-        labelFormat &&
-        labelFormat !== 'path' &&
-        labelFormat !== 'startCase' &&
-        typeof labelFormat !== 'function'
-      ) {
-        console.warn(
-          "config.labelFormat needs to be one of 'path' || 'startCase' || (path: string[]) => string - Fallback to 'path'"
-        );
-      }
-
-      setConfig(prev => ({ ...prev, ...config }));
-    }
+    if (config) setConfig(prev => ({ ...prev, ...config }));
   }, []);
 
   React.useEffect(() => {
     api.on(events.receiveOptions, getInitialOptions);
-    api.on(events.setThemes, setThemes);
+    api.on(events.resetOptions, getInitialOptions);
     setIsMounted(true);
 
     return () => {
       api.off(events.receiveOptions, getInitialOptions);
-      api.off(events.setThemes, setThemes);
+      api.off(events.resetOptions, getInitialOptions);
       setIsMounted(false);
     };
   }, []);
@@ -168,7 +150,8 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     overrides,
     updateTheme,
     updateActiveTheme,
-    isLoading
+    isLoading,
+    resetThemes: () => api.emit(events.reset)
   };
 
   return (

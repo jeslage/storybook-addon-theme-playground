@@ -15,11 +15,13 @@ const Panel = () => {
     themes,
     activeTheme: { theme, name },
     updateActiveTheme,
-    config
+    config,
+    resetThemes
   } = React.useContext(SettingsContext);
 
   return (
     <StyledPanel>
+      <button onClick={() => resetThemes()}>RESET</button>
       {Object.entries(theme).length > 0 && (
         <>
           <div className="panel__content">

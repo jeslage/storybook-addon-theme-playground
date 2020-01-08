@@ -54,4 +54,5 @@ export type SettingsContextProps = {
   isLoading: boolean;
   updateTheme: (path: any, value: any) => void;
   updateActiveTheme: (obj: ThemeObject) => void;
+  resetThemes: () => void;
 };

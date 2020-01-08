@@ -35,17 +35,18 @@ export const withThemePlayground = (options: ThemeProviderProps) => story => {
   React.useEffect(() => {
     channel.on(events.updateTheme, t => {
       setCurrentTheme(t);
-
-      // Set themes on every theme update due to immutability
-      // if (Array.isArray(theme)) {
-      //   channel.emit(events.setThemes, theme);
-      // }
     });
+    channel.on(events.reset, () =>
+      channel.emit(events.resetOptions, { theme, overrides, config })
+    );
 
     channel.emit(events.receiveOptions, { theme, overrides, config });
 
     return () => {
       channel.removeListener(events.updateTheme, t => setCurrentTheme(t));
+      channel.removeListener(events.reset, () =>
+        channel.emit(events.resetOptions, { theme, overrides, config })
+      );
     };
   }, []);
 
