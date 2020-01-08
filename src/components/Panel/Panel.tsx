@@ -21,7 +21,6 @@ const Panel = () => {
 
   return (
     <StyledPanel>
-      <button onClick={() => resetThemes()}>RESET</button>
       {Object.entries(theme).length > 0 && (
         <>
           <div className="panel__content">
@@ -43,8 +42,12 @@ const Panel = () => {
             )}
             <SettingsItem />
             {config.showCode && <Code value={theme} />}
-
-            <Loading />
+            <div className="panel__settings">
+              <Loading />
+              <button className="panel__reset" onClick={() => resetThemes()}>
+                Reset
+              </button>
+            </div>
           </div>
         </>
       )}

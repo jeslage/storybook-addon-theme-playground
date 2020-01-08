@@ -3,7 +3,6 @@ import { getTextColor, getBorderColor } from '../../helper';
 
 const StyledCode = styled.div`
   margin: 1.5rem 1rem;
-  padding-bottom: 1.5rem;
 
   .code__wrapper {
     position: relative;

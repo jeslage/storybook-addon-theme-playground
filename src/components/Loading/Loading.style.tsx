@@ -6,20 +6,12 @@ interface LoadingProps {
 }
 
 const StyledLoading = styled.div<LoadingProps>`
-  position: sticky;
-  display: ${props => (props.isLoading ? 'inline-flex' : 'none')};
+  pointer-events: none;
+  display: inline-flex;
+  visibility: ${props => (props.isLoading ? 'visible' : 'hidden')};
   align-items: center;
-  justify-content: center;
-  bottom: 1rem;
-  background: ${props => props.theme.background.app};
-  border: 1px solid ${props => props.theme.color.border};
-  color: ${({ theme }) => getPrimaryColor(theme)};
-  border-radius: 5px;
-  left: 50%;
-  transform: translateX(-50%);
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
   padding: 0.5rem;
+  flex-grow: 2;
 
   div {
     display: block;
