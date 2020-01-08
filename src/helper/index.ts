@@ -95,6 +95,10 @@ export const getTextColor = theme => {
   return theme.color.defaultText;
 };
 
+export const getInverseTextColor = theme => {
+  return theme.color.inverseText;
+};
+
 export const getBorderColor = theme => {
-  return theme.base === 'dark' ? theme.color.dark : theme.color.medium;
+  return theme.base === 'dark' ? theme.color.light : theme.color.dark;
 };

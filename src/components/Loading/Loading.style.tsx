@@ -7,11 +7,15 @@ interface LoadingProps {
 
 const StyledLoading = styled.div<LoadingProps>`
   pointer-events: none;
-  display: inline-flex;
+  display: ${props => (props.isLoading ? 'inline-flex' : 'none')};
   visibility: ${props => (props.isLoading ? 'visible' : 'hidden')};
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 3rem;
   flex-grow: 2;
+  margin-right: 1rem;
+  background-color: ${({ theme }) => theme.background.content};
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
 
   div {
     display: block;

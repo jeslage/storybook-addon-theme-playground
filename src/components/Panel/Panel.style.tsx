@@ -17,32 +17,28 @@ const StyledPanel = styled.div`
     background: ${props => props.theme.background.app};
   }
 
-  .panel__settings {
+  .panel__settings-wrapper {
     position: sticky;
     bottom: -1px;
     left: 0;
     display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
+    justify-content: flex-end;
     z-index: 100;
-    background: ${props => props.theme.background.content};
-    border-top: 1px solid ${props => props.theme.color.border};
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
   }
 
-  .panel__reset {
-    outline: none;
-    background-color: ${props => props.theme.color.mediumlight};
-    border: none;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s ease-in-out;
+  .panel__settings {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 
-    &:hover {
-      background-color: ${props => props.theme.color.medium};
-    }
+  .panel__buttons {
+    border-radius: 1rem 0 0 0;
+    background: ${props => props.theme.background.content};
+    border-top: 1px solid ${props => props.theme.color.border};
+    border-left: 1px solid ${props => props.theme.color.border};
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    padding: 0 0.75rem;
   }
 `;
 

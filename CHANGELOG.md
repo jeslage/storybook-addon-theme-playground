@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `debounceRate` to config
 - Loading state for debounced theme updates
 - HSL and default css colors for color value check
+- Reset button
 
 ### Changed
 

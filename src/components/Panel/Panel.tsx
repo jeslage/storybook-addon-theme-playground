@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Icons } from '@storybook/components';
+
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
 import Code from '../Code/Code';
@@ -9,6 +11,7 @@ import RadioGroup from '../RadioGroup/RadioGroup';
 import RadioOption from '../RadioOption/RadioOption';
 
 import StyledPanel from './Panel.style';
+import Button from '../Button/Button';
 
 const Panel = () => {
   const {
@@ -42,11 +45,16 @@ const Panel = () => {
             )}
             <SettingsItem />
             {config.showCode && <Code value={theme} />}
-            <div className="panel__settings">
-              <Loading />
-              <button className="panel__reset" onClick={() => resetThemes()}>
-                Reset
-              </button>
+            <div className="panel__settings-wrapper">
+              <div className="panel__settings">
+                <Loading />
+                <div className="panel__buttons">
+                  <Button onClick={() => resetThemes()}>
+                    <Icons icon="undo" />
+                    Reset
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </>

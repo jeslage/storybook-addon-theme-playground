@@ -1,36 +1,36 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper';
+import { getPrimaryColor, getInverseTextColor } from '../../helper';
 
 const StyledButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   outline: none;
-  background: none;
-  text-transform: uppercase;
-  margin: 1em 0;
-  padding: 12px 20px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 11px;
   cursor: pointer;
-  border-radius: 30px;
-  width: 100%;
-  border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+  margin: 0.5rem 0.25rem;
+  border: 0;
+  border-radius: 3em;
+  padding: 0.75rem 1rem;
+  text-align: center;
+  transition: all 150ms ease-out;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
   color: ${({ theme }) => getPrimaryColor(theme)};
+  background: transparent;
+  border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
 
   &:active {
-    color: ${({ theme }) => getPrimaryColor(theme)};
-  }
-
-  &[disabled] {
-    opacity: 0.3;
+    background: ${({ theme }) => getPrimaryColor(theme)};
+    color: ${({ theme }) => getInverseTextColor(theme)};
   }
 
   svg {
-    height: 15px;
-    width: auto;
-    fill: ${({ theme }) => getPrimaryColor(theme)};
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+    margin-right: 6px;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    pointer-events: none;
   }
 `;
 
