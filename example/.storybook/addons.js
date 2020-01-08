@@ -1,1 +1,1 @@
-import 'storybook-addon-theme-playground/register';
+import 'storybook-addon-theme-playground/dist/register';
