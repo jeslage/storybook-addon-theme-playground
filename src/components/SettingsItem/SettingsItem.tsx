@@ -34,7 +34,7 @@ const Component: React.FC<ComponentProps> = ({
 }) => {
   const { value, label } = props;
   const unit = unitMatch(value);
-
+  console.log('RENDER', label);
   if (overrideProps && overrideProps.hidden) return null;
 
   switch (type) {
@@ -108,10 +108,23 @@ const Component: React.FC<ComponentProps> = ({
   }
 };
 
-export const MemoizedComponent = React.memo(
-  Component,
-  (prev, next) => prev.props.value === next.props.value
-);
+const areEqual = (prev, next) => {
+  const prevDescription =
+    prev.overrideProps && prev.overrideProps.description
+      ? prev.overrideProps.description
+      : null;
+
+  const nextDescription =
+    next.overrideProps && next.overrideProps.description
+      ? next.overrideProps.description
+      : null;
+
+  return (
+    prev.props.value === next.props.value && prevDescription === nextDescription
+  );
+};
+
+export const MemoizedComponent = React.memo(Component, areEqual);
 
 const SettingsItem = () => {
   const {

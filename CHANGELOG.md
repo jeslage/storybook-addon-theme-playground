@@ -10,13 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Ability to hide specific theme values or objects
-- Added debounceRate to config
+- Added `debounceRate` to config
 - Loading state for debounced theme updates
 - HSL and default css colors for color value check
 
 ### Changed
 
-- State handling inside panel and settings contexxt
+- State handling inside settings context
+- Memoized values on `RadioGroup` and settings components
 
 ## [1.1.0]- 2020-01-05
 
