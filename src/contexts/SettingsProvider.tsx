@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { setValue } from '../helper';
+import { updateValueBasedOnPath } from '../helper';
 import {
   Theme,
   ThemesArray,
@@ -71,7 +71,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     }
   }, [activeTheme]);
 
-  const getInitialOptions = (options: OptionsType) => {
+  const getInitialOptions = React.useCallback((options: OptionsType) => {
     const { theme, overrides, config } = options;
 
     if (Array.isArray(theme)) {
@@ -109,7 +109,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
 
       setConfig(prev => ({ ...prev, ...config }));
     }
-  };
+  }, []);
 
   React.useEffect(() => {
     api.on(events.receiveOptions, getInitialOptions);
@@ -123,26 +123,33 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     };
   }, []);
 
-  const updateTheme = (path: string, value: any) => {
-    const { theme, name } = activeTheme;
+  const updateTheme = React.useCallback(
+    (path: string, value: any) => {
+      const { theme, name } = activeTheme;
 
-    const newTheme: Theme = theme;
-    setValue(path, value, newTheme);
+      // Update theme object value based on path and set active theme state
+      const newTheme: Theme = theme;
+      updateValueBasedOnPath(path, value, newTheme);
+      setActiveTheme({ name, theme: newTheme });
 
-    setActiveTheme({ name, theme: newTheme });
+      // Set new theme components state
+      setThemeComponents(prev => ({
+        ...prev,
+        [name]: {
+          ...prev[name],
+          [path]: { type: prev[name][path].type, value }
+        }
+      }));
+    },
+    [activeTheme]
+  );
 
-    setThemeComponents(prev => ({
-      ...prev,
-      [name]: {
-        ...prev[name],
-        [path]: { type: prev[name][path].type, value }
-      }
-    }));
-  };
-
-  const updateActiveTheme = ({ name, theme }: ThemeObject) => {
-    setActiveTheme({ name, theme });
-  };
+  const updateActiveTheme = React.useCallback(
+    ({ name, theme }: ThemeObject) => {
+      setActiveTheme({ name, theme });
+    },
+    [activeTheme.theme]
+  );
 
   const providerValue: SettingsContextProps = {
     activeTheme,

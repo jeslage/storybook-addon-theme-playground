@@ -51,7 +51,11 @@ export const is = {
   }
 };
 
-export const setValue = (propertyPath: string, value: any, obj: object) => {
+export const updateValueBasedOnPath = (
+  propertyPath: string,
+  value: any,
+  obj: object
+) => {
   const newObj = obj;
 
   const properties: string[] = propertyPath.split('.');
@@ -65,7 +69,11 @@ export const setValue = (propertyPath: string, value: any, obj: object) => {
     )
       newObj[properties[0]] = {};
     // We iterate.
-    return setValue(properties.slice(1).join('.'), value, obj[properties[0]]);
+    return updateValueBasedOnPath(
+      properties.slice(1).join('.'),
+      value,
+      obj[properties[0]]
+    );
     // This is the last property - the one where to set the value
   }
 
