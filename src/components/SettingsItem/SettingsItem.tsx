@@ -34,7 +34,7 @@ const Component: React.FC<ComponentProps> = ({
 }) => {
   const { value, label } = props;
   const unit = unitMatch(value);
-  console.log('RENDER', label);
+
   if (overrideProps && overrideProps.hidden) return null;
 
   switch (type) {

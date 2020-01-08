@@ -71,8 +71,22 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     }
   }, [activeTheme]);
 
+  const updateThemeComponents = (theme: Theme, overrides: Overrides) => {
+    const components: { [key: string]: any } = {};
+
+    Array.isArray(theme)
+      ? theme.forEach(({ name, theme }) => {
+          components[name] = buildThemeComponents(theme, overrides);
+        })
+      : (components.__default = buildThemeComponents(theme, overrides));
+
+    setThemeComponents(components);
+  };
+
   const getInitialOptions = React.useCallback((options: OptionsType) => {
     const { theme, overrides, config } = options;
+
+    updateThemeComponents(theme, overrides);
 
     if (Array.isArray(theme)) {
       setThemes(theme);
@@ -82,13 +96,8 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
       theme.forEach(({ name, theme }) => {
         components[name] = buildThemeComponents(theme, overrides);
       });
-
-      setThemeComponents(components);
     } else {
       setActiveTheme({ name: '__default', theme });
-      setThemeComponents({
-        __default: buildThemeComponents(theme, overrides)
-      });
     }
 
     if (overrides) setOverrides(overrides);

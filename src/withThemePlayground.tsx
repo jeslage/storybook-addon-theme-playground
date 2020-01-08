@@ -37,9 +37,9 @@ export const withThemePlayground = (options: ThemeProviderProps) => story => {
       setCurrentTheme(t);
 
       // Set themes on every theme update due to immutability
-      if (Array.isArray(theme)) {
-        channel.emit(events.setThemes, theme);
-      }
+      // if (Array.isArray(theme)) {
+      //   channel.emit(events.setThemes, theme);
+      // }
     });
 
     channel.emit(events.receiveOptions, { theme, overrides, config });
