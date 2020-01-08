@@ -4,6 +4,7 @@ import { getPrimaryColor } from '../../helper';
 const StlyedColorPicker = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 
   .colorPicker__cover {
     position: fixed;

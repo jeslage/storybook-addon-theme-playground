@@ -4,7 +4,6 @@ import { getPrimaryColor, getInverseTextColor } from '../../helper';
 const StyledRadioOption = styled.label`
   position: relative;
   cursor: pointer;
-  font-weigt: bold;
   font-size: 12px;
 
   input {
@@ -21,7 +20,7 @@ const StyledRadioOption = styled.label`
   div {
     display: flex;
     align-items: center;
-    padding: 5px 10px;
+    padding: 0.5rem 0.75rem;
     margin: 0 0 0 10px;
     border-radius: 3rem;
     opacity: 0.5;

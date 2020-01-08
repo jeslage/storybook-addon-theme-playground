@@ -5,6 +5,7 @@ const StyledRange = styled.label`
   display: flex;
   align-items: center;
   position: relative;
+  width: 100%;
 
   span {
     margin-right: 10px;

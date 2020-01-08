@@ -13,7 +13,7 @@ const StyledPanel = styled.div`
 
   .panel__themes {
     padding: 1rem;
-    min-height: 55px;
+    min-height: 65px;
     background: ${props => props.theme.background.app};
   }
 

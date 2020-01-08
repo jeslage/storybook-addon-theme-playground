@@ -9,6 +9,7 @@ const StyledSwitch = styled.div<SwitchProps>`
   display: flex;
   align-items: center;
   margin: 1.5em 0;
+  width: 100%;
 
   button {
     position: relative;
