@@ -24,26 +24,26 @@ export const Color = styled.div`
 `;
 
 export const ColorPrimary = styled(Color)`
-  background: ${props => props.theme.color.primary};
+  background: ${({ theme }) => theme.color.primary};
 
   &:before {
-    content: "${props => props.theme.color.primary}";
+    content: "${({ theme }) => theme.color.primary}";
   }
 `;
 
 export const ColorSecondary = styled(Color)`
-  background: ${props => props.theme.color.secondary};
+  background: ${({ theme }) => theme.color.secondary};
 
   &:before {
-    content: "${props => props.theme.color.secondary}";
+    content: "${({ theme }) => theme.color.secondary}";
   }
 `;
 
 export const ColorTertiary = styled(Color)`
-  background: ${props => props.theme.color.tertiary};
+  background: ${({ theme }) => theme.color.tertiary};
 
   &:before {
-    content: "${props => props.theme.color.tertiary}";
+    content: "${({ theme }) => theme.color.tertiary}";
   }
 `;
 
@@ -63,15 +63,15 @@ export const Rect = styled.div`
 `;
 
 export const Headline = styled.h1`
-  font-family: ${props => props.theme.headline.fontFamily};
-  font-size: ${props => props.theme.headline.fontSize};
-  font-variation-settings: 'wght' ${props => props.theme.headline.fontWeight};
+  font-family: ${({ theme }) => theme.headline.fontFamily};
+  font-size: ${({ theme }) => theme.headline.fontSize};
+  font-weight: ${({ theme }) => theme.headline.fontWeight};
 `;
 
 export const Copy = styled.p`
-  font-family: ${props => props.theme.copy.fontFamily};
-  font-size: ${props => props.theme.copy.fontSize};
-  font-variation-settings: 'wght' ${props => props.theme.copy.fontWeight};
+  font-family: ${({ theme }) => theme.copy.fontFamily};
+  font-size: ${({ theme }) => theme.copy.fontSize};
+  font-weight: ${({ theme }) => theme.copy.fontWeight};
 `;
 
 export const Spacing = styled.div`
@@ -79,7 +79,7 @@ export const Spacing = styled.div`
   width: 50px;
   margin: 1rem;
   background: lightpink;
-  height: ${props => props.theme.spacings[0]}px;
+  height: ${({ theme }) => theme.spacings[0]}px;
 
   &:after {
     position: absolute;
@@ -89,27 +89,27 @@ export const Spacing = styled.div`
     text-align: center;
     font-family: "sans-serif";
     font-size: 12px;
-    content: "${props => props.theme.spacings[0]}";
+    content: "${({ theme }) => theme.spacings[0]}";
   }
 
   &:nth-of-type(2) {
-    height: ${props => props.theme.spacings[1]}px;
+    height: ${({ theme }) => theme.spacings[1]}px;
     &:after {
-      content: "${props => props.theme.spacings[1]}";
+      content: "${({ theme }) => theme.spacings[1]}";
     }
   }
 
   &:nth-of-type(3) {
-    height: ${props => props.theme.spacings[2]}px;
+    height: ${({ theme }) => theme.spacings[2]}px;
     &:after {
-      content: "${props => props.theme.spacings[2]}";
+      content: "${({ theme }) => theme.spacings[2]}";
     }
   }
 
   &:nth-of-type(4) {
-    height: ${props => props.theme.spacings[3]}px;
+    height: ${({ theme }) => theme.spacings[3]}px;
     &:after {
-      content: "${props => props.theme.spacings[3]}";
+      content: "${({ theme }) => theme.spacings[3]}";
     }
   }
 `;
