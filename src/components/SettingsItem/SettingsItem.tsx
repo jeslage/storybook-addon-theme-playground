@@ -32,7 +32,7 @@ const Component: React.FC<ComponentProps> = ({
 }) => {
   const { value, label } = props;
   const [val, unit] = stripUnit(value);
-  console.log(unit);
+
   if (overrideProps && overrideProps.hidden) return null;
 
   switch (type) {
