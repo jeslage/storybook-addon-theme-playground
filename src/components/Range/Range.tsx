@@ -7,12 +7,12 @@ import Label from '../Label/Label';
 export interface Props {
   iconBefore?: HTMLElement;
   label?: string;
-  onChange: (val: number) => void;
+  onChange: (val: number, suffix: string | undefined) => void;
   value: number;
   min?: number;
   max?: number;
   steps?: number;
-  suffix?: string;
+  suffix?: string | undefined;
   description?: string;
 }
 
@@ -28,7 +28,7 @@ const Range: React.FC<Props> = ({
   suffix
 }) => {
   const updateValue = (val: number) => {
-    if (onChange) onChange(val);
+    if (onChange) onChange(val, suffix);
   };
 
   const handleChange = (event: HandleChange) => {

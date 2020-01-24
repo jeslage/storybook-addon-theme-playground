@@ -13,6 +13,7 @@ import Range from '../Range/Range';
 import Shorthand from '../Shorthand/Shorthand';
 
 import { StyledSettingsItem } from './SettingsItem.style';
+import { stripUnit } from '../../helper/stripUnit';
 
 interface ComponentProps {
   type: string;
@@ -22,9 +23,6 @@ interface ComponentProps {
   update: (path: string, value: any) => void;
 }
 
-const unitMatch = (value: any) =>
-  value.toString().match(/^(\d+(?:\.\d+)?)(.*)$/);
-
 const Component: React.FC<ComponentProps> = ({
   type,
   path,
@@ -33,8 +31,8 @@ const Component: React.FC<ComponentProps> = ({
   update
 }) => {
   const { value, label } = props;
-  const unit = unitMatch(value);
-
+  const [val, unit] = stripUnit(value);
+  console.log(unit);
   if (overrideProps && overrideProps.hidden) return null;
 
   switch (type) {
@@ -51,9 +49,11 @@ const Component: React.FC<ComponentProps> = ({
       return (
         <Counter
           label={label}
-          suffix={unit && unit[2]}
-          value={parseFloat(unit[1])}
-          onChange={val => update(path, val)}
+          suffix={unit}
+          value={parseFloat(val)}
+          onChange={(val, suffix) =>
+            update(path, suffix ? `${val}${suffix}` : val)
+          }
           {...overrideProps}
         />
       );
@@ -61,9 +61,11 @@ const Component: React.FC<ComponentProps> = ({
       return (
         <Range
           label={props.label}
-          suffix={unit && unit[2]}
-          value={parseFloat(unit[1])}
-          onChange={val => update(path, `${val}${unit[2]}`)}
+          suffix={unit}
+          value={parseFloat(val)}
+          onChange={(val, suffix) =>
+            update(path, suffix ? `${val}${suffix}` : val)
+          }
           {...overrideProps}
         />
       );
