@@ -333,7 +333,5 @@ const overrides = {
 
 ## Roadmap
 
-- [x] Update themes state handling
-- [ ] Add reset button for theme states
 - [ ] Performance optimizations on multiple withThemeProvider decorators
 - [ ] Add testing

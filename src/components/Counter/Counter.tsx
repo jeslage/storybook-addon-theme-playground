@@ -7,13 +7,13 @@ import Label from '../Label/Label';
 export interface Props {
   iconBefore?: HTMLElement;
   label: string;
-  onChange: (val: number) => void;
+  onChange: (val: number, suffix: string | undefined) => void;
   value: number;
   description?: string;
   min?: number;
   max?: number;
   steps?: number;
-  suffix?: string;
+  suffix?: string | undefined;
 }
 
 const Counter: React.FC<Props> = ({
@@ -28,7 +28,7 @@ const Counter: React.FC<Props> = ({
   iconBefore
 }) => {
   const updateValue = (val: number) => {
-    onChange(val);
+    onChange(val, suffix);
   };
 
   const handleChange = (event: HandleChange) => {
