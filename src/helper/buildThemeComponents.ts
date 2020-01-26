@@ -14,6 +14,11 @@ const buildThemeComponents = (
     const path = [...arr, key];
     const pathString = path.join('.');
 
+    // Return if component is hidden
+    if (overrides[pathString] && overrides[pathString].hidden) {
+      return;
+    }
+
     if (overrides[pathString] && overrides[pathString].type) {
       themeComponents[pathString] = { type: overrides[pathString].type, value };
     } else if (is.object(value)) {
