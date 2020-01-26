@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed wrong memoization of settings components
+- Fixed `hidden` prop of override settings not being applied
 
 ## [1.2.1]- 2020-01-24
 
