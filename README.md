@@ -1,8 +1,6 @@
 # storybook-addon-theme-playground
 
 [![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://www.npmjs.com/package/storybook-addon-theme-playground)
-[![npm downloads](https://img.shields.io/npm/dw/storybook-addon-theme-playground.svg?style=flat)](https://www.npmjs.com/package/storybook-addon-theme-playground)
-[![license](https://img.shields.io/npm/l/storybook-addon-theme-playground)](https://www.npmjs.com/package/storybook-addon-theme-playground)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
@@ -188,8 +186,7 @@ const overrides = {
     description: 'Spacing for all buttons',
     min: 1,
     max: 20,
-    steps: 1,
-    suffix: 'rem'
+    steps: 1
   },
   'button.color.primary': {
     type: 'color',
@@ -240,8 +237,7 @@ const overrides = {
   description: String | null,
   min: Number | 0,
   max: Number | 100,
-  steps: Number | 1,
-  suffix: String | null
+  steps: Number | 1
 }
 ```
 
@@ -294,8 +290,7 @@ const overrides = {
   description: String | null,
   min: Number | 0,
   max: Number | 100,
-  steps: Number | 1,
-  suffix: String | null
+  steps: Number | 1
 }
 ```
 

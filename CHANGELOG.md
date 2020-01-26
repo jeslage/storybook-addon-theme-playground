@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.2]- 2020-01-26
+
+### Fixed
+
+- Fixed wrong memoization of settings components
+- Fixed `hidden` prop of override settings not being applied
+
 ## [1.2.1]- 2020-01-24
 
 ### Fixed
@@ -55,7 +62,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.1...develop
+[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.2...develop
+[1.2.2]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.0.1...v1.1.0

@@ -33,8 +33,6 @@ const Component: React.FC<ComponentProps> = ({
   const { value, label } = props;
   const [val, unit] = stripUnit(value);
 
-  if (overrideProps && overrideProps.hidden) return null;
-
   switch (type) {
     case 'colorpicker':
       return (
@@ -111,18 +109,12 @@ const Component: React.FC<ComponentProps> = ({
 };
 
 const areEqual = (prev, next) => {
-  const prevDescription =
-    prev.overrideProps && prev.overrideProps.description
-      ? prev.overrideProps.description
-      : null;
-
-  const nextDescription =
-    next.overrideProps && next.overrideProps.description
-      ? next.overrideProps.description
-      : null;
+  const prevOverrideProps = prev.overrideProps ? prev.overrideProps : null;
+  const nextOverrideProps = next.overrideProps ? next.overrideProps : null;
 
   return (
-    prev.props.value === next.props.value && prevDescription === nextDescription
+    prev.props.value === next.props.value &&
+    JSON.stringify(prevOverrideProps) === JSON.stringify(nextOverrideProps)
   );
 };
 
