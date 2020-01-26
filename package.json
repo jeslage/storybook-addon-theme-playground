@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Select between themes and tweak them directly in a panel.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
