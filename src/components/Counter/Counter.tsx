@@ -16,6 +16,11 @@ export interface Props {
   suffix?: string | undefined;
 }
 
+const countDecimals = (number: number) => {
+  if (Math.floor(number) === number) return 0;
+  return number.toString().split('.')[1].length || 0;
+};
+
 const Counter: React.FC<Props> = ({
   label,
   description,
@@ -27,6 +32,7 @@ const Counter: React.FC<Props> = ({
   suffix,
   iconBefore
 }) => {
+  const fixedNumber = countDecimals(steps);
   const updateValue = (val: number) => {
     onChange(val, suffix);
   };
@@ -37,7 +43,7 @@ const Counter: React.FC<Props> = ({
 
     if (validity.valid) {
       if (eventValue !== '') {
-        updateValue(numberValue);
+        updateValue(parseFloat(numberValue.toFixed(fixedNumber)));
       } else {
         updateValue(0);
       }
@@ -62,7 +68,13 @@ const Counter: React.FC<Props> = ({
       <div className="counter__counter">
         <button
           type="button"
-          onClick={() => updateValue(value - steps)}
+          onClick={() =>
+            updateValue(
+              value - steps >= min
+                ? parseFloat((value - steps).toFixed(fixedNumber))
+                : min
+            )
+          }
           disabled={value === min}
           aria-label="Decrease"
         >
@@ -82,7 +94,13 @@ const Counter: React.FC<Props> = ({
         </span>
         <button
           type="button"
-          onClick={() => updateValue(value + steps)}
+          onClick={() =>
+            updateValue(
+              value + steps <= max
+                ? parseFloat((value + steps).toFixed(fixedNumber))
+                : max
+            )
+          }
           disabled={value === max}
           aria-label="Increase"
         >
