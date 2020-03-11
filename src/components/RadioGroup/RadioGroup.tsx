@@ -1,8 +1,13 @@
 import * as React from 'react';
 
 import StyledRadioGroup from './RadioGroup.style';
-import RadioOption, { RadioOptionProps } from '../RadioOption/RadioOption';
+import RadioOption from '../RadioOption/RadioOption';
 import Label from '../Label/Label';
+
+type RadioOptions = {
+  label: string;
+  value: string;
+};
 export interface RadioGroupProps {
   iconBefore?: HTMLElement;
   label: string;
@@ -10,7 +15,7 @@ export interface RadioGroupProps {
   onChange: (val: string) => void;
   value: string;
   name: string;
-  children?: React.ReactNode;
+  options: RadioOptions[];
 }
 
 const RadioGroup: React.FC<RadioGroupProps> = ({
@@ -20,31 +25,25 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   name,
   value,
   onChange,
-  children
+  options
 }) => {
   return (
     <StyledRadioGroup>
       <Label iconBefore={iconBefore} label={label} description={description} />
 
-      {React.Children.map(
-        children,
-        (child: React.ReactElement<RadioOptionProps>) => {
-          if (child.type !== RadioOption) return;
-          return React.cloneElement(child, {
-            onChange,
-            name,
-            label: child.props.label,
-            value: child.props.value,
-            icon: child.props.icon,
-            isChecked: child.props.value === value
-          });
-        }
-      )}
+      {options &&
+        options.map(item => (
+          <RadioOption
+            key={item.value}
+            label={item.label}
+            value={item.value}
+            name={name}
+            onChange={() => onChange(item.value)}
+            isChecked={value === item.value}
+          />
+        ))}
     </StyledRadioGroup>
   );
 };
 
-export default React.memo(
-  RadioGroup,
-  (prev, next) => prev.value === next.value
-);
+export default RadioGroup;

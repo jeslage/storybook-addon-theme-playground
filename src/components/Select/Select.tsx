@@ -50,11 +50,13 @@ const Select: React.FC<Props> = ({
         }}
         name={name}
       >
-        {options.map(option => (
-          <option value={option.value} key={option.value}>
-            {option.label || option.value}
-          </option>
-        ))}
+        {options &&
+          options.length > 0 &&
+          options.map(option => (
+            <option value={option.value} key={option.value}>
+              {option.label || option.value}
+            </option>
+          ))}
       </select>
       <div className="select__icon" />
     </StyledSelect>
