@@ -34,8 +34,7 @@
   "lint-staged": {
     "*.@(ts|tsx)": [
       "yarn lint",
-      "yarn prettier-write",
-      "git add"
+      "yarn prettier-write"
     ]
   },
   "dependencies": {
