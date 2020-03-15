@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `Select` and `RadioGroup` to override components
 
+### Changed
+
+- `Select` component to also accept number as value
+
 ### Fixed
 
 - `Counter` value handling

@@ -180,7 +180,7 @@ const SettingsItem = () => {
 
           return activeComponents[path] ? (
             <StyledSettingsItem key={path}>
-              <Component {...componentProps} />
+              <MemoizedComponent {...componentProps} />
             </StyledSettingsItem>
           ) : null;
         })}

@@ -251,7 +251,7 @@ const overrides = {
   description: String | null
   options: [
     {
-      value: String,
+      value: String | Number,
       label: String
     }
   ]

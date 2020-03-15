@@ -1,55 +1,46 @@
 import * as React from 'react';
 
-import StyledSelect from './Select.style';
 import Label from '../Label/Label';
+import StyledSelect from './Select.style';
 
-export interface Props {
+type OptionValue = string | number;
+
+type Option<T extends OptionValue> = {
+  value: T;
+  label?: string;
+};
+export interface SelectProps<T extends OptionValue> {
   iconBefore?: HTMLElement;
   label?: string;
   description?: string;
   name?: string;
-  onChange: (val: string) => void;
-  value: string;
-  options: Array<Option>;
+  onChange: (val: T) => void;
+  value: T;
+  options: Option<T>[];
 }
 
-export interface Option {
-  value: string;
-  label?: string;
-}
+function Select<T extends OptionValue>(props: SelectProps<T>) {
+  const {
+    options,
+    iconBefore,
+    value,
+    label,
+    description,
+    name,
+    onChange
+  } = props;
 
-const Select: React.FC<Props> = ({
-  options,
-  iconBefore,
-  value,
-  label,
-  description,
-  name,
-  onChange
-}) => {
-  const [currentValue, setCurrentValue] = React.useState(value);
-
-  React.useEffect(() => {
-    setCurrentValue(value);
-  }, [value]);
+  function handleOnChange(e: React.FormEvent<HTMLSelectElement>) {
+    const { selectedIndex } = e.currentTarget;
+    const selectedOption = options[selectedIndex];
+    onChange(selectedOption.value);
+  }
 
   return (
     <StyledSelect htmlFor={label}>
       <Label iconBefore={iconBefore} label={label} description={description} />
 
-      <select
-        value={currentValue}
-        onChange={event => {
-          const { value } = event.target;
-
-          setCurrentValue(value);
-
-          if (onChange) {
-            onChange(value);
-          }
-        }}
-        name={name}
-      >
+      <select value={value} onChange={handleOnChange} name={name}>
         {options &&
           options.length > 0 &&
           options.map(option => (
@@ -61,6 +52,6 @@ const Select: React.FC<Props> = ({
       <div className="select__icon" />
     </StyledSelect>
   );
-};
+}
 
 export default Select;
