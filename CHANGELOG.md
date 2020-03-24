@@ -13,11 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `Select` component to also accept number as value
+- `Select` component to also accept number as a value
+- Updated dev dependencies
 
 ### Fixed
 
 - `Counter` value handling
+- [PR](https://github.com/jeslage/storybook-addon-theme-playground/pull/1): Bump acorn from 6.4.0 to 6.4.1.
 
 ## [1.2.2]- 2020-01-26
 
