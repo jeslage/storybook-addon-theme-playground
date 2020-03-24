@@ -251,7 +251,7 @@ const overrides = {
   description: String | null
   options: [
     {
-      value: String,
+      value: String | Number,
       label: String
     }
   ]
@@ -277,6 +277,23 @@ const overrides = {
   hidden: Boolean,
   label: String | 'Theme Path',
   description: String | null
+}
+```
+
+### RadioGroup
+
+```js
+'theme.path': {
+  type: 'radio',
+  hidden: Boolean,
+  label: String | 'Theme Path',
+  description: String | null
+  options: [
+    {
+      value: String,
+      label: String
+    }
+  ]
 }
 ```
 

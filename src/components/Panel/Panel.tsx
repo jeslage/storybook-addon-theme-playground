@@ -8,7 +8,6 @@ import Code from '../Code/Code';
 import SettingsItem from '../SettingsItem/SettingsItem';
 import Loading from '../Loading/Loading';
 import RadioGroup from '../RadioGroup/RadioGroup';
-import RadioOption from '../RadioOption/RadioOption';
 
 import StyledPanel from './Panel.style';
 import Button from '../Button/Button';
@@ -36,11 +35,8 @@ const Panel = () => {
                   onChange={val =>
                     updateActiveTheme(themes.filter(t => t.name === val)[0])
                   }
-                >
-                  {themes.map(t => (
-                    <RadioOption key={t.name} label={t.name} value={t.name} />
-                  ))}
-                </RadioGroup>
+                  options={themes.map(t => ({ label: t.name, value: t.name }))}
+                />
               </div>
             )}
             <SettingsItem />

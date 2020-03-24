@@ -1,29 +1,35 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Select between themes and tweak them directly in a panel.",
+  "keywords": [
+    "storybook",
+    "addon",
+    "theme",
+    "playground",
+    "react",
+    "typescript"
+  ],
+  "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
+  "repository": "jeslage/storybook-addon-theme-playground",
+  "license": "MIT",
+  "author": "Johannes Eslage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build:watch": "npm run clean && tsc -p . -w",
     "build": "npm run clean && tsc -p .",
+    "build:watch": "npm run clean && tsc -p . -w",
     "clean": "rimraf dist",
-    "lint": "eslint ./src --ext ts --ext tsx",
-    "prepublish": "yarn prettier-write && yarn lint && yarn type-check",
-    "prepare": "npm run build",
     "deploy-example": "cd example && yarn deploy",
+    "lint": "eslint ./src --ext ts --ext tsx",
+    "prepare": "npm run build",
     "prettier-write": "prettier --write \"src/**/*.tsx\"",
+    "prepublish": "yarn prettier-write && yarn lint && yarn type-check",
     "test": "echo \"No test specified\"",
     "type-check": "tsc --pretty --noEmit"
-  },
-  "author": "Johannes Eslage",
-  "license": "MIT",
-  "prettier": {
-    "printWidth": 80,
-    "singleQuote": true
   },
   "husky": {
     "hooks": {
@@ -34,9 +40,12 @@
   "lint-staged": {
     "*.@(ts|tsx)": [
       "yarn lint",
-      "yarn prettier-write",
-      "git add"
+      "yarn prettier-write"
     ]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "singleQuote": true
   },
   "dependencies": {
     "react-color": "^2.17.3"
@@ -44,34 +53,24 @@
   "devDependencies": {
     "@storybook/addons": "^5.2.8",
     "@storybook/react": "^5.2.8",
-    "@types/node": "^13.1.1",
-    "@types/react": "16.9.17",
+    "@types/node": "^13.9.3",
+    "@types/react": "16.9.25",
     "@types/react-color": "^3.0.1",
-    "@typescript-eslint/eslint-plugin": "^2.13.0",
-    "@typescript-eslint/parser": "^2.13.0",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
-    "husky": "^3.1.0",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.9",
+    "prettier": "^2.0.2",
     "rimraf": "^3.0.0",
     "typescript": "^3.7.4"
   },
   "peerDependencies": {
     "@storybook/addons": "^5.2.0",
     "@storybook/react": "^5.2.0"
-  },
-  "repository": "jeslage/storybook-addon-theme-playground",
-  "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
-  "keywords": [
-    "storybook",
-    "addon",
-    "theme",
-    "playground",
-    "react",
-    "typescript"
-  ]
+  }
 }

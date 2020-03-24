@@ -16,6 +16,11 @@ export interface Props {
   suffix?: string | undefined;
 }
 
+const countDecimals = (number: number) => {
+  if (Math.floor(number) === number) return 0;
+  return number.toString().split('.')[1].length || 0;
+};
+
 const Counter: React.FC<Props> = ({
   label,
   description,
@@ -27,31 +32,32 @@ const Counter: React.FC<Props> = ({
   suffix,
   iconBefore
 }) => {
+  const [counterValue, setCounterValue]: any = React.useState(value);
+
+  const fixedNumber = countDecimals(steps);
   const updateValue = (val: number) => {
+    setCounterValue(val);
     onChange(val, suffix);
   };
 
   const handleChange = (event: HandleChange) => {
     const { value: eventValue, validity } = event.target;
-    const numberValue: number = parseFloat(eventValue);
 
     if (validity.valid) {
-      if (eventValue !== '') {
-        updateValue(numberValue);
-      } else {
-        updateValue(0);
-      }
+      setCounterValue(eventValue);
     }
   };
 
   const handleBlur = (event: HandleChange) => {
     const { value: eventValue } = event.target;
-    const numberValue: number = parseFloat(eventValue);
+    const numberValue: number | string = parseFloat(eventValue);
 
     if (numberValue > max) {
       updateValue(max);
-    } else if (numberValue < min) {
+    } else if (numberValue < min || Number.isNaN(numberValue)) {
       updateValue(min);
+    } else {
+      updateValue(numberValue);
     }
   };
 
@@ -62,8 +68,14 @@ const Counter: React.FC<Props> = ({
       <div className="counter__counter">
         <button
           type="button"
-          onClick={() => updateValue(value - steps)}
-          disabled={value === min}
+          onClick={() =>
+            updateValue(
+              counterValue - steps >= min
+                ? parseFloat((counterValue - steps).toFixed(fixedNumber))
+                : min
+            )
+          }
+          disabled={counterValue === min}
           aria-label="Decrease"
         >
           <svg viewBox="0 0 24 24" width="24" height="24">
@@ -74,7 +86,7 @@ const Counter: React.FC<Props> = ({
           <input
             type="text"
             pattern="[0-9.]*"
-            value={value}
+            value={counterValue}
             onChange={handleChange}
             onBlur={handleBlur}
           />
@@ -82,8 +94,14 @@ const Counter: React.FC<Props> = ({
         </span>
         <button
           type="button"
-          onClick={() => updateValue(value + steps)}
-          disabled={value === max}
+          onClick={() =>
+            updateValue(
+              counterValue + steps <= max
+                ? parseFloat((counterValue + steps).toFixed(fixedNumber))
+                : max
+            )
+          }
+          disabled={counterValue === max}
           aria-label="Increase"
         >
           <svg viewBox="0 0 24 24" width="24" height="24">

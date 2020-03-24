@@ -11,7 +11,7 @@ export interface RadioOptionProps {
   isChecked?: boolean;
 }
 
-const RadioGroup: React.FC<RadioOptionProps> = ({
+const RadioOption: React.FC<RadioOptionProps> = ({
   label,
   name,
   value,
@@ -38,4 +38,4 @@ const RadioGroup: React.FC<RadioOptionProps> = ({
   );
 };
 
-export default RadioGroup;
+export default RadioOption;
