@@ -17,7 +17,7 @@ const RadioOption: React.FC<RadioOptionProps> = ({
   value,
   onChange,
   isChecked,
-  icon
+  icon,
 }) => {
   return (
     <StyledRadioOption htmlFor={value}>

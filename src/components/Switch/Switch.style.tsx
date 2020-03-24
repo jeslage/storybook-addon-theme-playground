@@ -33,14 +33,14 @@ const StyledSwitch = styled.div<SwitchProps>`
       height: 20px;
       border-radius: 20px;
       background: ${({ theme }) => getPrimaryColor(theme)};
-      transform: translateX(${props => (props.active ? '30px' : '0')});
+      transform: translateX(${(props) => (props.active ? '30px' : '0')});
       will-change: transform;
       transition: transform 0.2s ease-in-out;
 
       svg {
-        fill: ${props => props.theme.background.app};
+        fill: ${(props) => props.theme.background.app};
         fill-opacity: 0;
-        stroke: ${props => props.theme.background.app};
+        stroke: ${(props) => props.theme.background.app};
         stroke-width: 3;
         stroke-linecap: round;
         stroke-linejoin: round;

@@ -27,7 +27,7 @@ function Select<T extends OptionValue>(props: SelectProps<T>) {
     label,
     description,
     name,
-    onChange
+    onChange,
   } = props;
 
   function handleOnChange(e: React.FormEvent<HTMLSelectElement>) {
@@ -43,7 +43,7 @@ function Select<T extends OptionValue>(props: SelectProps<T>) {
       <select value={value} onChange={handleOnChange} name={name}>
         {options &&
           options.length > 0 &&
-          options.map(option => (
+          options.map((option) => (
             <option value={option.value} key={option.value}>
               {option.label || option.value}
             </option>

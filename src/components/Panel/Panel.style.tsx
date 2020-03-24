@@ -14,7 +14,7 @@ const StyledPanel = styled.div`
   .panel__themes {
     padding: 1rem;
     min-height: 65px;
-    background: ${props => props.theme.background.app};
+    background: ${(props) => props.theme.background.app};
   }
 
   .panel__settings-wrapper {
@@ -34,9 +34,9 @@ const StyledPanel = styled.div`
 
   .panel__buttons {
     border-radius: 1rem 0 0 0;
-    background: ${props => props.theme.background.content};
-    border-top: 1px solid ${props => props.theme.color.border};
-    border-left: 1px solid ${props => props.theme.color.border};
+    background: ${(props) => props.theme.background.content};
+    border-top: 1px solid ${(props) => props.theme.color.border};
+    border-left: 1px solid ${(props) => props.theme.color.border};
     box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
     padding: 0 0.75rem;
   }

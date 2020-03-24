@@ -25,7 +25,7 @@ const Range: React.FC<Props> = ({
   max = 100,
   steps = 1,
   description,
-  suffix
+  suffix,
 }) => {
   const updateValue = (val: number) => {
     if (onChange) onChange(val, suffix);
@@ -75,7 +75,7 @@ const Range: React.FC<Props> = ({
         min={min}
         max={max}
         value={value}
-        onChange={e => updateValue(parseFloat(e.target.value))}
+        onChange={(e) => updateValue(parseFloat(e.target.value))}
       />
     </StyledRange>
   );

@@ -30,7 +30,7 @@ const Counter: React.FC<Props> = ({
   onChange,
   value,
   suffix,
-  iconBefore
+  iconBefore,
 }) => {
   const [counterValue, setCounterValue]: any = React.useState(value);
 

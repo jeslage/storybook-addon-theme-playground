@@ -11,7 +11,7 @@ interface ThemeProviderProps {
   config: ConfigProps;
 }
 
-export const withThemePlayground = (options: ThemeProviderProps) => story => {
+export const withThemePlayground = (options: ThemeProviderProps) => (story) => {
   const { theme, provider, overrides, config } = options;
 
   if (!provider) {
@@ -33,7 +33,7 @@ export const withThemePlayground = (options: ThemeProviderProps) => story => {
   const ThemeProvider = provider;
 
   React.useEffect(() => {
-    channel.on(events.updateTheme, t => {
+    channel.on(events.updateTheme, (t) => {
       setCurrentTheme(t);
     });
     channel.on(events.reset, () =>
@@ -43,7 +43,7 @@ export const withThemePlayground = (options: ThemeProviderProps) => story => {
     channel.emit(events.receiveOptions, { theme, overrides, config });
 
     return () => {
-      channel.removeListener(events.updateTheme, t => setCurrentTheme(t));
+      channel.removeListener(events.updateTheme, (t) => setCurrentTheme(t));
       channel.removeListener(events.reset, () =>
         channel.emit(events.resetOptions, { theme, overrides, config })
       );
