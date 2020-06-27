@@ -1,52 +1,76 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
 import addons from '@storybook/addons';
 
 import { Theme, ConfigProps } from './types';
 import events from './events';
 
-interface ThemeProviderProps {
+interface ThemePlaygroundProps {
   theme: Theme;
   provider: any;
   overrides: object;
   config: ConfigProps;
 }
 
-export const withThemePlayground = (options: ThemeProviderProps) => (story) => {
-  const { theme, provider, overrides, config } = options;
+type ThemePlaygroundState = Theme;
 
-  if (!provider) {
+export class WithThemePlayground extends React.Component<
+  ThemePlaygroundProps,
+  ThemePlaygroundState
+> {
+  state = Array.isArray(this.props.theme)
+    ? this.props.theme[0].theme
+    : this.props.theme;
+
+  channel = addons.getChannel();
+
+  handleReset = () => {
+    const { theme, config, overrides } = this.props;
+    return this.channel.emit(events.resetOptions, { theme, config, overrides });
+  };
+
+  componentDidMount() {
+    const { theme, config, overrides } = this.props;
+
+    this.channel.on(events.updateTheme, (t) => this.setState(t));
+    this.channel.on(events.reset, this.handleReset);
+
+    this.channel.emit(events.receiveOptions, { theme, config, overrides });
+  }
+
+  componentWillUnmount() {
+    this.channel.removeListener(events.updateTheme, (t) => this.setState(t));
+    this.channel.removeListener(events.reset, this.handleReset);
+  }
+
+  render() {
+    const ThemeProvider = this.props.provider;
+
+    return (
+      <ThemeProvider theme={this.state}>{this.props.children}</ThemeProvider>
+    );
+  }
+}
+
+export const withThemePlayground = (props: ThemePlaygroundProps) => {
+  if (!props.provider) {
     throw Error(
       'Missing ThemeProvider in withThemePlayground decorator options.'
     );
   }
 
-  if (!theme) {
+  if (!props.theme) {
     throw Error('Missing theme key in withThemePlayground decorator options.');
   }
 
-  const channel = addons.getChannel();
-
-  const [currentTheme, setCurrentTheme] = React.useState(
-    Array.isArray(theme) ? theme[0].theme : theme
+  return (storyFn) => (
+    <WithThemePlayground
+      theme={props.theme}
+      provider={props.provider}
+      config={props.config}
+      overrides={props.overrides}
+    >
+      {storyFn()}
+    </WithThemePlayground>
   );
-
-  const ThemeProvider = provider;
-
-  const handleReset = () => {
-    return channel.emit(events.resetOptions, { theme, overrides, config });
-  };
-
-  React.useEffect(() => {
-    channel.on(events.updateTheme, setCurrentTheme);
-    channel.on(events.reset, handleReset);
-
-    channel.emit(events.receiveOptions, { theme, overrides, config });
-
-    return () => {
-      channel.removeListener(events.updateTheme, setCurrentTheme);
-      channel.removeListener(events.reset, handleReset);
-    };
-  }, []);
-
-  return <ThemeProvider theme={currentTheme}>{story()}</ThemeProvider>;
 };

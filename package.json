@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Select between themes and tweak them directly in a panel.",
   "keywords": [
     "storybook",
@@ -33,8 +33,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn run type-check"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
