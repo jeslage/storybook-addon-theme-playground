@@ -18,7 +18,7 @@ const Panel = () => {
     activeTheme: { theme, name },
     updateActiveTheme,
     config,
-    resetThemes
+    resetThemes,
   } = React.useContext(SettingsContext);
 
   return (
@@ -32,10 +32,13 @@ const Panel = () => {
                   label="Active Theme"
                   name="themes"
                   value={name}
-                  onChange={val =>
-                    updateActiveTheme(themes.filter(t => t.name === val)[0])
+                  onChange={(val) =>
+                    updateActiveTheme(themes.filter((t) => t.name === val)[0])
                   }
-                  options={themes.map(t => ({ label: t.name, value: t.name }))}
+                  options={themes.map((t) => ({
+                    label: t.name,
+                    value: t.name,
+                  }))}
                 />
               </div>
             )}

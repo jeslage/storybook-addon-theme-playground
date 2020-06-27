@@ -8,6 +8,6 @@ export const StyledSettingsItem = styled.div`
   justify-content: space-between;
 
   &:nth-of-type(odd) {
-    background: ${props => props.theme.background.app};
+    background: ${(props) => props.theme.background.app};
   }
 `;

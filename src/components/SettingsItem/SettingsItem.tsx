@@ -30,7 +30,7 @@ const Component: React.FC<ComponentProps> = ({
   path,
   overrideProps,
   props,
-  update
+  update,
 }) => {
   const { value, label } = props;
   const [val, unit] = stripUnit(value);
@@ -41,7 +41,7 @@ const Component: React.FC<ComponentProps> = ({
         <Colorpicker
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -74,7 +74,7 @@ const Component: React.FC<ComponentProps> = ({
         <Input
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -83,7 +83,7 @@ const Component: React.FC<ComponentProps> = ({
         <Shorthand
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -92,7 +92,7 @@ const Component: React.FC<ComponentProps> = ({
         <Switch
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -101,7 +101,7 @@ const Component: React.FC<ComponentProps> = ({
         <Textarea
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -110,7 +110,7 @@ const Component: React.FC<ComponentProps> = ({
         <Select
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -120,7 +120,7 @@ const Component: React.FC<ComponentProps> = ({
           label={label}
           value={value}
           name={label}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -129,7 +129,7 @@ const Component: React.FC<ComponentProps> = ({
         <Input
           label={label}
           value={value}
-          onChange={val => update(path, val)}
+          onChange={(val) => update(path, val)}
           {...overrideProps}
         />
       );
@@ -154,7 +154,7 @@ const SettingsItem = () => {
     overrides,
     config,
     themeComponents,
-    activeTheme: { name }
+    activeTheme: { name },
   } = React.useContext(SettingsContext);
 
   const activeComponents = themeComponents[name] || null;
@@ -162,12 +162,12 @@ const SettingsItem = () => {
   return (
     <>
       {activeComponents &&
-        Object.keys(activeComponents).map(path => {
+        Object.keys(activeComponents).map((path) => {
           const { value, type } = activeComponents[path];
           const label = getLabel(path, config.labelFormat);
           const props = {
             value,
-            label
+            label,
           };
 
           const componentProps = {
@@ -175,7 +175,7 @@ const SettingsItem = () => {
             path,
             props,
             overrideProps: overrides[path],
-            update: updateTheme
+            update: updateTheme,
           };
 
           return activeComponents[path] ? (

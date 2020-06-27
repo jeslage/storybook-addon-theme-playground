@@ -1,4 +1,4 @@
-import { startCase } from 'lodash';
+import { startCase } from 'lodash.startcase';
 import defaultCssColors from './defaultCssColors';
 
 export const getLabel = (label: string, format: any) => {
@@ -28,18 +28,18 @@ export const is = {
     defaultCssColors.includes(v.toLowerCase()) ||
     l.toLowerCase().includes('color'),
 
-  number: v => typeof v === 'number',
-  string: v => typeof v === 'string',
-  object: v => typeof v === 'object',
-  array: v => Array.isArray(v),
-  boolean: v => typeof v === 'boolean' || v === 'true' || v === 'false',
-  unit: v =>
+  number: (v) => typeof v === 'number',
+  string: (v) => typeof v === 'string',
+  object: (v) => typeof v === 'object',
+  array: (v) => Array.isArray(v),
+  boolean: (v) => typeof v === 'boolean' || v === 'true' || v === 'false',
+  unit: (v) =>
     v.endsWith('px') ||
     v.endsWith('rem') ||
     v.endsWith('em') ||
     v.endsWith('%'),
-  text: v => v.length >= 40,
-  shorthand: v => {
+  text: (v) => v.length >= 40,
+  shorthand: (v) => {
     const keys = Object.keys(v);
     return (
       keys.length === 4 &&
@@ -48,7 +48,7 @@ export const is = {
       keys.includes('right') &&
       keys.includes('left')
     );
-  }
+  },
 };
 
 export const updateValueBasedOnPath = (
@@ -83,22 +83,22 @@ export const updateValueBasedOnPath = (
   return true; // this is the end
 };
 
-export const getPrimaryColor = theme => {
+export const getPrimaryColor = (theme) => {
   return theme.base === 'dark' ? theme.color.lightest : theme.color.darkest;
 };
 
-export const getSecondaryColor = theme => {
+export const getSecondaryColor = (theme) => {
   return theme.color.mediumdark;
 };
 
-export const getTextColor = theme => {
+export const getTextColor = (theme) => {
   return theme.color.defaultText;
 };
 
-export const getInverseTextColor = theme => {
+export const getInverseTextColor = (theme) => {
   return theme.color.inverseText;
 };
 
-export const getBorderColor = theme => {
+export const getBorderColor = (theme) => {
   return theme.base === 'dark' ? theme.color.light : theme.color.dark;
 };

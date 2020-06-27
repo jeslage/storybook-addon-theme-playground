@@ -16,7 +16,7 @@ const Textarea: React.FC<Props> = ({
   iconBefore,
   description,
   value,
-  onChange
+  onChange,
 }) => {
   return (
     <StyledTextarea>
@@ -25,7 +25,7 @@ const Textarea: React.FC<Props> = ({
       <textarea
         rows={10}
         value={value}
-        onChange={event => onChange(event.target.value)}
+        onChange={(event) => onChange(event.target.value)}
       />
     </StyledTextarea>
   );

@@ -25,14 +25,14 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   name,
   value,
   onChange,
-  options
+  options,
 }) => {
   return (
     <StyledRadioGroup>
       <Label iconBefore={iconBefore} label={label} description={description} />
 
       {options &&
-        options.map(item => (
+        options.map((item) => (
           <RadioOption
             key={item.value}
             label={item.label}

@@ -26,7 +26,7 @@ const Shorthand: React.FC<Props> = ({
   description,
   value,
   onChange,
-  iconBefore
+  iconBefore,
 }) => {
   if (!is.object(value) && !is.shorthand(value)) {
     throw Error(
@@ -38,7 +38,7 @@ const Shorthand: React.FC<Props> = ({
   const updateValue = (key: string, val: number) => {
     const newValue = {
       ...value,
-      [key]: val
+      [key]: val,
     };
 
     onChange(newValue);

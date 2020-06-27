@@ -7,8 +7,8 @@ interface LoadingProps {
 
 const StyledLoading = styled.div<LoadingProps>`
   pointer-events: none;
-  display: ${props => (props.isLoading ? 'inline-flex' : 'none')};
-  visibility: ${props => (props.isLoading ? 'visible' : 'hidden')};
+  display: ${(props) => (props.isLoading ? 'inline-flex' : 'none')};
+  visibility: ${(props) => (props.isLoading ? 'visible' : 'hidden')};
   align-items: center;
   padding: 0.75rem 1rem;
   border-radius: 3rem;

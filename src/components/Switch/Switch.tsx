@@ -16,7 +16,7 @@ const Switch: React.FC<Props> = ({
   label,
   onChange,
   description,
-  value
+  value,
 }) => (
   <StyledSwitch active={value}>
     <Label iconBefore={iconBefore} label={label} description={description} />

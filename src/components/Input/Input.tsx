@@ -16,7 +16,7 @@ const Input: React.FC<Props> = ({
   iconBefore,
   description,
   value,
-  onChange
+  onChange,
 }) => {
   return (
     <StyledInput>
@@ -25,7 +25,7 @@ const Input: React.FC<Props> = ({
       <input
         type="text"
         value={value}
-        onChange={event => {
+        onChange={(event) => {
           const { value: eventValue } = event.target;
           onChange(eventValue);
         }}

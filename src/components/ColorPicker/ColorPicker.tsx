@@ -17,12 +17,12 @@ const ColorPicker: React.FC<Props> = ({
   description,
   label,
   onChange,
-  value
+  value,
 }) => {
   const [visible, setVisible] = React.useState(false);
   const content = React.useRef<HTMLDivElement>(null);
 
-  const handleOutsideClick = e => {
+  const handleOutsideClick = (e) => {
     if (content.current && !content.current.contains(e.target) && visible)
       setVisible(false);
   };
@@ -53,7 +53,7 @@ const ColorPicker: React.FC<Props> = ({
       <div className="colorPicker__wrapper">
         <button
           type="button"
-          onClick={() => setVisible(prev => !prev)}
+          onClick={() => setVisible((prev) => !prev)}
           aria-label="Open color picker"
           className="colorPicker__open"
         >

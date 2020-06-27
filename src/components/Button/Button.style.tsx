@@ -2,7 +2,7 @@ import { styled } from '@storybook/theming';
 import {
   getPrimaryColor,
   getInverseTextColor,
-  getBorderColor
+  getBorderColor,
 } from '../../helper';
 
 const StyledButton = styled.button`

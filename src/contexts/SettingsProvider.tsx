@@ -9,7 +9,7 @@ import {
   OptionsType,
   Overrides,
   SettingsContextProps,
-  SettingsProviderProps
+  SettingsProviderProps,
 } from '../types';
 import events from '../events';
 import buildThemeComponents from '../helper/buildThemeComponents';
@@ -18,7 +18,7 @@ const defaultConfig = {
   labelFormat: 'startCase',
   debounce: true,
   debounceRate: 500,
-  showCode: true
+  showCode: true,
 };
 
 const defaultProps = {
@@ -30,7 +30,7 @@ const defaultProps = {
   isLoading: false,
   updateTheme: () => {},
   updateActiveTheme: () => {},
-  resetThemes: () => {}
+  resetThemes: () => {},
 };
 
 export const SettingsContext = React.createContext<SettingsContextProps>(
@@ -39,13 +39,13 @@ export const SettingsContext = React.createContext<SettingsContextProps>(
 
 const SettingsProvider: React.FC<SettingsProviderProps> = ({
   api,
-  children
+  children,
 }) => {
   const [themeComponents, setThemeComponents] = React.useState({});
   const [themes, setThemes] = React.useState<ThemesArray>([]);
   const [activeTheme, setActiveTheme] = React.useState<ThemeObject>({
     name: '',
-    theme: {}
+    theme: {},
   });
 
   const [isMounted, setIsMounted] = React.useState(false);
@@ -99,7 +99,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     }
 
     if (overrides) setOverrides(overrides);
-    if (config) setConfig(prev => ({ ...prev, ...config }));
+    if (config) setConfig((prev) => ({ ...prev, ...config }));
   }, []);
 
   React.useEffect(() => {
@@ -124,12 +124,12 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
       setActiveTheme({ name, theme: newTheme });
 
       // Set new theme components state
-      setThemeComponents(prev => ({
+      setThemeComponents((prev) => ({
         ...prev,
         [name]: {
           ...prev[name],
-          [path]: { type: prev[name][path].type, value }
-        }
+          [path]: { type: prev[name][path].type, value },
+        },
       }));
     },
     [activeTheme]
@@ -151,7 +151,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     updateTheme,
     updateActiveTheme,
     isLoading,
-    resetThemes: () => api.emit(events.reset)
+    resetThemes: () => api.emit(events.reset),
   };
 
   return (
