@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `lodash.startcase` dependency
+
+### Fixed
+
+- [PR](https://github.com/jeslage/storybook-addon-theme-playground/pull/5): Bump websocket-extensions from 0.1.3 to 0.1.4
+
 ## [1.3.0]- 2020-03-24
 
 ### Added
