@@ -1,52 +1,74 @@
+/* eslint-disable react/display-name */
 import * as React from 'react';
-import addons from '@storybook/addons';
+import addons, { makeDecorator } from '@storybook/addons';
 
 import { Theme, ConfigProps } from './types';
 import events from './events';
 
-interface ThemeProviderProps {
-  theme: Theme;
-  provider: any;
-  overrides: object;
-  config: ConfigProps;
-}
+type ThemePlaygroundProps = {
+  channel: any;
+  story: any;
+  options: {
+    theme: Theme;
+    provider: any;
+    overrides: object;
+    config: ConfigProps;
+  };
+};
 
-export const withThemePlayground = (options: ThemeProviderProps) => (story) => {
-  const { theme, provider, overrides, config } = options;
+type ThemePlaygroundState = Theme;
 
-  if (!provider) {
-    throw Error(
-      'Missing ThemeProvider in withThemePlayground decorator options.'
-    );
-  }
+export class WithThemePlayground extends React.Component<
+  ThemePlaygroundProps,
+  ThemePlaygroundState
+> {
+  state = Array.isArray(this.props.options.theme)
+    ? this.props.options.theme[0].theme
+    : this.props.options.theme;
 
-  if (!theme) {
-    throw Error('Missing theme key in withThemePlayground decorator options.');
-  }
+  channel = this.props.channel ? this.props.channel : addons.getChannel();
 
-  const channel = addons.getChannel();
-
-  const [currentTheme, setCurrentTheme] = React.useState(
-    Array.isArray(theme) ? theme[0].theme : theme
-  );
-
-  const ThemeProvider = provider;
-
-  const handleReset = () => {
-    return channel.emit(events.resetOptions, { theme, overrides, config });
+  handleReset = () => {
+    return this.channel.emit(events.resetOptions, this.props.options);
   };
 
-  React.useEffect(() => {
-    channel.on(events.updateTheme, setCurrentTheme);
-    channel.on(events.reset, handleReset);
+  componentDidMount() {
+    this.channel.on(events.updateTheme, (t) => this.setState(t));
+    this.channel.on(events.reset, this.handleReset);
 
-    channel.emit(events.receiveOptions, { theme, overrides, config });
+    this.channel.emit(events.receiveOptions, this.props.options);
+  }
 
-    return () => {
-      channel.removeListener(events.updateTheme, setCurrentTheme);
-      channel.removeListener(events.reset, handleReset);
-    };
-  }, []);
+  componentWillUnmount() {
+    this.channel.removeListener(events.updateTheme, (t) => this.setState(t));
+    this.channel.removeListener(events.reset, this.handleReset);
+  }
 
-  return <ThemeProvider theme={currentTheme}>{story()}</ThemeProvider>;
-};
+  render() {
+    const { story, options } = this.props;
+
+    if (!options.provider) {
+      throw Error(
+        'Missing ThemeProvider in withThemePlayground decorator options.'
+      );
+    }
+
+    if (!options.theme) {
+      throw Error(
+        'Missing theme key in withThemePlayground decorator options.'
+      );
+    }
+
+    const ThemeProvider = options.provider;
+
+    return <ThemeProvider theme={this.state}>{story}</ThemeProvider>;
+  }
+}
+
+export const withThemePlayground = makeDecorator({
+  name: 'withThemePlayground',
+  parameterName: 'theme-playground',
+  wrapper: (getStory, context, { options }) => {
+    return <WithThemePlayground story={getStory(context)} options={options} />;
+  },
+});
