@@ -1,4 +1,4 @@
-import { startCase } from 'lodash.startcase';
+import * as startCase from 'lodash.startcase';
 import defaultCssColors from './defaultCssColors';
 
 export const getLabel = (label: string, format: any) => {
