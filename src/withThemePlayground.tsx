@@ -32,21 +32,19 @@ export const withThemePlayground = (options: ThemeProviderProps) => (story) => {
 
   const ThemeProvider = provider;
 
+  const handleReset = () => {
+    return channel.emit(events.resetOptions, { theme, overrides, config });
+  };
+
   React.useEffect(() => {
-    channel.on(events.updateTheme, (t) => {
-      setCurrentTheme(t);
-    });
-    channel.on(events.reset, () =>
-      channel.emit(events.resetOptions, { theme, overrides, config })
-    );
+    channel.on(events.updateTheme, setCurrentTheme);
+    channel.on(events.reset, handleReset);
 
     channel.emit(events.receiveOptions, { theme, overrides, config });
 
     return () => {
-      channel.removeListener(events.updateTheme, (t) => setCurrentTheme(t));
-      channel.removeListener(events.reset, () =>
-        channel.emit(events.resetOptions, { theme, overrides, config })
-      );
+      channel.removeListener(events.updateTheme, setCurrentTheme);
+      channel.removeListener(events.reset, handleReset);
     };
   }, []);
 
