@@ -221,9 +221,9 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'color',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
 }
 ```
 
@@ -232,12 +232,12 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'counter',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null,
-  min: Number | 0,
-  max: Number | 100,
-  steps: Number | 1
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null,
+  min: number | 0,
+  max: number | 100,
+  steps: number | 1
 }
 ```
 
@@ -246,13 +246,13 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'select',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
   options: [
     {
-      value: String | Number,
-      label: String
+      value: string | number,
+      label: string
     }
   ]
 }
@@ -263,9 +263,9 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'shorthand',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
 }
 ```
 
@@ -274,9 +274,9 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'switch',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
 }
 ```
 
@@ -285,13 +285,13 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'radio',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
   options: [
     {
-      value: String,
-      label: String
+      value: string,
+      label: string
     }
   ]
 }
@@ -302,12 +302,12 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'range',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null,
-  min: Number | 0,
-  max: Number | 100,
-  steps: Number | 1
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null,
+  min: number | 0,
+  max: number | 100,
+  steps: number | 1
 }
 ```
 
@@ -342,8 +342,3 @@ const overrides = {
 ### `Shorthand`
 
 > `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
-
-## Roadmap
-
-- [ ] Performance optimizations on multiple withThemeProvider decorators
-- [ ] Add testing
