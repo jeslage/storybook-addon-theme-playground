@@ -1,8 +1,6 @@
 import React from 'react';
-import { configure, addDecorator, addParameters } from '@storybook/react';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
+import { withThemePlayground, ThemePlaygroundProps } from '../../dist';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
-import { themes } from '@storybook/theming';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -19,17 +17,17 @@ const uiThemes = [
       headline: {
         fontFamily: "'Crimson Pro', sans-serif",
         fontWeight: 900,
-        fontSize: '32px'
+        fontSize: '32px',
       },
       copy: {
         fontFamily: "'Hepta Slab', serif",
         fontWeight: 100,
-        fontSize: '14px'
+        fontSize: '14px',
       },
       color: {
         primary: '#00ffa2',
         secondary: '#004466',
-        tertiary: '#fbe9a0'
+        tertiary: '#fbe9a0',
       },
       spacings: [40, 80, 120, 160],
       rectangle: {
@@ -39,10 +37,10 @@ const uiThemes = [
           top: 60,
           bottom: 60,
           left: 20,
-          right: 20
-        }
-      }
-    }
+          right: 20,
+        },
+      },
+    },
   },
   {
     name: 'Another Theme',
@@ -50,17 +48,17 @@ const uiThemes = [
       headline: {
         fontFamily: "'Hepta Slab', sans-serif",
         fontWeight: 700,
-        fontSize: '52px'
+        fontSize: '52px',
       },
       copy: {
         fontFamily: "'Crimson Pro', serif",
         fontWeight: 200,
-        fontSize: '20px'
+        fontSize: '20px',
       },
       color: {
         primary: '#ff9922',
         secondary: '#224422',
-        tertiary: '#662255'
+        tertiary: '#662255',
       },
       spacings: [20, 40, 60, 90],
       rectangle: {
@@ -70,14 +68,14 @@ const uiThemes = [
           top: 20,
           bottom: 20,
           left: 20,
-          right: 20
-        }
-      }
-    }
-  }
+          right: 20,
+        },
+      },
+    },
+  },
 ];
 
-const options = {
+const options: ThemePlaygroundProps = {
   theme: uiThemes,
   provider: ThemeProvider,
   overrides: {
@@ -85,30 +83,23 @@ const options = {
       type: 'range',
       max: 900,
       min: 1,
-      description: 'Define the font weight of the variable font'
+      description: 'Define the font weight of the variable font',
     },
     'copy.fontWeight': {
       type: 'range',
       max: 900,
       min: 1,
-      description: 'Define the font weight of the variable font'
-    }
-  }
+      description: 'Define the font weight of the variable font',
+    },
+  },
 };
 
-addParameters({
-  options: {
-    theme: themes.light
-  }
-});
-
-addDecorator(storyFn => (
-  <>
-    <GlobalStyles />
-    {storyFn()}
-  </>
-));
-
-addDecorator(withThemePlayground(options));
-
-configure(require.context('../stories', true, /\.stories\.js$/), module);
+export const decorators = [
+  (storyFn) => (
+    <>
+      <GlobalStyles />
+      {storyFn()}
+    </>
+  ),
+  withThemePlayground(options),
+];

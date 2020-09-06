@@ -13,8 +13,8 @@ const StyledCode = styled.div`
     border-radius: 5px;
     width: 100%;
     background: none;
-    border: 1px solid ${({ theme }) => getBorderColor(theme)};
-    color: ${({ theme }) => getTextColor(theme)};
+    border: 1px solid ${getBorderColor};
+    color: ${getTextColor};
   }
 
   pre {
@@ -36,11 +36,11 @@ const StyledCode = styled.div`
     font-size: 12px;
     cursor: pointer;
     background: none;
-    color: ${({ theme }) => getTextColor(theme)};
-    border: 1px solid ${({ theme }) => getBorderColor(theme)};
+    color: ${getTextColor};
+    border: 1px solid ${getBorderColor};
 
     &:active {
-      color: ${({ theme }) => getTextColor(theme)};
+      color: ${getTextColor};
     }
 
     &:disabled {

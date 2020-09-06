@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChromePicker } from 'react-color';
 
 import StyledColorPicker from './ColorPicker.style';
 import Label from '../Label/Label';
 
-export interface Props {
+export interface ColorPickerProps {
   iconBefore?: HTMLElement;
   description?: string;
   label: string;
@@ -12,22 +12,22 @@ export interface Props {
   value: string;
 }
 
-const ColorPicker: React.FC<Props> = ({
+const ColorPicker = ({
   iconBefore,
   description,
   label,
   onChange,
   value,
-}) => {
-  const [visible, setVisible] = React.useState(false);
-  const content = React.useRef<HTMLDivElement>(null);
+}: ColorPickerProps) => {
+  const [visible, setVisible] = useState(false);
+  const content = useRef<HTMLDivElement>(null);
 
   const handleOutsideClick = (e) => {
     if (content.current && !content.current.contains(e.target) && visible)
       setVisible(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener('mousedown', handleOutsideClick);
 
     return () => {

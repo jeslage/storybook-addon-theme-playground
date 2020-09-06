@@ -16,7 +16,7 @@ const StyledCounter = styled.div`
     margin: 0;
     outline: none;
     background: none;
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
     width: 30px;
     height: 30px;
     border-radius: 15px;
@@ -31,7 +31,7 @@ const StyledCounter = styled.div`
     }
 
     svg {
-      fill: ${({ theme }) => getPrimaryColor(theme)};
+      fill: ${getPrimaryColor};
       width: 22px;
       height: 22px;
     }
@@ -55,7 +55,7 @@ const StyledCounter = styled.div`
     background: none;
 
     &:focus {
-      border-color: ${({ theme }) => getPrimaryColor(theme)};
+      border-color: ${getPrimaryColor};
     }
   }
 `;

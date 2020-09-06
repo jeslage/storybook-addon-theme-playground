@@ -1,1 +1,4 @@
-export { withThemePlayground } from './withThemePlayground';
+export {
+  withThemePlayground,
+  ThemePlaygroundProps,
+} from './withThemePlayground';

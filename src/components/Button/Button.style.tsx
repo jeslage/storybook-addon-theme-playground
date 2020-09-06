@@ -17,20 +17,20 @@ const StyledButton = styled.button`
   font-size: 13px;
   font-weight: 700;
   line-height: 1;
-  color: ${({ theme }) => getPrimaryColor(theme)};
+  color: ${getPrimaryColor};
   background: transparent;
-  border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+  border: 1px solid ${getPrimaryColor};
 
   &:hover {
-    background: ${({ theme }) => getBorderColor(theme)};
-    border-color: ${({ theme }) => getBorderColor(theme)};
-    color: ${({ theme }) => getInverseTextColor(theme)};
+    background: ${getBorderColor};
+    border-color: ${getBorderColor};
+    color: ${getInverseTextColor};
   }
 
   &:active {
-    color: ${({ theme }) => getInverseTextColor(theme)};
-    background: ${({ theme }) => getPrimaryColor(theme)};
-    color: ${({ theme }) => getInverseTextColor(theme)};
+    color: ${getInverseTextColor};
+    background: ${getPrimaryColor};
+    color: ${getInverseTextColor};
   }
 
   svg {

@@ -1,11 +1,10 @@
 # storybook-addon-theme-playground
 
 [![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://www.npmjs.com/package/storybook-addon-theme-playground)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
 
-![Screenshot](./assets/screenshot.png)
+![Screenshot](./assets/screenshot.jpg)
 [Example](https://storybook-addon-theme-playground.now.sh)
 
 ## Installation
@@ -20,35 +19,35 @@ yarn add -D storybook-addon-theme-playground
 
 #### 2. Register the panel
 
-Add to `.storybook/addons.js`
+Add to `.storybook/main.js`
 
 ```js
-import 'storybook-addon-theme-playground/dist/register';
+module.exports = {
+  addons: ['storybook-addon-theme-playground/dist/register'],
+};
 ```
 
 #### 3. Add decorator
 
-Add to `.storybook/config.js`.
+Add to `.storybook/preview.js`.
 
 ```js
-import { addDecorator } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
 
-const options = {
-  theme,
-  provider: ThemeProvider
-};
-
-addDecorator(withThemePlayground(options));
+export const decorators = [
+  withThemePlayground({
+    theme,
+    provider: ThemeProvider,
+  }),
+];
 ```
 
 ... or to particular story
 
 ```js
-import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
 
@@ -56,14 +55,14 @@ import Button from './Button';
 
 import theme from 'path/to/theme';
 
-const options = {
-  theme,
-  provider: ThemeProvider
-};
-
 export default {
   title: 'Button with theme',
-  decorators: [withThemePlayground(options)]
+  decorators: [
+    withThemePlayground({
+      theme,
+      provider: ThemeProvider,
+    }),
+  ],
 };
 
 export const Primary = () => <Button>Primary Button</Button>;
@@ -127,9 +126,9 @@ import anotherTheme from 'path/to/another/theme';
 const options = {
   theme: [
     { name: 'Theme', theme: defaultTheme },
-    { name: 'Another Theme', theme: anotherTheme }
+    { name: 'Another Theme', theme: anotherTheme },
   ],
-  provider: ThemeProvider
+  provider: ThemeProvider,
 };
 
 addDecorator(withThemePlayground(options));
@@ -152,14 +151,14 @@ addDecorator(
       // or "startCase"
       labelFormat: 'startCase', // "Button Color"
       // or a custom function
-      labelFormat: path => {
+      labelFormat: (path) => {
         // path is equal to ["button", "color"]
         return path.join('-'); // "button-color"
       },
       debounce: true || false,
       debounceRate: 500,
-      showConfig: true || false
-    }
+      showConfig: true || false,
+    },
   })
 );
 ```
@@ -186,12 +185,12 @@ const overrides = {
     description: 'Spacing for all buttons',
     min: 1,
     max: 20,
-    steps: 1
+    steps: 1,
   },
   'button.color.primary': {
     type: 'color',
-    label: 'Button Primary Color'
-  }
+    label: 'Button Primary Color',
+  },
 };
 
 addDecorator(
@@ -206,11 +205,11 @@ It is also possible to hide specific theme values or objects, e.g.:
 ```js
 const overrides = {
   breakpoints: {
-    hidden: true
+    hidden: true,
   },
   'button.spacing': {
-    hidden: true
-  }
+    hidden: true,
+  },
 };
 ```
 
@@ -221,9 +220,9 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'color',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
 }
 ```
 
@@ -232,12 +231,12 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'counter',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null,
-  min: Number | 0,
-  max: Number | 100,
-  steps: Number | 1
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null,
+  min: number | 0,
+  max: number | 100,
+  steps: number | 1
 }
 ```
 
@@ -246,13 +245,13 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'select',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
   options: [
     {
-      value: String | Number,
-      label: String
+      value: string | number,
+      label: string
     }
   ]
 }
@@ -263,9 +262,9 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'shorthand',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
 }
 ```
 
@@ -274,9 +273,9 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'switch',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
 }
 ```
 
@@ -285,13 +284,13 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'radio',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null
   options: [
     {
-      value: String,
-      label: String
+      value: string,
+      label: string
     }
   ]
 }
@@ -302,12 +301,12 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'range',
-  hidden: Boolean,
-  label: String | 'Theme Path',
-  description: String | null,
-  min: Number | 0,
-  max: Number | 100,
-  steps: Number | 1
+  hidden: boolean,
+  label: string | 'Theme Path',
+  description: string | null,
+  min: number | 0,
+  max: number | 100,
+  steps: number | 1
 }
 ```
 
@@ -343,7 +342,40 @@ const overrides = {
 
 > `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
 
-## Roadmap
+## Typescript
 
-- [ ] Performance optimizations on multiple withThemeProvider decorators
-- [ ] Add testing
+```ts
+// .storybook/preview.ts
+
+import {
+  withThemePlayground,
+  ThemePlaygroundProps,
+} from 'storybook-addon-theme-playground';
+
+import theme from 'path/to/theme';
+
+interface Options extends ThemePlaygroundProps {
+  theme: typeof theme;
+}
+
+const options: Options = {
+  theme,
+  provider: ThemeProvider,
+  overrides: {
+    'headline.fontWeight': {
+      type: 'range',
+      max: 900,
+      min: 1,
+      description: 'Define the font weight of the variable font',
+    },
+    'copy.fontWeight': {
+      type: 'range',
+      max: 900,
+      min: 1,
+      description: 'Define the font weight of the variable font',
+    },
+  },
+};
+
+export const decorators = [withThemePlayground(options)];
+```

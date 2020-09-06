@@ -1,15 +1,15 @@
 import { is } from './';
-import { Theme, Overrides } from '../types';
+import { OverridesProps } from '../types';
 
 const buildThemeComponents = (
-  theme: Theme,
-  overrides: Overrides,
+  theme: any,
+  overrides: OverridesProps,
   arr: string[] = []
 ) => {
   let themeComponents = {};
   const keys: string[] = Object.keys(theme);
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const value = theme[key];
     const path = [...arr, key];
     const pathString = path.join('.');
@@ -27,13 +27,13 @@ const buildThemeComponents = (
       } else {
         themeComponents = {
           ...themeComponents,
-          ...buildThemeComponents(value, overrides, path)
+          ...buildThemeComponents(value, overrides, path),
         };
       }
     } else if (is.array(value)) {
       themeComponents = {
         ...themeComponents,
-        ...buildThemeComponents(value, overrides, path)
+        ...buildThemeComponents(value, overrides, path),
       };
     } else if (is.boolean(value)) {
       themeComponents[pathString] = { type: 'switch', value };

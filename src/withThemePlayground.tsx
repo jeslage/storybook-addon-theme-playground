@@ -1,18 +1,18 @@
 /* eslint-disable react/display-name */
-import * as React from 'react';
+import React from 'react';
 import addons from '@storybook/addons';
 
-import { Theme, ConfigProps } from './types';
+import { ConfigProps, OverridesProps } from './types';
 import events from './events';
 
-interface ThemePlaygroundProps {
-  theme: Theme;
+export interface ThemePlaygroundProps {
+  theme: any;
   provider: any;
-  overrides: object;
-  config: ConfigProps;
+  overrides?: OverridesProps;
+  config?: ConfigProps;
 }
 
-type ThemePlaygroundState = Theme;
+type ThemePlaygroundState = any;
 
 export class WithThemePlayground extends React.Component<
   ThemePlaygroundProps,

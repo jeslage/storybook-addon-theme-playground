@@ -1,10 +1,9 @@
-import * as React from 'react';
-import { HandleChange } from '../../interfaces/index';
+import React, { useState } from 'react';
 
 import StyledCounter from './Counter.style';
 import Label from '../Label/Label';
 
-export interface Props {
+export interface CounterProps {
   iconBefore?: HTMLElement;
   label: string;
   onChange: (val: number, suffix: string | undefined) => void;
@@ -21,7 +20,7 @@ const countDecimals = (number: number) => {
   return number.toString().split('.')[1].length || 0;
 };
 
-const Counter: React.FC<Props> = ({
+const Counter = ({
   label,
   description,
   min = 0,
@@ -31,8 +30,8 @@ const Counter: React.FC<Props> = ({
   value,
   suffix,
   iconBefore,
-}) => {
-  const [counterValue, setCounterValue]: any = React.useState(value);
+}: CounterProps) => {
+  const [counterValue, setCounterValue]: any = useState(value);
 
   const fixedNumber = countDecimals(steps);
   const updateValue = (val: number) => {
@@ -40,7 +39,7 @@ const Counter: React.FC<Props> = ({
     onChange(val, suffix);
   };
 
-  const handleChange = (event: HandleChange) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: eventValue, validity } = event.target;
 
     if (validity.valid) {
@@ -48,7 +47,7 @@ const Counter: React.FC<Props> = ({
     }
   };
 
-  const handleBlur = (event: HandleChange) => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { value: eventValue } = event.target;
     const numberValue: number | string = parseFloat(eventValue);
 

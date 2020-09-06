@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import Label from '../Label/Label';
 import StyledSelect from './Select.style';

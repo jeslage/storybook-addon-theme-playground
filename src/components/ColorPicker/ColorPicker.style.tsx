@@ -25,7 +25,7 @@ const StlyedColorPicker = styled.div`
     padding: 5px;
     width: 60px;
     border-radius: 30px;
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
 
     span {
       display: block;

@@ -26,7 +26,7 @@ const StyledRange = styled.label`
     background: none;
 
     &:focus {
-      border-color: ${({ theme }) => getSecondaryColor(theme)};
+      border-color: ${getSecondaryColor};
     }
   }
 
@@ -45,7 +45,7 @@ const StyledRange = styled.label`
     width: 100%;
     height: 4px;
     cursor: pointer;
-    background: ${({ theme }) => getSecondaryColor(theme)};
+    background: ${getSecondaryColor};
     border-radius: 2px;
   }
 
@@ -53,7 +53,7 @@ const StyledRange = styled.label`
     width: 100%;
     height: 4px;
     cursor: pointer;
-    background: ${({ theme }) => getSecondaryColor(theme)};
+    background: ${getSecondaryColor};
     border-radius: 2px;
   }
 
@@ -61,7 +61,7 @@ const StyledRange = styled.label`
     width: 100%;
     height: 4px;
     cursor: pointer;
-    background: ${({ theme }) => getSecondaryColor(theme)};
+    background: ${getSecondaryColor};
     border-radius: 2px;
   }
 
@@ -69,7 +69,7 @@ const StyledRange = styled.label`
     height: 20px;
     width: 20px;
     border-radius: 10px;
-    background: ${({ theme }) => getPrimaryColor(theme)};
+    background: ${getPrimaryColor};
     cursor: pointer;
     appearance: none;
     margin-top: -8px;
@@ -79,7 +79,7 @@ const StyledRange = styled.label`
     height: 20px;
     width: 20px;
     border-radius: 10px;
-    background: ${({ theme }) => getPrimaryColor(theme)};
+    background: ${getPrimaryColor};
     cursor: pointer;
     appearance: none;
     margin-top: -8px;
@@ -89,7 +89,7 @@ const StyledRange = styled.label`
     height: 20px;
     width: 20px;
     border-radius: 10px;
-    background: ${({ theme }) => getPrimaryColor(theme)};
+    background: ${getPrimaryColor};
     cursor: pointer;
     appearance: none;
     margin-top: -8px;

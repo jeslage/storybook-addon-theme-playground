@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import StyledTextarea from './Textarea.style';
 import Label from '../Label/Label';

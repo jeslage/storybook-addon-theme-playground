@@ -1,28 +1,27 @@
-import * as React from 'react';
+import React, { useState, useEffect, useCallback, createContext } from 'react';
 
 import { updateValueBasedOnPath } from '../helper';
 import {
-  Theme,
   ThemesArray,
   ThemeObject,
   ConfigProps,
   OptionsType,
-  Overrides,
+  OverridesProps,
   SettingsContextProps,
   SettingsProviderProps,
 } from '../types';
 import events from '../events';
 import buildThemeComponents from '../helper/buildThemeComponents';
 
-const defaultConfig = {
+const defaultConfig: ConfigProps = {
   labelFormat: 'startCase',
   debounce: true,
   debounceRate: 500,
   showCode: true,
 };
 
-const defaultProps = {
-  themes: [],
+const defaultProps: SettingsContextProps = {
+  themes: [{ name: 'Default', theme: {} }],
   themeComponents: {},
   activeTheme: { name: '__default', theme: {} },
   overrides: {},
@@ -33,28 +32,25 @@ const defaultProps = {
   resetThemes: () => {},
 };
 
-export const SettingsContext = React.createContext<SettingsContextProps>(
+export const SettingsContext = createContext<SettingsContextProps>(
   defaultProps
 );
 
-const SettingsProvider: React.FC<SettingsProviderProps> = ({
-  api,
-  children,
-}) => {
-  const [themeComponents, setThemeComponents] = React.useState({});
-  const [themes, setThemes] = React.useState<ThemesArray>([]);
-  const [activeTheme, setActiveTheme] = React.useState<ThemeObject>({
+const SettingsProvider = ({ api, children }: SettingsProviderProps) => {
+  const [themeComponents, setThemeComponents] = useState({});
+  const [themes, setThemes] = useState<ThemesArray>([]);
+  const [activeTheme, setActiveTheme] = useState<ThemeObject>({
     name: '',
     theme: {},
   });
 
-  const [isMounted, setIsMounted] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [overrides, setOverrides] = React.useState<Overrides>({});
-  const [config, setConfig] = React.useState<ConfigProps>(defaultConfig);
+  const [overrides, setOverrides] = useState<OverridesProps>({});
+  const [config, setConfig] = useState<ConfigProps>(defaultConfig);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (config.debounce && isMounted && activeTheme.theme) {
       const timeout = setTimeout(() => {
         setIsLoading(false);
@@ -72,7 +68,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     }
   }, [activeTheme]);
 
-  const updateThemeComponents = (theme: Theme, overrides: Overrides) => {
+  const updateThemeComponents = (theme: any, overrides: OverridesProps) => {
     const components: { [key: string]: any } = {};
 
     if (Array.isArray(theme)) {
@@ -86,7 +82,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     setThemeComponents(components);
   };
 
-  const getInitialOptions = React.useCallback((options: OptionsType) => {
+  const getInitialOptions = useCallback((options: OptionsType) => {
     const { theme, overrides, config } = options;
 
     updateThemeComponents(theme, overrides || {});
@@ -102,7 +98,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     if (config) setConfig((prev) => ({ ...prev, ...config }));
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.on(events.receiveOptions, getInitialOptions);
     api.on(events.resetOptions, getInitialOptions);
     setIsMounted(true);
@@ -114,12 +110,12 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     };
   }, []);
 
-  const updateTheme = React.useCallback(
+  const updateTheme = useCallback(
     (path: string, value: any) => {
       const { theme, name } = activeTheme;
 
       // Update theme object value based on path and set active theme state
-      const newTheme: Theme = theme;
+      const newTheme = theme;
       updateValueBasedOnPath(path, value, newTheme);
       setActiveTheme({ name, theme: newTheme });
 
@@ -135,7 +131,7 @@ const SettingsProvider: React.FC<SettingsProviderProps> = ({
     [activeTheme]
   );
 
-  const updateActiveTheme = React.useCallback(
+  const updateActiveTheme = useCallback(
     ({ name, theme }: ThemeObject) => {
       setActiveTheme({ name, theme });
     },

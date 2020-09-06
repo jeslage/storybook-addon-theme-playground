@@ -24,14 +24,14 @@ const StyledRadioOption = styled.label`
     margin: 0 0 0 10px;
     border-radius: 3rem;
     opacity: 0.5;
-    color: ${({ theme }) => getPrimaryColor(theme)};
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    color: ${getPrimaryColor};
+    border: 1px solid ${getPrimaryColor};
     transition: all 0.2s ease-in-out;
 
     svg {
       width: 20px;
       height: auto;
-      fill: ${({ theme }) => getPrimaryColor(theme)};
+      fill: ${getPrimaryColor};
     }
   }
 
@@ -41,8 +41,8 @@ const StyledRadioOption = styled.label`
 
   input:checked + div {
     opacity: 1;
-    background: ${({ theme }) => getPrimaryColor(theme)};
-    color: ${({ theme }) => getInverseTextColor(theme)};
+    background: ${getPrimaryColor};
+    color: ${getInverseTextColor};
   }
 `;
 

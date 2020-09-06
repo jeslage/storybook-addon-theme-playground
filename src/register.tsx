@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import * as React from 'react';
+import React from 'react';
 import addons from '@storybook/addons';
 
 import { AddonPanel } from '@storybook/components';
