@@ -37,18 +37,17 @@ import { withThemePlayground } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
 
-const options = {
-  theme,
-  provider: ThemeProvider,
-};
-
-export const decorators = [withThemePlayground(options)];
+export const decorators = [
+  withThemePlayground({
+    theme,
+    provider: ThemeProvider,
+  }),
+];
 ```
 
 ... or to particular story
 
 ```js
-import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
 
@@ -56,14 +55,14 @@ import Button from './Button';
 
 import theme from 'path/to/theme';
 
-const options = {
-  theme,
-  provider: ThemeProvider,
-};
-
 export default {
   title: 'Button with theme',
-  decorators: [withThemePlayground(options)],
+  decorators: [
+    withThemePlayground({
+      theme,
+      provider: ThemeProvider,
+    }),
+  ],
 };
 
 export const Primary = () => <Button>Primary Button</Button>;

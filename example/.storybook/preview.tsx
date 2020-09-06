@@ -1,5 +1,5 @@
 import React from 'react';
-import { withThemePlayground } from '../../src/index';
+import { withThemePlayground, ThemePlaygroundProps } from '../../src/index';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
@@ -75,7 +75,7 @@ const uiThemes = [
   },
 ];
 
-const options = {
+const options: ThemePlaygroundProps = {
   theme: uiThemes,
   provider: ThemeProvider,
   overrides: {

@@ -40,7 +40,8 @@ export type OverridesProps = {
       | 'shorthand'
       | 'switch'
       | 'radio'
-      | 'range';
+      | 'range'
+      | string;
     hidden?: boolean;
     label?: string;
     description?: string;
