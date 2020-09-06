@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, createContext } from 'react';
 
 import { updateValueBasedOnPath } from '../helper';
 import {
-  Theme,
   ThemesArray,
   ThemeObject,
   ConfigProps,
@@ -69,7 +68,7 @@ const SettingsProvider = ({ api, children }: SettingsProviderProps) => {
     }
   }, [activeTheme]);
 
-  const updateThemeComponents = (theme: Theme, overrides: OverridesProps) => {
+  const updateThemeComponents = (theme: any, overrides: OverridesProps) => {
     const components: { [key: string]: any } = {};
 
     if (Array.isArray(theme)) {
@@ -116,7 +115,7 @@ const SettingsProvider = ({ api, children }: SettingsProviderProps) => {
       const { theme, name } = activeTheme;
 
       // Update theme object value based on path and set active theme state
-      const newTheme: Theme = theme;
+      const newTheme = theme;
       updateValueBasedOnPath(path, value, newTheme);
       setActiveTheme({ name, theme: newTheme });
 

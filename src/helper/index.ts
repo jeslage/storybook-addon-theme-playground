@@ -5,7 +5,7 @@ import { LabelFormatFunction } from '../types';
 
 export const getLabel = (
   label: string,
-  format: 'startCase' | 'path' | LabelFormatFunction
+  format?: 'startCase' | 'path' | LabelFormatFunction
 ) => {
   const path = label.split('.');
 
@@ -89,21 +89,23 @@ export const updateValueBasedOnPath = (
 };
 
 export const getPrimaryColor = ({ theme }: { theme?: any }) => {
-  return theme?.base === 'dark' ? theme?.color.lightest : theme?.color.darkest;
+  return theme?.base === 'dark'
+    ? theme?.color?.lightest
+    : theme?.color?.darkest;
 };
 
 export const getSecondaryColor = ({ theme }: { theme?: any }) => {
-  return theme?.color.mediumdark;
+  return theme?.color?.mediumdark;
 };
 
 export const getTextColor = (theme) => {
-  return theme?.color.defaultText;
+  return theme?.color?.defaultText;
 };
 
 export const getInverseTextColor = ({ theme }: { theme?: any }) => {
-  return theme?.color.inverseText;
+  return theme?.color?.inverseText;
 };
 
 export const getBorderColor = ({ theme }: { theme?: any }) => {
-  return theme?.base === 'dark' ? theme?.color.light : theme?.color.dark;
+  return theme?.base === 'dark' ? theme?.color?.light : theme?.color?.dark;
 };

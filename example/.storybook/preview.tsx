@@ -1,5 +1,5 @@
 import React from 'react';
-import { withThemePlayground, ThemePlaygroundProps } from '../../src/index';
+import { withThemePlayground, ThemePlaygroundProps } from '../../dist';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
-    "sourceMap": true,
+    "module": "esnext",
+    "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
@@ -11,7 +11,6 @@
     "lib": ["es5", "es6", "dom"],
     "jsx": "react",
     "types": ["node"],
-    "sourceRoot": "src",
     "declarationDir": "dist",
     "outDir": "dist",
     "noUnusedParameters": true,
