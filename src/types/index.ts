@@ -5,8 +5,7 @@ import { ReactNode } from 'react';
   Theme
 */
 export type ThemeObject = { name: string; theme: object };
-export type ThemesArray = Array<ThemeObject>;
-export type Theme = ThemesArray | { [key: string]: any };
+export type ThemesArray = ThemeObject[];
 
 export type LabelFormatFunction = (path: string[]) => string;
 
@@ -24,7 +23,7 @@ export type ConfigProps = {
   Options
 */
 export type OptionsType = {
-  theme: Theme;
+  theme: any;
   overrides: OverridesProps;
   config: ConfigProps;
 };

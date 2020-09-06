@@ -4,7 +4,7 @@
 
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
 
-![Screenshot](./assets/screenshot.png)
+![Screenshot](./assets/screenshot.jpg)
 [Example](https://storybook-addon-theme-playground.now.sh)
 
 ## Installation
@@ -19,18 +19,19 @@ yarn add -D storybook-addon-theme-playground
 
 #### 2. Register the panel
 
-Add to `.storybook/addons.js`
+Add to `.storybook/main.js`
 
 ```js
-import 'storybook-addon-theme-playground/dist/register';
+module.exports = {
+  addons: ['storybook-addon-theme-playground/dist/register'],
+};
 ```
 
 #### 3. Add decorator
 
-Add to `.storybook/config.js`.
+Add to `.storybook/preview.js`.
 
 ```js
-import { addDecorator } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
 
@@ -41,7 +42,7 @@ const options = {
   provider: ThemeProvider,
 };
 
-addDecorator(withThemePlayground(options));
+export const decorators = [withThemePlayground(options)];
 ```
 
 ... or to particular story
