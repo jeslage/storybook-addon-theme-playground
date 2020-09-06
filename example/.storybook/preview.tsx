@@ -1,5 +1,8 @@
 import React from 'react';
-import { withThemePlayground, ThemePlaygroundProps } from '../../dist';
+import {
+  withThemePlayground,
+  ThemePlaygroundProps,
+} from 'storybook-addon-theme-playground';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
@@ -75,7 +78,11 @@ const uiThemes = [
   },
 ];
 
-const options: ThemePlaygroundProps = {
+interface Options extends ThemePlaygroundProps {
+  theme: typeof uiThemes;
+}
+
+const options: Options = {
   theme: uiThemes,
   provider: ThemeProvider,
   overrides: {
