@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
@@ -155,7 +155,7 @@ const SettingsItem = () => {
     config,
     themeComponents,
     activeTheme: { name },
-  } = React.useContext(SettingsContext);
+  } = useContext(SettingsContext);
 
   const activeComponents = themeComponents[name] || null;
 

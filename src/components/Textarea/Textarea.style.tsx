@@ -16,8 +16,8 @@ const StyledTextarea = styled.label`
     padding: 5px;
     max-width: 200px;
     border-radius: 5px;
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
-    color: ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
+    color: ${getPrimaryColor};
   }
 `;
 

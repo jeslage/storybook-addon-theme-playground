@@ -17,7 +17,7 @@ const StyledSwitch = styled.div<SwitchProps>`
     margin: 0;
     padding: 0;
     appearance: none;
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
     width: 60px;
     height: 30px;
     border-radius: 30px;
@@ -32,7 +32,7 @@ const StyledSwitch = styled.div<SwitchProps>`
       width: 20px;
       height: 20px;
       border-radius: 20px;
-      background: ${({ theme }) => getPrimaryColor(theme)};
+      background: ${getPrimaryColor};
       transform: translateX(${(props) => (props.active ? '30px' : '0')});
       will-change: transform;
       transition: transform 0.2s ease-in-out;

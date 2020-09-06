@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 
 import { Icons } from '@storybook/components';
 
@@ -19,7 +19,7 @@ const Panel = () => {
     updateActiveTheme,
     config,
     resetThemes,
-  } = React.useContext(SettingsContext);
+  } = useContext(SettingsContext);
 
   return (
     <StyledPanel>

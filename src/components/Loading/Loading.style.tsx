@@ -23,9 +23,8 @@ const StyledLoading = styled.div<LoadingProps>`
     height: 12px;
     margin: 0;
     border-radius: 50%;
-    border: 2px solid ${({ theme }) => getPrimaryColor(theme)};
-    border-color: ${({ theme }) => getPrimaryColor(theme)} transparent
-      ${({ theme }) => getPrimaryColor(theme)} transparent;
+    border: 2px solid ${getPrimaryColor};
+    border-color: ${getPrimaryColor} transparent ${getPrimaryColor} transparent;
     animation: loading 1.2s linear infinite;
   }
 

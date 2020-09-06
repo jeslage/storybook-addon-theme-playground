@@ -1,7 +1,6 @@
 # storybook-addon-theme-playground
 
 [![npm version](https://badge.fury.io/js/storybook-addon-theme-playground.svg)](https://www.npmjs.com/package/storybook-addon-theme-playground)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier)
 
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
 
@@ -39,7 +38,7 @@ import theme from 'path/to/theme';
 
 const options = {
   theme,
-  provider: ThemeProvider
+  provider: ThemeProvider,
 };
 
 addDecorator(withThemePlayground(options));
@@ -58,12 +57,12 @@ import theme from 'path/to/theme';
 
 const options = {
   theme,
-  provider: ThemeProvider
+  provider: ThemeProvider,
 };
 
 export default {
   title: 'Button with theme',
-  decorators: [withThemePlayground(options)]
+  decorators: [withThemePlayground(options)],
 };
 
 export const Primary = () => <Button>Primary Button</Button>;
@@ -127,9 +126,9 @@ import anotherTheme from 'path/to/another/theme';
 const options = {
   theme: [
     { name: 'Theme', theme: defaultTheme },
-    { name: 'Another Theme', theme: anotherTheme }
+    { name: 'Another Theme', theme: anotherTheme },
   ],
-  provider: ThemeProvider
+  provider: ThemeProvider,
 };
 
 addDecorator(withThemePlayground(options));
@@ -152,14 +151,14 @@ addDecorator(
       // or "startCase"
       labelFormat: 'startCase', // "Button Color"
       // or a custom function
-      labelFormat: path => {
+      labelFormat: (path) => {
         // path is equal to ["button", "color"]
         return path.join('-'); // "button-color"
       },
       debounce: true || false,
       debounceRate: 500,
-      showConfig: true || false
-    }
+      showConfig: true || false,
+    },
   })
 );
 ```
@@ -186,12 +185,12 @@ const overrides = {
     description: 'Spacing for all buttons',
     min: 1,
     max: 20,
-    steps: 1
+    steps: 1,
   },
   'button.color.primary': {
     type: 'color',
-    label: 'Button Primary Color'
-  }
+    label: 'Button Primary Color',
+  },
 };
 
 addDecorator(
@@ -206,11 +205,11 @@ It is also possible to hide specific theme values or objects, e.g.:
 ```js
 const overrides = {
   breakpoints: {
-    hidden: true
+    hidden: true,
   },
   'button.spacing': {
-    hidden: true
-  }
+    hidden: true,
+  },
 };
 ```
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import StyledCode from './Code.style';
 
@@ -6,8 +6,8 @@ interface CodeProps {
   value: object;
 }
 
-const Code: React.FC<CodeProps> = ({ value }) => {
-  const [copied, setCopied] = React.useState(false);
+const Code = ({ value }: CodeProps) => {
+  const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
     const element = document.createElement('textarea');
@@ -22,7 +22,7 @@ const Code: React.FC<CodeProps> = ({ value }) => {
     setCopied(true);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setCopied(false);
     }, 1500);

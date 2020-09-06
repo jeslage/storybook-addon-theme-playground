@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import StyledRadioGroup from './RadioGroup.style';
 import RadioOption from '../RadioOption/RadioOption';

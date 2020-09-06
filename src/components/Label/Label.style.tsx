@@ -15,7 +15,7 @@ const StyledLabel = styled.div`
       width: 20px;
       height: auto;
       margin-right: 15px;
-      fill: ${({ theme }) => getSecondaryColor(theme)};
+      fill: ${getSecondaryColor};
     }
   }
 

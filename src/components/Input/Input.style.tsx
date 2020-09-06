@@ -16,8 +16,8 @@ const StyledInput = styled.label`
     border-radius: 5px;
     text-align: right;
     max-width: 200px;
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
-    color: ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
+    color: ${getPrimaryColor};
     outline: none;
   }
 `;

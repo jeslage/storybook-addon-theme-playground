@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { HandleChange } from '../../interfaces/index';
+import React from 'react';
 
 import StyledRange from './Range.style';
 import Label from '../Label/Label';
@@ -31,7 +30,7 @@ const Range: React.FC<Props> = ({
     if (onChange) onChange(val, suffix);
   };
 
-  const handleChange = (event: HandleChange) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: eventValue, validity } = event.target;
 
     if (validity.valid) {
@@ -43,7 +42,7 @@ const Range: React.FC<Props> = ({
     }
   };
 
-  const handleBlur = (event: HandleChange) => {
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { value: eventValue } = event.target;
     const numberValue = parseFloat(eventValue);
 

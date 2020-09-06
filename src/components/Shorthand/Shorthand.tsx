@@ -1,11 +1,9 @@
-import * as React from 'react';
-import { HandleChange } from '../../interfaces/index';
+import React from 'react';
 
-import { is } from '../../helper';
 import StyledShorthand from './Shorthand.style';
 import Label from '../Label/Label';
 
-export interface Props {
+export interface ShorthandProps {
   iconBefore?: HTMLElement;
   label?: string;
   name?: string;
@@ -21,20 +19,15 @@ interface ShorthandObject {
   bottom: number | string;
 }
 
-const Shorthand: React.FC<Props> = ({
+const Shorthand = ({
   label,
   description,
   value,
   onChange,
   iconBefore,
-}) => {
-  if (!is.object(value) && !is.shorthand(value)) {
-    throw Error(
-      'Value of shorthand component must be an object with the following keys: { top: Number, right: Number, bottom: Number, left: Number }'
-    );
-  }
-
+}: ShorthandProps) => {
   const { top, left, right, bottom } = value;
+
   const updateValue = (key: string, val: number) => {
     const newValue = {
       ...value,
@@ -44,7 +37,7 @@ const Shorthand: React.FC<Props> = ({
     onChange(newValue);
   };
 
-  const handleChange = (event: HandleChange) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: eventValue, name } = event.target;
 
     if (eventValue !== '') {

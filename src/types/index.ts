@@ -1,4 +1,5 @@
 import { API } from '@storybook/api';
+import { ReactNode } from 'react';
 
 /*
   Theme
@@ -7,11 +8,13 @@ export type ThemeObject = { name: string; theme: object };
 export type ThemesArray = Array<ThemeObject>;
 export type Theme = ThemesArray | { [key: string]: any };
 
+export type LabelFormatFunction = (path: string[]) => string;
+
 /*
   Config
 */
 export type ConfigProps = {
-  labelFormat: any;
+  labelFormat: 'startCase' | 'path' | LabelFormatFunction;
   showCode: boolean;
   debounce: boolean;
   debounceRate: number;
@@ -22,20 +25,34 @@ export type ConfigProps = {
 */
 export type OptionsType = {
   theme: Theme;
-  overrides: Overrides;
+  overrides: OverridesProps;
   config: ConfigProps;
 };
 
 /*
   Overrides
 */
-export type OverridesObject = {
-  type: string;
-  [key: string]: any;
-};
-
-export type Overrides = {
-  [key: string]: OverridesObject;
+export type OverridesProps = {
+  [key: string]: {
+    type:
+      | 'color'
+      | 'counter'
+      | 'select'
+      | 'shorthand'
+      | 'switch'
+      | 'radio'
+      | 'range';
+    hidden?: boolean;
+    label?: string;
+    description?: string;
+    min?: number;
+    max?: number;
+    steps?: number;
+    options?: {
+      value: string | number;
+      label: string;
+    }[];
+  };
 };
 
 /*
@@ -43,16 +60,17 @@ export type Overrides = {
 */
 export type SettingsProviderProps = {
   api: API;
+  children: ReactNode;
 };
 
 export type SettingsContextProps = {
   themes: ThemesArray;
   activeTheme: ThemeObject;
-  themeComponents: {};
-  overrides: Overrides;
+  themeComponents: any;
+  overrides: OverridesProps;
   config: ConfigProps;
   isLoading: boolean;
-  updateTheme: (path: any, value: any) => void;
+  updateTheme: (path: string, value: any) => void;
   updateActiveTheme: (obj: ThemeObject) => void;
   resetThemes: () => void;
 };

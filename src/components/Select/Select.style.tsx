@@ -11,7 +11,7 @@ const StyledSelect = styled.label`
 
   select {
     background: none;
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
     outline: none;
     border-radius: 5px;
     margin: 0;
@@ -45,7 +45,7 @@ const StyledSelect = styled.label`
       width: 10px;
       height: 2px;
       border-radius: 1px;
-      background: ${({ theme }) => getPrimaryColor(theme)};
+      background: ${getPrimaryColor};
     }
 
     &:before {

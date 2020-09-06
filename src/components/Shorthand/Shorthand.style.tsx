@@ -12,7 +12,7 @@ const StyledShorthand = styled.div`
   }
 
   input {
-    border: 1px solid ${({ theme }) => getPrimaryColor(theme)};
+    border: 1px solid ${getPrimaryColor};
     border-radius: 30px;
     outline: none;
     display: inline-block;

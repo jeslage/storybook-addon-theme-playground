@@ -1,7 +1,12 @@
 import * as startCase from 'lodash.startcase';
 import defaultCssColors from './defaultCssColors';
 
-export const getLabel = (label: string, format: any) => {
+import { LabelFormatFunction } from '../types';
+
+export const getLabel = (
+  label: string,
+  format: 'startCase' | 'path' | LabelFormatFunction
+) => {
   const path = label.split('.');
 
   if (typeof format === 'function') {
@@ -83,22 +88,22 @@ export const updateValueBasedOnPath = (
   return true; // this is the end
 };
 
-export const getPrimaryColor = (theme) => {
-  return theme.base === 'dark' ? theme.color.lightest : theme.color.darkest;
+export const getPrimaryColor = ({ theme }: { theme?: any }) => {
+  return theme?.base === 'dark' ? theme?.color.lightest : theme?.color.darkest;
 };
 
-export const getSecondaryColor = (theme) => {
-  return theme.color.mediumdark;
+export const getSecondaryColor = ({ theme }: { theme?: any }) => {
+  return theme?.color.mediumdark;
 };
 
 export const getTextColor = (theme) => {
-  return theme.color.defaultText;
+  return theme?.color.defaultText;
 };
 
-export const getInverseTextColor = (theme) => {
-  return theme.color.inverseText;
+export const getInverseTextColor = ({ theme }: { theme?: any }) => {
+  return theme?.color.inverseText;
 };
 
-export const getBorderColor = (theme) => {
-  return theme.base === 'dark' ? theme.color.light : theme.color.dark;
+export const getBorderColor = ({ theme }: { theme?: any }) => {
+  return theme?.base === 'dark' ? theme?.color.light : theme?.color.dark;
 };
