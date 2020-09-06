@@ -341,3 +341,41 @@ const overrides = {
 ### `Shorthand`
 
 > `object` && `Object.keys(object).length === 4` && `Object.keys(object).includes("top" && "right" && "bottom" && "left")`
+
+## Typescript
+
+```ts
+// .storybook/preview.ts
+
+import {
+  withThemePlayground,
+  ThemePlaygroundProps,
+} from 'storybook-addon-theme-playground';
+
+import theme from 'path/to/theme';
+
+interface Options extends ThemePlaygroundProps {
+  theme: typeof theme;
+}
+
+const options: Options = {
+  theme,
+  provider: ThemeProvider,
+  overrides: {
+    'headline.fontWeight': {
+      type: 'range',
+      max: 900,
+      min: 1,
+      description: 'Define the font weight of the variable font',
+    },
+    'copy.fontWeight': {
+      type: 'range',
+      max: 900,
+      min: 1,
+      description: 'Define the font weight of the variable font',
+    },
+  },
+};
+
+export const decorators = [withThemePlayground(options)];
+```

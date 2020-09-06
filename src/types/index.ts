@@ -13,10 +13,10 @@ export type LabelFormatFunction = (path: string[]) => string;
   Config
 */
 export type ConfigProps = {
-  labelFormat: 'startCase' | 'path' | LabelFormatFunction;
-  showCode: boolean;
-  debounce: boolean;
-  debounceRate: number;
+  labelFormat?: 'startCase' | 'path' | LabelFormatFunction;
+  showCode?: boolean;
+  debounce?: boolean;
+  debounceRate?: number;
 };
 
 /*
@@ -40,8 +40,8 @@ export type OverridesProps = {
       | 'shorthand'
       | 'switch'
       | 'radio'
-      | 'range'
-      | string;
+      | 'range';
+
     hidden?: boolean;
     label?: string;
     description?: string;
