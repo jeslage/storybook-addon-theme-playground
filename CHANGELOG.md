@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- [Issue #14](https://github.com/jeslage/storybook-addon-theme-playground/issues/14): Exported `ThemePlaygroundProps` interface
+
+### Fixed
+
+- [Issue #14](https://github.com/jeslage/storybook-addon-theme-playground/issues/14): Optional properties `config` and `overrides` where required inside ThemePlayground `options`
+
 ## [1.3.3]- 2020-06-27
 
 ### Changed
 
-- [Issue #3](https://github.com/jeslage/storybook-addon-theme-playground/issues/3): Moved `withThemePlayground` to a class component, due to invalid hook call while using `@storybook/addon-storyshots`.
+- [Issue #3](https://github.com/jeslage/storybook-addon-theme-playground/issues/3): Moved `withThemePlayground` to a class component due to invalid hook call while using `@storybook/addon-storyshots`.
 
 ## [1.3.2]- 2020-06-27
 
