@@ -1,10 +1,9 @@
 import React from 'react';
 
 import StyledRange from './Range.style';
-import Label from '../Label/Label';
 
 export interface Props {
-  iconBefore?: HTMLElement;
+  icon?: HTMLElement;
   label?: string;
   onChange: (val: number, suffix: string | undefined) => void;
   value: number;
@@ -16,14 +15,12 @@ export interface Props {
 }
 
 const Range: React.FC<Props> = ({
-  iconBefore,
   value,
   label,
   onChange,
   min = 0,
   max = 100,
   steps = 1,
-  description,
   suffix,
 }) => {
   const updateValue = (val: number) => {
@@ -31,14 +28,12 @@ const Range: React.FC<Props> = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: eventValue, validity } = event.target;
+    const { value: eventValue } = event.target;
 
-    if (validity.valid) {
-      if (eventValue !== '') {
-        updateValue(parseFloat(eventValue));
-      } else {
-        updateValue(0);
-      }
+    if (eventValue !== '') {
+      updateValue(parseFloat(eventValue));
+    } else {
+      updateValue(0);
     }
   };
 
@@ -55,15 +50,15 @@ const Range: React.FC<Props> = ({
 
   return (
     <StyledRange htmlFor={label}>
-      <Label iconBefore={iconBefore} label={label} description={description} />
-
       <span>
         <input
-          type="text"
-          pattern="[0-9.]*"
+          type="number"
           value={value}
           onChange={handleChange}
           onBlur={handleBlur}
+          step={steps}
+          min={min}
+          max={max}
         />
         {suffix}
       </span>

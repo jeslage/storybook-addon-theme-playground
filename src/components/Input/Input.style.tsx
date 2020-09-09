@@ -1,25 +1,19 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper';
+import { getPrimaryColor, getBorderColor } from '../../helper';
 
-const StyledInput = styled.label`
-  display: flex;
-  align-items: center;
+const StyledInput = styled.input`
   width: 100%;
-
-  input {
-    width: 100%;
-    border: none;
-    appeareance: none;
-    resize: none;
-    background: none;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: right;
-    max-width: 200px;
-    border: 1px solid ${getPrimaryColor};
-    color: ${getPrimaryColor};
-    outline: none;
-  }
+  border: none;
+  appearance: none;
+  resize: none;
+  background: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  text-align: right;
+  width: 195px;
+  border: 1px solid ${getBorderColor};
+  color: ${getPrimaryColor};
+  outline: none;
 `;
 
 export default StyledInput;

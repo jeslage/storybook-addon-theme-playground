@@ -2,59 +2,51 @@ import React, { useContext } from 'react';
 
 import { SettingsContext } from '../../contexts/SettingsProvider';
 
+import { OverridesConfig } from '../../types';
 import { getLabel } from '../../helper';
+import { stripUnit } from '../../helper/stripUnit';
 
 import Colorpicker from '../ColorPicker/ColorPicker';
 import Counter from '../Counter/Counter';
 import Input from '../Input/Input';
-import RadioGroup from '../RadioGroup/RadioGroup';
+import RadioGroup, { RadioOption } from '../RadioGroup/RadioGroup';
 import Range from '../Range/Range';
-import Select from '../Select/Select';
+import Select, { SelectOption } from '../Select/Select';
 import Shorthand from '../Shorthand/Shorthand';
 import Switch from '../Switch/Switch';
 import Textarea from '../Textarea/Textarea';
 
 import { StyledSettingsItem } from './SettingsItem.style';
-import { stripUnit } from '../../helper/stripUnit';
+import Label from '../Label/Label';
 
 interface ComponentProps {
   type: string;
   path: string;
   props: { label: string; value: any };
-  overrideProps: any;
+  config: OverridesConfig;
   update: (path: string, value: any) => void;
 }
 
-const Component: React.FC<ComponentProps> = ({
-  type,
-  path,
-  overrideProps,
-  props,
-  update,
-}) => {
+const Component = ({ type, path, config, props, update }: ComponentProps) => {
   const { value, label } = props;
   const [val, unit] = stripUnit(value);
 
   switch (type) {
     case 'colorpicker':
       return (
-        <Colorpicker
-          label={label}
-          value={value}
-          onChange={(val) => update(path, val)}
-          {...overrideProps}
-        />
+        <Colorpicker value={value} onChange={(val) => update(path, val)} />
       );
     case 'counter':
       return (
         <Counter
-          label={label}
           suffix={unit}
           value={parseFloat(val)}
           onChange={(val, suffix) =>
             update(path, suffix ? `${val}${suffix}` : val)
           }
-          {...overrideProps}
+          max={config?.max}
+          min={config?.min}
+          steps={config?.steps}
         />
       );
     case 'range':
@@ -66,83 +58,48 @@ const Component: React.FC<ComponentProps> = ({
           onChange={(val, suffix) =>
             update(path, suffix ? `${val}${suffix}` : val)
           }
-          {...overrideProps}
+          max={config?.max}
+          min={config?.min}
+          steps={config?.steps}
         />
       );
     case 'input':
-      return (
-        <Input
-          label={label}
-          value={value}
-          onChange={(val) => update(path, val)}
-          {...overrideProps}
-        />
-      );
+      return <Input value={value} onChange={(val) => update(path, val)} />;
     case 'shorthand':
-      return (
-        <Shorthand
-          label={label}
-          value={value}
-          onChange={(val) => update(path, val)}
-          {...overrideProps}
-        />
-      );
+      return <Shorthand value={value} onChange={(val) => update(path, val)} />;
     case 'switch':
-      return (
-        <Switch
-          label={label}
-          value={value}
-          onChange={(val) => update(path, val)}
-          {...overrideProps}
-        />
-      );
+      return <Switch value={value} onChange={(val) => update(path, val)} />;
     case 'textarea':
-      return (
-        <Textarea
-          label={label}
-          value={value}
-          onChange={(val) => update(path, val)}
-          {...overrideProps}
-        />
-      );
+      return <Textarea value={value} onChange={(val) => update(path, val)} />;
     case 'select':
       return (
         <Select
-          label={label}
           value={value}
           onChange={(val) => update(path, val)}
-          {...overrideProps}
+          options={(config.options as SelectOption[]) || []}
         />
       );
     case 'radio':
       return (
         <RadioGroup
-          label={label}
           value={value}
           name={label}
           onChange={(val) => update(path, val)}
-          {...overrideProps}
+          options={(config.options as RadioOption[]) || []}
         />
       );
     default:
-      return (
-        <Input
-          label={label}
-          value={value}
-          onChange={(val) => update(path, val)}
-          {...overrideProps}
-        />
-      );
+      return <Input value={value} onChange={(val) => update(path, val)} />;
   }
 };
 
 const areEqual = (prev, next) => {
-  const prevOverrideProps = prev.overrideProps ? prev.overrideProps : null;
-  const nextOverrideProps = next.overrideProps ? next.overrideProps : null;
+  const prevConfig = prev.config ? prev.config : null;
+  const nextConfig = next.config ? next.config : null;
 
   return (
     prev.props.value === next.props.value &&
-    JSON.stringify(prevOverrideProps) === JSON.stringify(nextOverrideProps)
+    JSON.stringify(prevConfig) === JSON.stringify(nextConfig)
   );
 };
 
@@ -164,7 +121,9 @@ const SettingsItem = () => {
       {activeComponents &&
         Object.keys(activeComponents).map((path) => {
           const { value, type } = activeComponents[path];
+
           const label = getLabel(path, config.labelFormat);
+
           const props = {
             value,
             label,
@@ -174,12 +133,18 @@ const SettingsItem = () => {
             type,
             path,
             props,
-            overrideProps: overrides[path],
+            config: overrides[path],
             update: updateTheme,
           };
 
           return activeComponents[path] ? (
             <StyledSettingsItem key={path}>
+              <Label
+                label={overrides[path]?.label || props.label}
+                description={overrides[path]?.description}
+                icon={overrides[path]?.icon}
+              />
+
               <MemoizedComponent {...componentProps} />
             </StyledSettingsItem>
           ) : null;

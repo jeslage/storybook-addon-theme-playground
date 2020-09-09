@@ -1,15 +1,9 @@
 import { styled } from '@storybook/theming';
-import { getPrimaryColor } from '../../helper';
+import { getPrimaryColor, getSecondaryColor } from '../../helper';
 
 const StyledCounter = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
-
-  .counter__counter {
-    display: flex;
-    align-items: center;
-  }
 
   button {
     padding: 0;
@@ -53,9 +47,16 @@ const StyledCounter = styled.div`
     text-align: center;
     color: inherit;
     background: none;
+    -moz-appearance: textfield;
 
     &:focus {
-      border-color: ${getPrimaryColor};
+      border-color: ${getSecondaryColor};
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 `;

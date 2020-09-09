@@ -3,32 +3,24 @@ import React from 'react';
 import Label from '../Label/Label';
 import StyledSelect from './Select.style';
 
-type OptionValue = string | number;
+export type SelectOptionValue = string | number;
 
-type Option<T extends OptionValue> = {
-  value: T;
+export type SelectOption = {
+  value: SelectOptionValue;
   label?: string;
 };
-export interface SelectProps<T extends OptionValue> {
-  iconBefore?: HTMLElement;
+export interface SelectProps {
+  icon?: HTMLElement;
   label?: string;
   description?: string;
   name?: string;
-  onChange: (val: T) => void;
-  value: T;
-  options: Option<T>[];
+  onChange: (val: SelectOptionValue) => void;
+  value: SelectOptionValue;
+  options: SelectOption[];
 }
 
-function Select<T extends OptionValue>(props: SelectProps<T>) {
-  const {
-    options,
-    iconBefore,
-    value,
-    label,
-    description,
-    name,
-    onChange,
-  } = props;
+function Select(props: SelectProps) {
+  const { options, icon, value, label, description, name, onChange } = props;
 
   function handleOnChange(e: React.FormEvent<HTMLSelectElement>) {
     const { selectedIndex } = e.currentTarget;
@@ -38,7 +30,7 @@ function Select<T extends OptionValue>(props: SelectProps<T>) {
 
   return (
     <StyledSelect htmlFor={label}>
-      <Label iconBefore={iconBefore} label={label} description={description} />
+      <Label icon={icon} label={label} description={description} />
 
       <select value={value} onChange={handleOnChange} name={name}>
         {options &&

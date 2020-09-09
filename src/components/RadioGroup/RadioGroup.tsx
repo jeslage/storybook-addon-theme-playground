@@ -2,26 +2,19 @@ import React from 'react';
 
 import StyledRadioGroup from './RadioGroup.style';
 import RadioOption from '../RadioOption/RadioOption';
-import Label from '../Label/Label';
 
-type RadioOptions = {
+export type RadioOption = {
   label: string;
   value: string;
 };
 export interface RadioGroupProps {
-  iconBefore?: HTMLElement;
-  label: string;
-  description?: string;
   onChange: (val: string) => void;
   value: string;
   name: string;
-  options: RadioOptions[];
+  options: RadioOption[];
 }
 
 const RadioGroup: React.FC<RadioGroupProps> = ({
-  label,
-  description,
-  iconBefore,
   name,
   value,
   onChange,
@@ -29,8 +22,6 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 }) => {
   return (
     <StyledRadioGroup>
-      <Label iconBefore={iconBefore} label={label} description={description} />
-
       {options &&
         options.map((item) => (
           <RadioOption

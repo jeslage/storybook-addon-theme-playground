@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 
 import StyledCounter from './Counter.style';
-import Label from '../Label/Label';
 
 export interface CounterProps {
-  iconBefore?: HTMLElement;
-  label: string;
   onChange: (val: number, suffix: string | undefined) => void;
   value: number;
-  description?: string;
   min?: number;
   max?: number;
   steps?: number;
@@ -21,15 +17,12 @@ const countDecimals = (number: number) => {
 };
 
 const Counter = ({
-  label,
-  description,
   min = 0,
   max = 100,
   steps = 1,
   onChange,
   value,
   suffix,
-  iconBefore,
 }: CounterProps) => {
   const [counterValue, setCounterValue]: any = useState(value);
 
@@ -40,11 +33,9 @@ const Counter = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: eventValue, validity } = event.target;
+    const { value: eventValue } = event.target;
 
-    if (validity.valid) {
-      setCounterValue(eventValue);
-    }
+    setCounterValue(eventValue);
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -62,53 +53,51 @@ const Counter = ({
 
   return (
     <StyledCounter>
-      <Label iconBefore={iconBefore} label={label} description={description} />
-
-      <div className="counter__counter">
-        <button
-          type="button"
-          onClick={() =>
-            updateValue(
-              counterValue - steps >= min
-                ? parseFloat((counterValue - steps).toFixed(fixedNumber))
-                : min
-            )
-          }
-          disabled={counterValue === min}
-          aria-label="Decrease"
-        >
-          <svg viewBox="0 0 24 24" width="24" height="24">
-            <rect height="2" rx="1" width="12" x="6" y="11" />
-          </svg>
-        </button>
-        <span>
-          <input
-            type="text"
-            pattern="[0-9.]*"
-            value={counterValue}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {suffix}
-        </span>
-        <button
-          type="button"
-          onClick={() =>
-            updateValue(
-              counterValue + steps <= max
-                ? parseFloat((counterValue + steps).toFixed(fixedNumber))
-                : max
-            )
-          }
-          disabled={counterValue === max}
-          aria-label="Increase"
-        >
-          <svg viewBox="0 0 24 24" width="24" height="24">
-            <rect height="2" rx="1" width="12" x="6" y="11" />
-            <rect height="12" rx="1" width="2" x="11" y="6" />
-          </svg>
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() =>
+          updateValue(
+            counterValue - steps >= min
+              ? parseFloat((counterValue - steps).toFixed(fixedNumber))
+              : min
+          )
+        }
+        disabled={counterValue === min}
+        aria-label="Decrease"
+      >
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <rect height="2" rx="1" width="12" x="6" y="11" />
+        </svg>
+      </button>
+      <span>
+        <input
+          type="number"
+          value={counterValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          min={min}
+          max={max}
+          step={steps}
+        />
+        {suffix}
+      </span>
+      <button
+        type="button"
+        onClick={() =>
+          updateValue(
+            counterValue + steps <= max
+              ? parseFloat((counterValue + steps).toFixed(fixedNumber))
+              : max
+          )
+        }
+        disabled={counterValue === max}
+        aria-label="Increase"
+      >
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <rect height="2" rx="1" width="12" x="6" y="11" />
+          <rect height="12" rx="1" width="2" x="11" y="6" />
+        </svg>
+      </button>
     </StyledCounter>
   );
 };

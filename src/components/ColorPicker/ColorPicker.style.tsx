@@ -2,9 +2,7 @@ import { styled } from '@storybook/theming';
 import { getPrimaryColor } from '../../helper';
 
 const StlyedColorPicker = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
+  position: relative;
 
   .colorPicker__cover {
     position: fixed;
@@ -22,26 +20,34 @@ const StlyedColorPicker = styled.div`
     border: none;
     cursor: pointer;
     background: none;
-    padding: 5px;
-    width: 60px;
-    border-radius: 30px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 195px;
+    border-radius: 5px;
     border: 1px solid ${getPrimaryColor};
 
     span {
       display: block;
       border-radius: 30px;
       height: 20px;
+      width: 20px;
+      border-radius: 20px;
+      margin-left: 5px;
+      flex-shrink: 0;
     }
-  }
 
-  .colorPicker__wrapper {
-    position: relative;
+    &:focus,
+    &:active {
+      color: inherit;
+    }
   }
 
   .colorPicker__content {
     position: absolute;
     right: 0;
-    top: 40px;
+    top: 50px;
     z-index: 1;
     border-radius: 5px;
     overflow: hidden;

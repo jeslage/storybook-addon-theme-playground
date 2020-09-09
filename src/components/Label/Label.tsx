@@ -1,19 +1,21 @@
 import React from 'react';
+import { Icons } from '@storybook/components/dist/icon/icon';
+import { IconKey } from '@storybook/components/dist/icon/icons';
 
 import StyledLabel from './Label.style';
 
 export interface Props {
-  iconBefore?: HTMLElement;
+  icon?: IconKey;
   label?: string;
   description?: string;
 }
 
-const Label: React.FC<Props> = ({ label, iconBefore, description }) => {
+const Label: React.FC<Props> = ({ label, icon, description }) => {
   return (
     <StyledLabel>
-      {(label || iconBefore) && (
+      {(label || icon) && (
         <p className="label">
-          {iconBefore}
+          {icon && <Icons icon={icon} />}
           {label && label}
         </p>
       )}

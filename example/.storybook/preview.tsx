@@ -22,6 +22,7 @@ const uiThemes = [
         fontWeight: 900,
         fontSize: '32px',
       },
+      switch: true,
       copy: {
         fontFamily: "'Hepta Slab', serif",
         fontWeight: 100,

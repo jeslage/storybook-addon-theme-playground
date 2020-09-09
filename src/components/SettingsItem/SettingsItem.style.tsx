@@ -6,6 +6,7 @@ export const StyledSettingsItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 
   &:nth-of-type(odd) {
     background: ${(props) => props.theme.background.app};

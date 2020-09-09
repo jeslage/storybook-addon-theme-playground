@@ -1,6 +1,8 @@
 import { API } from '@storybook/api';
 import { ReactNode } from 'react';
 
+import { IconKey } from '@storybook/components/dist/icon/icons';
+
 /*
   Theme
 */
@@ -31,28 +33,30 @@ export type OptionsType = {
 /*
   Overrides
 */
-export type OverridesProps = {
-  [key: string]: {
-    type:
-      | 'color'
-      | 'counter'
-      | 'select'
-      | 'shorthand'
-      | 'switch'
-      | 'radio'
-      | 'range';
+export type OverridesConfig = {
+  type:
+    | 'color'
+    | 'counter'
+    | 'select'
+    | 'shorthand'
+    | 'switch'
+    | 'radio'
+    | 'range';
+  icon?: IconKey;
+  hidden?: boolean;
+  label?: string;
+  description?: string;
+  min?: number;
+  max?: number;
+  steps?: number;
+  options?: {
+    value: string | number;
+    label: string;
+  }[];
+};
 
-    hidden?: boolean;
-    label?: string;
-    description?: string;
-    min?: number;
-    max?: number;
-    steps?: number;
-    options?: {
-      value: string | number;
-      label: string;
-    }[];
-  };
+export type OverridesProps = {
+  [key: string]: OverridesConfig;
 };
 
 /*

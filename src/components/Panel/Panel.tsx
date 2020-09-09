@@ -11,6 +11,7 @@ import RadioGroup from '../RadioGroup/RadioGroup';
 
 import StyledPanel from './Panel.style';
 import Button from '../Button/Button';
+import Label from '../Label/Label';
 
 const Panel = () => {
   const {
@@ -28,8 +29,9 @@ const Panel = () => {
           <div className="panel__content">
             {themes.length > 1 && (
               <div className="panel__themes">
+                <Label label="Active Theme" />
+
                 <RadioGroup
-                  label="Active Theme"
                   name="themes"
                   value={name}
                   onChange={(val) =>
@@ -42,14 +44,18 @@ const Panel = () => {
                 />
               </div>
             )}
+
             <SettingsItem />
+
             {config.showCode && <Code value={theme} />}
+
             <div className="panel__settings-wrapper">
               <div className="panel__settings">
                 <Loading />
+
                 <div className="panel__buttons">
                   <Button onClick={() => resetThemes()}>
-                    <Icons icon="undo" />
+                    <Icons icon="sync" />
                     Reset
                   </Button>
                 </div>

@@ -12,6 +12,10 @@ const StyledPanel = styled.div`
   }
 
   .panel__themes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     padding: 1rem;
     min-height: 65px;
     background: ${(props) => props.theme.background.app};

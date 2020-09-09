@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added icon prop to overrides config
+
+### Changed
+
+- Updated ColorPicker styling
+- Changed Counter and Range input from `text` to `number`
+
+### Removed
+
+- Removed `label` and `description` prop from all input components and moved it to parent component
+
 ## [1.3.4]- 2020-09-06
 
 ### Added

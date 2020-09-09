@@ -2,17 +2,17 @@ import { styled } from '@storybook/theming';
 import { getSecondaryColor, getPrimaryColor } from '../../helper';
 
 const StyledRange = styled.label`
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
-  width: 100%;
+  flex-shrink: 0;
 
   span {
     margin-right: 10px;
     font-size: 14px;
   }
 
-  input[type='text'] {
+  input[type='number'] {
     border: none;
     border-bottom: 1px solid transparent;
     outline: none;
@@ -24,9 +24,16 @@ const StyledRange = styled.label`
     text-align: right;
     color: inherit;
     background: none;
+    -moz-appearance: textfield;
 
     &:focus {
       border-color: ${getSecondaryColor};
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 

@@ -167,7 +167,10 @@ addDecorator(
 
 `storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to the decorator.
 
-As a key use the theme object path, e.g `'button.spacing'`
+As a key use the theme object path, e.g `'button.spacing'`.
+
+All overrides except a `type`, `label`, `description` and `icon` prop.
+You can use all icons from the [storybook styleguide](https://next--storybookjs.netlify.app/official-storybook/?path=/story/basics-icon--labels).
 
 **Example**
 
@@ -181,6 +184,7 @@ import theme from 'path/to/theme';
 const overrides = {
   'button.spacing': {
     type: 'counter',
+    icon: 'expand',
     label: 'Button Spacing',
     description: 'Spacing for all buttons',
     min: 1,
@@ -220,6 +224,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'color',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null
@@ -231,6 +236,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'counter',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null,
@@ -245,6 +251,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'select',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null
@@ -262,6 +269,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'shorthand',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null
@@ -273,6 +281,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'switch',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null
@@ -284,6 +293,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'radio',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null
@@ -301,6 +311,7 @@ const overrides = {
 ```js
 'theme.path': {
   type: 'range',
+  icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
   description: string | null,

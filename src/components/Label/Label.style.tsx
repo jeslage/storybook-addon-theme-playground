@@ -1,5 +1,4 @@
 import { styled } from '@storybook/theming';
-import { getSecondaryColor } from '../../helper';
 
 const StyledLabel = styled.div`
   flex-grow: 2;
@@ -10,12 +9,12 @@ const StyledLabel = styled.div`
     display: flex;
     font-size: 14px;
     align-items: center;
+    hyphens: auto;
 
     svg {
-      width: 20px;
+      width: 15px;
       height: auto;
-      margin-right: 15px;
-      fill: ${getSecondaryColor};
+      margin-right: 5px;
     }
   }
 

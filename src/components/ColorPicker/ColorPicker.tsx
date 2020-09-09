@@ -1,24 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChromePicker } from 'react-color';
+import ColorPicker from 'react-pick-color';
 
 import StyledColorPicker from './ColorPicker.style';
-import Label from '../Label/Label';
 
 export interface ColorPickerProps {
-  iconBefore?: HTMLElement;
-  description?: string;
-  label: string;
   onChange: (hex: string) => void;
   value: string;
 }
 
-const ColorPicker = ({
-  iconBefore,
-  description,
-  label,
-  onChange,
-  value,
-}: ColorPickerProps) => {
+const ColorPick = ({ onChange, value }: ColorPickerProps) => {
   const [visible, setVisible] = useState(false);
   const content = useRef<HTMLDivElement>(null);
 
@@ -40,7 +30,7 @@ const ColorPicker = ({
       let newColor = hex;
 
       if (rgb.a < 1) {
-        newColor = `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})`;
+        newColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`;
       }
 
       onChange(newColor);
@@ -48,34 +38,31 @@ const ColorPicker = ({
   };
   return (
     <StyledColorPicker>
-      <Label iconBefore={iconBefore} label={label} description={description} />
+      <button
+        type="button"
+        onClick={() => setVisible((prev) => !prev)}
+        aria-label="Open color picker"
+        className="colorPicker__open"
+      >
+        {value}
+        <span style={{ background: value }} />
+      </button>
 
-      <div className="colorPicker__wrapper">
-        <button
-          type="button"
-          onClick={() => setVisible((prev) => !prev)}
-          aria-label="Open color picker"
-          className="colorPicker__open"
-        >
-          <span style={{ background: value }} />
-        </button>
-
-        {visible && (
-          <>
-            <button
-              type="button"
-              onClick={() => setVisible(false)}
-              aria-label="Close color picker"
-              className="colorPicker__cover"
-            />
-            <div className="colorPicker__content" ref={content}>
-              <ChromePicker color={value} onChangeComplete={handleChange} />
-            </div>
-          </>
-        )}
-      </div>
+      {visible && (
+        <>
+          <button
+            type="button"
+            onClick={() => setVisible(false)}
+            aria-label="Close color picker"
+            className="colorPicker__cover"
+          />
+          <div className="colorPicker__content a" ref={content}>
+            <ColorPicker color={value} onChange={handleChange} />
+          </div>
+        </>
+      )}
     </StyledColorPicker>
   );
 };
 
-export default ColorPicker;
+export default ColorPick;

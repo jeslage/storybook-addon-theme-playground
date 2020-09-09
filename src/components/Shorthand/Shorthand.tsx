@@ -1,13 +1,9 @@
 import React from 'react';
 
 import StyledShorthand from './Shorthand.style';
-import Label from '../Label/Label';
 
 export interface ShorthandProps {
-  iconBefore?: HTMLElement;
-  label?: string;
   name?: string;
-  description?: string;
   onChange: (val: ShorthandObject) => void;
   value: ShorthandObject;
 }
@@ -19,13 +15,7 @@ interface ShorthandObject {
   bottom: number | string;
 }
 
-const Shorthand = ({
-  label,
-  description,
-  value,
-  onChange,
-  iconBefore,
-}: ShorthandProps) => {
+const Shorthand = ({ value, onChange }: ShorthandProps) => {
   const { top, left, right, bottom } = value;
 
   const updateValue = (key: string, val: number) => {
@@ -49,45 +39,41 @@ const Shorthand = ({
 
   return (
     <StyledShorthand>
-      <Label iconBefore={iconBefore} label={label} description={description} />
+      <input
+        type="text"
+        pattern="[0-9.]*"
+        value={top}
+        name="top"
+        onChange={handleChange}
+        onBlur={handleChange}
+      />
 
-      <div className="shorthand__shorthand">
-        <input
-          type="text"
-          pattern="[0-9.]*"
-          value={top}
-          name="top"
-          onChange={handleChange}
-          onBlur={handleChange}
-        />
+      <input
+        type="text"
+        pattern="[0-9.]*"
+        value={right}
+        name="right"
+        onChange={handleChange}
+        onBlur={handleChange}
+      />
 
-        <input
-          type="text"
-          pattern="[0-9.]*"
-          value={right}
-          name="right"
-          onChange={handleChange}
-          onBlur={handleChange}
-        />
+      <input
+        type="text"
+        pattern="[0-9.]*"
+        value={bottom}
+        name="bottom"
+        onChange={handleChange}
+        onBlur={handleChange}
+      />
 
-        <input
-          type="text"
-          pattern="[0-9.]*"
-          value={bottom}
-          name="bottom"
-          onChange={handleChange}
-          onBlur={handleChange}
-        />
-
-        <input
-          type="text"
-          pattern="[0-9.]*"
-          value={left}
-          name="left"
-          onChange={handleChange}
-          onBlur={handleChange}
-        />
-      </div>
+      <input
+        type="text"
+        pattern="[0-9.]*"
+        value={left}
+        name="left"
+        onChange={handleChange}
+        onBlur={handleChange}
+      />
     </StyledShorthand>
   );
 };
