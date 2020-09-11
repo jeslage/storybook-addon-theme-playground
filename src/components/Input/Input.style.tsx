@@ -10,7 +10,8 @@ const StyledInput = styled.input`
   padding: 8px 10px;
   border-radius: 5px;
   text-align: right;
-  width: 195px;
+  max-width: 200px;
+  width: 100%;
   border: 1px solid ${getBorderColor};
   color: ${getPrimaryColor};
   outline: none;

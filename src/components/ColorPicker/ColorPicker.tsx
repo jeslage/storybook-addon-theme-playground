@@ -30,7 +30,7 @@ const ColorPick = ({ onChange, value }: ColorPickerProps) => {
       let newColor = hex;
 
       if (rgb.a < 1) {
-        newColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`;
+        newColor = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a.toFixed(2)})`;
       }
 
       onChange(newColor);

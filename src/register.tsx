@@ -11,7 +11,7 @@ addons.register('storybook-addon-theme-playground', (api) => {
   addons.addPanel('storybook-addon-theme-playground/panel', {
     title: 'Theme Playground',
     render: ({ active, key }) => (
-      <AddonPanel key={key} active={active}>
+      <AddonPanel key={key} active={active || false}>
         <SettingsProvider api={api}>
           <Panel />
         </SettingsProvider>

@@ -21,12 +21,13 @@ const StyledRadioOption = styled.label`
     display: flex;
     align-items: center;
     padding: 0.5rem 0.75rem;
-    margin: 0 0 0 10px;
+    margin: 5px;
     border-radius: 3rem;
     opacity: 0.5;
     color: ${getPrimaryColor};
     border: 1px solid ${getPrimaryColor};
     transition: all 0.2s ease-in-out;
+    white-space: nowrap;
 
     svg {
       width: 20px;

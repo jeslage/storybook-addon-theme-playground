@@ -6,7 +6,7 @@ import { IconKey } from '@storybook/components/dist/icon/icons';
 /*
   Theme
 */
-export type ThemeObject = { name: string; theme: object };
+export type ThemeObject = { name: string; theme: any };
 export type ThemesArray = ThemeObject[];
 
 export type LabelFormatFunction = (path: string[]) => string;

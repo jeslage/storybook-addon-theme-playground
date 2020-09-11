@@ -7,7 +7,6 @@ export interface RadioOptionProps {
   name?: string;
   value: string;
   label: string;
-  icon?: HTMLElement;
   isChecked?: boolean;
 }
 
@@ -17,7 +16,6 @@ const RadioOption: React.FC<RadioOptionProps> = ({
   value,
   onChange,
   isChecked,
-  icon,
 }) => {
   return (
     <StyledRadioOption htmlFor={value}>
@@ -33,7 +31,7 @@ const RadioOption: React.FC<RadioOptionProps> = ({
           }
         }}
       />
-      <div>{icon || label || value}</div>
+      <div>{label || value}</div>
     </StyledRadioOption>
   );
 };

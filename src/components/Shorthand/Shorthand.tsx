@@ -40,8 +40,7 @@ const Shorthand = ({ value, onChange }: ShorthandProps) => {
   return (
     <StyledShorthand>
       <input
-        type="text"
-        pattern="[0-9.]*"
+        type="number"
         value={top}
         name="top"
         onChange={handleChange}
@@ -49,8 +48,7 @@ const Shorthand = ({ value, onChange }: ShorthandProps) => {
       />
 
       <input
-        type="text"
-        pattern="[0-9.]*"
+        type="number"
         value={right}
         name="right"
         onChange={handleChange}
@@ -58,8 +56,7 @@ const Shorthand = ({ value, onChange }: ShorthandProps) => {
       />
 
       <input
-        type="text"
-        pattern="[0-9.]*"
+        type="number"
         value={bottom}
         name="bottom"
         onChange={handleChange}
@@ -67,8 +64,7 @@ const Shorthand = ({ value, onChange }: ShorthandProps) => {
       />
 
       <input
-        type="text"
-        pattern="[0-9.]*"
+        type="number"
         value={left}
         name="left"
         onChange={handleChange}

@@ -27,7 +27,8 @@ export const ColorPrimary = styled(Color)`
   background: ${({ theme }) => theme.color.primary};
 
   &:before {
-    content: "${({ theme }) => theme.color.primary}";
+    content: '${({ theme }) => theme.color.primary}';
+    font-size: 12px;
   }
 `;
 
@@ -35,7 +36,8 @@ export const ColorSecondary = styled(Color)`
   background: ${({ theme }) => theme.color.secondary};
 
   &:before {
-    content: "${({ theme }) => theme.color.secondary}";
+    content: '${({ theme }) => theme.color.secondary}';
+    font-size: 12px;
   }
 `;
 
@@ -43,7 +45,8 @@ export const ColorTertiary = styled(Color)`
   background: ${({ theme }) => theme.color.tertiary};
 
   &:before {
-    content: "${({ theme }) => theme.color.tertiary}";
+    content: '${({ theme }) => theme.color.tertiary}';
+    font-size: 12px;
   }
 `;
 
@@ -87,29 +90,29 @@ export const Spacing = styled.div`
     transform: translateY(-50%);
     width: 100%;
     text-align: center;
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
     font-size: 12px;
-    content: "${({ theme }) => theme.spacings[0]}";
+    content: '${({ theme }) => theme.spacings[0]}';
   }
 
   &:nth-of-type(2) {
     height: ${({ theme }) => theme.spacings[1]}px;
     &:after {
-      content: "${({ theme }) => theme.spacings[1]}";
+      content: '${({ theme }) => theme.spacings[1]}';
     }
   }
 
   &:nth-of-type(3) {
     height: ${({ theme }) => theme.spacings[2]}px;
     &:after {
-      content: "${({ theme }) => theme.spacings[2]}";
+      content: '${({ theme }) => theme.spacings[2]}';
     }
   }
 
   &:nth-of-type(4) {
     height: ${({ theme }) => theme.spacings[3]}px;
     &:after {
-      content: "${({ theme }) => theme.spacings[3]}";
+      content: '${({ theme }) => theme.spacings[3]}';
     }
   }
 `;

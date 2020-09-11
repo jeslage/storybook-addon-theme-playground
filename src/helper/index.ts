@@ -59,7 +59,7 @@ export const is = {
 export const updateValueBasedOnPath = (
   propertyPath: string,
   value: any,
-  obj: object
+  obj: any
 ) => {
   const newObj = obj;
 
@@ -107,5 +107,7 @@ export const getInverseTextColor = ({ theme }: { theme?: any }) => {
 };
 
 export const getBorderColor = ({ theme }: { theme?: any }) => {
-  return theme?.base === 'dark' ? theme?.color?.light : theme?.color?.dark;
+  return theme?.base === 'dark'
+    ? theme?.color?.lightest
+    : theme?.color?.darkest;
 };

@@ -6,10 +6,7 @@ const buildThemeComponents = (
   overrides: OverridesProps,
   arr: string[] = []
 ) => {
-  let themeComponents = {};
-  const keys: string[] = Object.keys(theme);
-
-  keys.forEach((key) => {
+  const themeComponents = Object.keys(theme).reduce((acc, key) => {
     const value = theme[key];
     const path = [...arr, key];
     const pathString = path.join('.');
@@ -20,37 +17,54 @@ const buildThemeComponents = (
     }
 
     if (overrides[pathString] && overrides[pathString].type) {
-      themeComponents[pathString] = { type: overrides[pathString].type, value };
-    } else if (is.object(value)) {
-      if (is.shorthand(value)) {
-        themeComponents[pathString] = { type: 'shorthand', value };
-      } else {
-        themeComponents = {
-          ...themeComponents,
-          ...buildThemeComponents(value, overrides, path),
-        };
-      }
-    } else if (is.array(value)) {
-      themeComponents = {
-        ...themeComponents,
+      return {
+        ...acc,
+        [pathString]: { type: overrides[pathString].type, value },
+      };
+    }
+
+    if (Array.isArray(value)) {
+      return {
+        ...acc,
         ...buildThemeComponents(value, overrides, path),
       };
-    } else if (is.boolean(value)) {
-      themeComponents[pathString] = { type: 'switch', value };
-    } else if (is.number(value)) {
-      themeComponents[pathString] = { type: 'counter', value };
-    } else if (is.string(value)) {
-      if (is.color(value, key)) {
-        themeComponents[pathString] = { type: 'colorpicker', value };
-      } else if (is.unit(value)) {
-        themeComponents[pathString] = { type: 'range', value };
-      } else if (is.text(value)) {
-        themeComponents[pathString] = { type: 'textarea', value };
-      } else {
-        themeComponents[pathString] = { type: 'input', value };
-      }
     }
-  });
+
+    if (is.object(value)) {
+      if (is.shorthand(value)) {
+        return { ...acc, [pathString]: { type: 'shorthand', value } };
+      }
+
+      return {
+        ...acc,
+        ...buildThemeComponents(value, overrides, path),
+      };
+    }
+
+    if (is.boolean(value)) {
+      return { ...acc, [pathString]: { type: 'switch', value } };
+    }
+
+    if (typeof value === 'number') {
+      return { ...acc, [pathString]: { type: 'counter', value } };
+    }
+
+    if (typeof value === 'string') {
+      if (is.color(value, key)) {
+        return { ...acc, [pathString]: { type: 'colorpicker', value } };
+      }
+
+      if (is.unit(value)) {
+        return { ...acc, [pathString]: { type: 'range', value } };
+      }
+
+      if (is.text(value)) {
+        return { ...acc, [pathString]: { type: 'textarea', value } };
+      }
+
+      return { ...acc, [pathString]: { type: 'input', value } };
+    }
+  }, {});
 
   return themeComponents;
 };

@@ -18,7 +18,10 @@ const StyledPanel = styled.div`
     width: 100%;
     padding: 1rem;
     min-height: 65px;
+    display: grid;
     background: ${(props) => props.theme.background.app};
+    grid-template-columns: repeat(auto-fit, minmax(110px, auto));
+    display: grid;
   }
 
   .panel__settings-wrapper {

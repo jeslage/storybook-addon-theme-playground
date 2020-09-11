@@ -10,6 +10,7 @@ const StyledRange = styled.label`
   span {
     margin-right: 10px;
     font-size: 14px;
+    white-space: nowrap;
   }
 
   input[type='number'] {
@@ -39,7 +40,8 @@ const StyledRange = styled.label`
 
   input[type='range'] {
     appearance: none;
-    width: 120px;
+    max-width: 120px;
+    width: 100%;
     margin: 0;
     background: none;
   }

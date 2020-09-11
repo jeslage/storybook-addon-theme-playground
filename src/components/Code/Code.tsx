@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import StyledCode from './Code.style';
 
 interface CodeProps {
-  value: object;
+  value: any;
 }
 
 const Code = ({ value }: CodeProps) => {

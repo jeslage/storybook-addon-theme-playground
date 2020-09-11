@@ -3,6 +3,8 @@ import { getPrimaryColor } from '../../helper';
 
 const StlyedColorPicker = styled.div`
   position: relative;
+  max-width: 200px;
+  width: 100%;
 
   .colorPicker__cover {
     position: fixed;
@@ -24,7 +26,7 @@ const StlyedColorPicker = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 195px;
+    width: 100%;
     border-radius: 5px;
     border: 1px solid ${getPrimaryColor};
 

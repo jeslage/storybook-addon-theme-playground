@@ -20,6 +20,13 @@ const StyledShorthand = styled.div`
     text-align: center;
     color: inherit;
     background: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 `;
 

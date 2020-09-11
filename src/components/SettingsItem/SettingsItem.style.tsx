@@ -5,8 +5,14 @@ export const StyledSettingsItem = styled.div`
   min-height: 65px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
+  grid-gap: 10px;
   width: 100%;
+
+  & > *:nth-child(2) {
+    justify-self: flex-end;
+  }
 
   &:nth-of-type(odd) {
     background: ${(props) => props.theme.background.app};

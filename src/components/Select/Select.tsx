@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Label from '../Label/Label';
 import StyledSelect from './Select.style';
 
 export type SelectOptionValue = string | number;
@@ -10,28 +9,21 @@ export type SelectOption = {
   label?: string;
 };
 export interface SelectProps {
-  icon?: HTMLElement;
-  label?: string;
-  description?: string;
   name?: string;
   onChange: (val: SelectOptionValue) => void;
   value: SelectOptionValue;
   options: SelectOption[];
 }
 
-function Select(props: SelectProps) {
-  const { options, icon, value, label, description, name, onChange } = props;
-
-  function handleOnChange(e: React.FormEvent<HTMLSelectElement>) {
+const Select = ({ options, value, name, onChange }: SelectProps) => {
+  const handleOnChange = (e: React.FormEvent<HTMLSelectElement>) => {
     const { selectedIndex } = e.currentTarget;
     const selectedOption = options[selectedIndex];
     onChange(selectedOption.value);
-  }
+  };
 
   return (
-    <StyledSelect htmlFor={label}>
-      <Label icon={icon} label={label} description={description} />
-
+    <StyledSelect>
       <select value={value} onChange={handleOnChange} name={name}>
         {options &&
           options.length > 0 &&
@@ -44,6 +36,6 @@ function Select(props: SelectProps) {
       <div className="select__icon" />
     </StyledSelect>
   );
-}
+};
 
 export default Select;
