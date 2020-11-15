@@ -25,7 +25,7 @@ const StyledLoading = styled.div`
   }
 `;
 
-const Loading: React.FC = () => {
+const Loading = () => {
   return (
     <StyledLoading>
       <span>Updating</span>

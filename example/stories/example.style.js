@@ -24,45 +24,45 @@ export const Color = styled.div`
   margin: 0rem 1rem 0rem 0rem;
   display: inline-block;
   border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
 
-  &:before {
+  &:after {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    bottom: 0;
+    display: block;
     text-align: center;
     text-transform: uppercase;
     font-family: sans-serif;
     padding: 5px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 0.25rem;
+    background: rgba(0, 0, 0, 0.25);
+    color: white;
+    font-size: 12px;
+    border-top-right-radius: 0.25rem;
   }
 `;
 
 export const ColorPrimary = styled(Color)`
   background: ${({ theme }) => theme.color.primary};
 
-  &:before {
+  &:after {
     content: '${({ theme }) => theme.color.primary}';
-    font-size: 12px;
   }
 `;
 
 export const ColorSecondary = styled(Color)`
   background: ${({ theme }) => theme.color.secondary};
 
-  &:before {
+  &:after {
     content: '${({ theme }) => theme.color.secondary}';
-    font-size: 12px;
   }
 `;
 
 export const ColorTertiary = styled(Color)`
   background: ${({ theme }) => theme.color.tertiary};
 
-  &:before {
+  &:after {
     content: '${({ theme }) => theme.color.tertiary}';
-    font-size: 12px;
   }
 `;
 
