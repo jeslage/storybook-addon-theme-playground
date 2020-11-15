@@ -185,7 +185,6 @@ You can use all icons from the [storybook styleguide](https://next--storybookjs.
 **Example**
 
 ```js
-import { addDecorator } from '@storybook/react';
 import { ThemeProvider } from 'styled-components';
 import { withThemePlayground } from 'storybook-addon-theme-playground';
 
