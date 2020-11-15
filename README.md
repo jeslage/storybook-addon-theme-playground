@@ -23,7 +23,7 @@ Add to `.storybook/main.js`
 
 ```js
 module.exports = {
-  addons: ['storybook-addon-theme-playground/dist/register'],
+  addons: ['storybook-addon-theme-playground/dist/register']
 };
 ```
 
@@ -40,8 +40,8 @@ import theme from 'path/to/theme';
 export const decorators = [
   withThemePlayground({
     theme,
-    provider: ThemeProvider,
-  }),
+    provider: ThemeProvider
+  })
 ];
 ```
 
@@ -60,9 +60,9 @@ export default {
   decorators: [
     withThemePlayground({
       theme,
-      provider: ThemeProvider,
-    }),
-  ],
+      provider: ThemeProvider
+    })
+  ]
 };
 
 export const Primary = () => <Button>Primary Button</Button>;
@@ -136,12 +136,12 @@ import anotherTheme from 'path/to/another/theme';
 const options = {
   theme: [
     { name: 'Theme', theme: defaultTheme },
-    { name: 'Another Theme', theme: anotherTheme },
+    { name: 'Another Theme', theme: anotherTheme }
   ],
-  provider: ThemeProvider,
+  provider: ThemeProvider
 };
 
-addDecorator(withThemePlayground(options));
+export const decorators = [withThemePlayground(options)];
 ```
 
 ## Config
@@ -151,7 +151,7 @@ addDecorator(withThemePlayground(options));
 ```js
 import { ThemeProvider } from 'styled-components';
 
-addDecorator(
+export const decorators = [
   withThemePlayground({
     theme: { button: { color: '#000' } },
     provider: ThemeProvider,
@@ -167,10 +167,10 @@ addDecorator(
       },
       debounce: true || false,
       debounceRate: 500,
-      showConfig: true || false,
-    },
+      showConfig: true || false
+    }
   })
-);
+];
 ```
 
 ## Overrides
@@ -199,17 +199,17 @@ const overrides = {
     description: 'Spacing for all buttons',
     min: 1,
     max: 20,
-    steps: 1,
+    steps: 1
   },
   'button.color.primary': {
     type: 'color',
-    label: 'Button Primary Color',
-  },
+    label: 'Button Primary Color'
+  }
 };
 
-addDecorator(
+export const decorators = [
   withThemePlayground({ theme, overrides, provider: ThemeProvider })
-);
+];
 ```
 
 ### Hide specific theme values
@@ -219,11 +219,11 @@ It is also possible to hide specific theme values or objects, e.g.:
 ```js
 const overrides = {
   breakpoints: {
-    hidden: true,
+    hidden: true
   },
   'button.spacing': {
-    hidden: true,
-  },
+    hidden: true
+  }
 };
 ```
 
@@ -370,7 +370,7 @@ const overrides = {
 
 import {
   withThemePlayground,
-  ThemePlaygroundProps,
+  ThemePlaygroundProps
 } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
@@ -387,15 +387,15 @@ const options: Options = {
       type: 'range',
       max: 900,
       min: 1,
-      description: 'Define the font weight of the variable font',
+      description: 'Define the font weight of the variable font'
     },
     'copy.fontWeight': {
       type: 'range',
       max: 900,
       min: 1,
-      description: 'Define the font weight of the variable font',
-    },
-  },
+      description: 'Define the font weight of the variable font'
+    }
+  }
 };
 
 export const decorators = [withThemePlayground(options)];

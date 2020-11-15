@@ -4,7 +4,7 @@ import {
   Icons,
   SyntaxHighlighter,
   Tabs,
-  IconButton,
+  IconButton
 } from '@storybook/components';
 
 import { updateValueBasedOnPath } from '../helper';
@@ -12,7 +12,7 @@ import { updateValueBasedOnPath } from '../helper';
 import {
   THEME_PLAYGROUND_RESET,
   THEME_PLAYGROUND_STATE,
-  THEME_PLAYGROUND_UPDATE,
+  THEME_PLAYGROUND_UPDATE
 } from '../constants';
 
 import { PanelState } from '../types';
@@ -66,7 +66,7 @@ const Panel = ({ api }: PanelProps) => {
         if (index === state.selected) {
           return {
             ...prev,
-            theme: newTheme,
+            theme: newTheme
           };
         }
 
@@ -76,9 +76,9 @@ const Panel = ({ api }: PanelProps) => {
         ...state.themeComponents,
         [name]: {
           ...state.themeComponents[name],
-          [path]: { ...state.themeComponents[name][path], value },
-        },
-      },
+          [path]: { ...state.themeComponents[name][path], value }
+        }
+      }
     });
   };
 
@@ -92,7 +92,7 @@ const Panel = ({ api }: PanelProps) => {
         backgroundColor="rgba(0,0,0,.02)"
         selected={state.selected.toString()}
         actions={{
-          onSelect: (id) => updateSelectedTheme(parseFloat(id)),
+          onSelect: (id) => updateSelectedTheme(parseFloat(id))
         }}
         tools={
           <>

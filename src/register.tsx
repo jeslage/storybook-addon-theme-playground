@@ -11,7 +11,7 @@ import Panel from './components/Panel';
 import {
   THEME_PLAYGROUND,
   THEME_PLAYGROUND_PANEL,
-  THEME_PLAYGROUND_STATE,
+  THEME_PLAYGROUND_STATE
 } from './constants';
 
 addons.register(THEME_PLAYGROUND, (api) => {
@@ -25,6 +25,6 @@ addons.register(THEME_PLAYGROUND, (api) => {
           {!state ? <Loader size={32} /> : <Panel api={api} />}
         </AddonPanel>
       );
-    },
+    }
   });
 });

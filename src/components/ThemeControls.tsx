@@ -8,7 +8,7 @@ import {
   NumberControl,
   Form,
   RangeControl,
-  OptionsControl,
+  OptionsControl
 } from '@storybook/components';
 
 import { OverridesConfig } from '../types';
@@ -173,7 +173,7 @@ const ThemeControls = ({ themeComponents, overrides, config, onUpdate }) => {
 
           const props = {
             value,
-            label,
+            label
           };
 
           const themeControlProps = {
@@ -181,7 +181,7 @@ const ThemeControls = ({ themeComponents, overrides, config, onUpdate }) => {
             path,
             props,
             config: overrides[path],
-            update: onUpdate,
+            update: onUpdate
           };
 
           return themeComponents[path] ? (

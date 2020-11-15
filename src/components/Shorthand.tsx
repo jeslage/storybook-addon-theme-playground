@@ -34,7 +34,7 @@ const Shorthand = ({ value, onChange }: ShorthandProps) => {
   const updateValue = (key: string, val: number) => {
     const newValue = {
       ...value,
-      [key]: val,
+      [key]: val
     };
 
     onChange(newValue);

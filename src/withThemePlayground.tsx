@@ -3,7 +3,7 @@ import addons, {
   makeDecorator,
   useCallback,
   useEffect,
-  useState,
+  useState
 } from '@storybook/addons';
 import { useAddonState } from '@storybook/client-api';
 
@@ -11,7 +11,7 @@ import { ConfigProps, OverridesProps, PanelState } from './types';
 import {
   THEME_PLAYGROUND_RESET,
   THEME_PLAYGROUND_STATE,
-  THEME_PLAYGROUND_UPDATE,
+  THEME_PLAYGROUND_UPDATE
 } from './constants';
 
 import { getThemeComponents } from './helper/buildThemeComponents';
@@ -58,8 +58,8 @@ export default makeDecorator({
         debounce: true,
         debounceRate: 500,
         showCode: true,
-        ...config,
-      },
+        ...config
+      }
     };
 
     const [state, setState] = useAddonState<PanelState>(
@@ -76,7 +76,7 @@ export default makeDecorator({
         ...state,
         selected: i,
         theme: getThemeArray(theme),
-        themeComponents: getThemeComponents(theme, overrides),
+        themeComponents: getThemeComponents(theme, overrides)
       });
     }, []);
 
@@ -94,5 +94,5 @@ export default makeDecorator({
     const Provider = provider;
 
     return <Provider theme={providerTheme}>{storyFn(context)}</Provider>;
-  },
+  }
 });

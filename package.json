@@ -45,7 +45,8 @@
   },
   "prettier": {
     "printWidth": 80,
-    "singleQuote": true
+    "singleQuote": true,
+    "trailingComma": "none"
   },
   "dependencies": {
     "lodash.startcase": "^4.4.0"
