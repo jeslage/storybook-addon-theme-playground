@@ -1,25 +1,41 @@
 import styled from 'styled-components';
 
-export const Content = styled.div`
-  border-top: 1px solid #f4f4f4;
-  padding: 0.5rem 1.5rem;
+export const Content = styled.fieldset`
+  padding: 1.5rem;
+  border: 1px solid #f4f4f4;
+  margin-bottom: 2rem;
+  position: relative;
+
+  legend {
+    display: block;
+    padding: 0 0.25rem;
+    color: lightgray;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
 `;
 
 export const Color = styled.div`
   position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  margin: 1rem 1rem 2.5rem;
+  width: 200px;
+  height: 150px;
+  margin: 0rem 1rem 0rem 0rem;
   display: inline-block;
+  border-radius: 0.25rem;
 
   &:before {
     position: absolute;
-    bottom: -1.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     text-transform: uppercase;
     font-family: sans-serif;
-    width: 100%;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.25rem;
   }
 `;
 
@@ -60,9 +76,15 @@ const getRectStyles = ({ theme }) => `
 `;
 
 export const Rect = styled.div`
-  display: inline-block;
-  background: #323232;
+  background: #333;
   ${getRectStyles};
+`;
+
+export const RectContainer = styled.div`
+  display: inline-block;
+  margin-right: 0.5rem;
+  border: 1px solid palevioletred;
+  background: lightpink;
 `;
 
 export const Headline = styled.h1`
@@ -82,6 +104,7 @@ export const Spacing = styled.div`
   width: 50px;
   margin: 1rem;
   background: lightpink;
+  display: inline-block;
   height: ${({ theme }) => theme.spacings[0]}px;
 
   &:after {

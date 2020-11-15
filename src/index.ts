@@ -1,4 +1,4 @@
 export {
-  withThemePlayground,
+  default as withThemePlayground,
   ThemePlaygroundProps,
 } from './withThemePlayground';

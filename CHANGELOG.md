@@ -9,16 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added override type `number` as a replacement for type `counter`
 - Added icon prop to overrides config
 
 ### Changed
 
-- Updated ColorPicker styling
-- Changed Counter and Range input from `text` to `number`
+- [Issue #19](https://github.com/jeslage/storybook-addon-theme-playground/issues/19): Moved state to storybooks `useAddonState` hook to persist current state between story changes
+- Updated `withThemePlayground` to storybooks `makeDecorator` method instead of class component
 
 ### Removed
 
 - Removed `label` and `description` prop from all input components and moved it to parent component
+- Removed all custom input components in favor of core components from `@storybook/components`
+
+### Deprecated
+
+- Override type `counter` will be deprecated in next major release, use type `number` instead
 
 ## [1.3.4]- 2020-09-06
 

@@ -68,6 +68,16 @@ export default {
 export const Primary = () => <Button>Primary Button</Button>;
 ```
 
+## Storybook Version
+
+`storybook-addon-theme-playground` needs at least Storybook 6. If you need to support a smaller version of Storybook, please install the addon version `1.3.4`. [Or read about how to migrate to Storybook 6](https://medium.com/storybookjs/storybook-6-migration-guide-200346241bb5).
+
+```sh
+# For Storybook versions < 6.0
+npm install -D storybook-addon-theme-playground@1.3.4
+yarn add -D storybook-addon-theme-playground@1.3.4
+```
+
 ## Options
 
 ### `theme`
@@ -183,7 +193,7 @@ import theme from 'path/to/theme';
 
 const overrides = {
   'button.spacing': {
-    type: 'counter',
+    type: 'number',
     icon: 'expand',
     label: 'Button Spacing',
     description: 'Spacing for all buttons',
@@ -231,11 +241,11 @@ const overrides = {
 }
 ```
 
-### Counter
+### Number
 
 ```js
 'theme.path': {
-  type: 'counter',
+  type: 'number',
   icon: string,
   hidden: boolean,
   label: string | 'Theme Path',
@@ -329,7 +339,7 @@ const overrides = {
 
 > `boolean`
 
-### `Counter`
+### `Number`
 
 > `number`
 

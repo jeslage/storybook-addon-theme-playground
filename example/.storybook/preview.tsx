@@ -17,21 +17,20 @@ const uiThemes = [
   {
     name: 'Default Theme',
     theme: {
+      color: {
+        primary: '#00ffa2',
+        secondary: '#004466',
+        tertiary: '#fbe9a0',
+      },
       headline: {
         fontFamily: "'Crimson Pro', sans-serif",
         fontWeight: 900,
         fontSize: '32px',
       },
-      switch: true,
       copy: {
         fontFamily: "'Hepta Slab', serif",
         fontWeight: 100,
         fontSize: '14px',
-      },
-      color: {
-        primary: '#00ffa2',
-        secondary: '#004466',
-        tertiary: '#fbe9a0',
       },
       spacings: [40, 80, 120, 160],
       rectangle: {
@@ -49,6 +48,11 @@ const uiThemes = [
   {
     name: 'Another Theme',
     theme: {
+      color: {
+        primary: '#ff9922',
+        secondary: '#224422',
+        tertiary: '#662255',
+      },
       headline: {
         fontFamily: "'Hepta Slab', sans-serif",
         fontWeight: 700,
@@ -58,11 +62,6 @@ const uiThemes = [
         fontFamily: "'Crimson Pro', serif",
         fontWeight: 200,
         fontSize: '20px',
-      },
-      color: {
-        primary: '#ff9922',
-        secondary: '#224422',
-        tertiary: '#662255',
       },
       spacings: [20, 40, 60, 90],
       rectangle: {

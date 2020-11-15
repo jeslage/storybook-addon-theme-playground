@@ -1,6 +1,3 @@
-import { API } from '@storybook/api';
-import { ReactNode } from 'react';
-
 import { IconKey } from '@storybook/components/dist/icon/icons';
 
 /*
@@ -26,8 +23,8 @@ export type ConfigProps = {
 */
 export type OptionsType = {
   theme: any;
-  overrides: OverridesProps;
-  config: ConfigProps;
+  overrides?: OverridesProps;
+  config?: ConfigProps;
 };
 
 /*
@@ -37,6 +34,7 @@ export type OverridesConfig = {
   type:
     | 'color'
     | 'counter'
+    | 'number'
     | 'select'
     | 'shorthand'
     | 'switch'
@@ -59,22 +57,12 @@ export type OverridesProps = {
   [key: string]: OverridesConfig;
 };
 
-/*
-  Settings
-*/
-export type SettingsProviderProps = {
-  api: API;
-  children: ReactNode;
-};
+export type ProviderState = { theme: ThemesArray };
 
-export type SettingsContextProps = {
-  themes: ThemesArray;
-  activeTheme: ThemeObject;
+export type PanelState = {
+  selected: number;
+  theme: ThemesArray;
   themeComponents: any;
-  overrides: OverridesProps;
+  overrides?: OverridesProps;
   config: ConfigProps;
-  isLoading: boolean;
-  updateTheme: (path: string, value: any) => void;
-  updateActiveTheme: (obj: ThemeObject) => void;
-  resetThemes: () => void;
 };
