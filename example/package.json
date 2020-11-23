@@ -16,6 +16,6 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build": "build-storybook -o public",
-    "deploy": "now --name storybook-addon-theme-playground --prod"
+    "deploy": "vercel --prod"
   }
 }
