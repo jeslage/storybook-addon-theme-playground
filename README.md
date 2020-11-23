@@ -15,14 +15,13 @@
 ## Table of Contents
 
 - [Installation](#installation)
-- [Multiple themes](#multiple-themes)
 - [Parameters](#parameters)
+- [Multiple themes](#multiple-themes)
 - [Config](#config)
 - [Controls](#controls)
 - [Control components](#Control-components)
 - [Default controls](#default-controls)
 - [Typescript](#typescript)
-- [Storybook Version](#storybook-version)
 - [Migration](#migration)
 
 ## Installation
@@ -50,6 +49,7 @@ module.exports = {
 Add to `.storybook/preview.js`.
 
 ```js
+// Import a theme provider of your choice
 import { ThemeProvider } from 'styled-components';
 
 import theme from 'path/to/theme';
@@ -62,8 +62,6 @@ export const parameters = {
 };
 ```
 
-## Multiple Themes
-
 To add multiple themes, add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
 
 ```js
@@ -71,15 +69,15 @@ import { ThemeProvider } from 'styled-components';
 import defaultTheme from 'path/to/default/theme';
 import anotherTheme from 'path/to/another/theme';
 
-const params = {
-  theme: [
-    { name: 'Theme', theme: defaultTheme },
-    { name: 'Another Theme', theme: anotherTheme }
-  ],
-  provider: ThemeProvider
+export const parameters = {
+  themePlayground: {
+    theme: [
+      { name: 'Default Theme', theme: defaultTheme },
+      { name: 'Another Theme', theme: anotherTheme }
+    ],
+    provider: ThemeProvider
+  }
 };
-
-export const parameters = { themePlayground: params };
 ```
 
 ## Parameters
@@ -88,7 +86,7 @@ export const parameters = { themePlayground: params };
 
 `object` | `Array<{ name: string, theme: object }>` | required
 
-The theme `object` or multiple themes as an `array` of `objects`. Look at the [Multiple Themes](#multiple-themes) section for an example.
+The theme `object` or multiple themes as an `array` of `objects`.
 
 ### `provider`
 
