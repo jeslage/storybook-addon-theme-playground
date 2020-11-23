@@ -6,8 +6,9 @@ import addons, {
   useState
 } from '@storybook/addons';
 import { useAddonState } from '@storybook/client-api';
+import { logger } from '@storybook/client-logger';
 
-import { ConfigProps, OverridesProps, PanelState } from './types';
+import { ConfigProps, ControlsProps, PanelState } from './types';
 import {
   THEME_PLAYGROUND_RESET,
   THEME_PLAYGROUND_STATE,
@@ -19,40 +20,75 @@ import { getThemeComponents } from './helper/buildThemeComponents';
 export interface ThemePlaygroundProps {
   theme: any;
   provider: any;
-  overrides?: OverridesProps;
+  overrides?: ControlsProps;
+  controls?: ControlsProps;
   config?: ConfigProps;
 }
 
+const defaultOptions: ThemePlaygroundProps = {
+  theme: undefined,
+  controls: undefined,
+  config: undefined,
+  provider: ({ children }) => children
+};
+
 const getThemeArray = (theme) => {
+  if (typeof theme === 'undefined') {
+    return [];
+  }
+
   return Array.isArray(theme) ? theme : [{ name: 'Default Theme', theme }];
 };
 
-export default makeDecorator({
+export const withThemePlayground = makeDecorator({
   name: 'withThemePlayground',
   parameterName: 'themePlayground',
   skipIfNoParametersOrOptions: true,
-  wrapper: (storyFn, context, { options }) => {
-    const { theme, overrides, config, provider } = options;
+  wrapper: (storyFn, context, { parameters, options }) => {
+    const initialConfig = parameters || options;
+
+    if (!parameters && options.theme) {
+      logger.warn(
+        'storybook-addon-theme-playground: Seems that you passed the options directly to the decorator, please use the themePlayground parameter instead. Using decorator options will be deprecated soon.'
+      );
+      logger.warn(
+        'Learn more about how to configure the addon: https://github.com/jeslage/storybook-addon-theme-playground#readme'
+      );
+    }
+
+    if (initialConfig.overrides) {
+      logger.warn(
+        'storybook-addon-theme-playground: Using the overrides key inside parameters is deprecated and will be removed in future releases. Please use controls key instead.'
+      );
+      logger.warn(
+        'Learn more about how to configure controls: https://github.com/jeslage/storybook-addon-theme-playground#controls'
+      );
+    }
+
+    const { theme, controls, overrides, config, provider } = {
+      ...defaultOptions,
+      ...initialConfig
+    };
 
     const channel = addons.getChannel();
 
     if (!provider) {
-      throw Error(
-        'Missing ThemeProvider in withThemePlayground decorator options.'
+      logger.warn(
+        'storybook-addon-theme-playground: Missing ThemeProvider in themePlayground parameters.'
       );
     }
 
     if (!theme) {
-      throw Error(
-        'Missing theme key in withThemePlayground decorator options.'
+      logger.warn(
+        'storybook-addon-theme-playground: Missing theme key in themePlayground parameters.'
       );
     }
 
     const initialState: PanelState = {
       selected: 0,
       theme: getThemeArray(theme),
-      themeComponents: useMemo(() => getThemeComponents(theme, overrides), []),
-      overrides,
+      themeComponents: useMemo(() => getThemeComponents(theme, controls), []),
+      controls: controls || overrides,
       config: {
         labelFormat: 'startCase',
         debounce: true,
@@ -68,15 +104,13 @@ export default makeDecorator({
     );
 
     const [providerTheme, setProviderTheme] = useState(
-      state.theme[state.selected].theme
+      state.theme.length > 0 ? state.theme[state.selected].theme : undefined
     );
 
     const handleReset = useCallback((i) => {
       setState({
-        ...state,
-        selected: i,
-        theme: getThemeArray(theme),
-        themeComponents: getThemeComponents(theme, overrides)
+        ...initialState,
+        selected: i
       });
     }, []);
 
@@ -85,6 +119,7 @@ export default makeDecorator({
     useEffect(() => {
       channel.on(THEME_PLAYGROUND_RESET, handleReset);
       channel.on(THEME_PLAYGROUND_UPDATE, handleUpdate);
+
       return () => {
         channel.off(THEME_PLAYGROUND_RESET, handleReset);
         channel.off(THEME_PLAYGROUND_UPDATE, handleUpdate);

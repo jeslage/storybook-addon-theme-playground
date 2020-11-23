@@ -1,18 +1,22 @@
 import { is } from '.';
-import { OverridesProps } from '../types';
+import { ControlsProps } from '../types';
 
 export const getThemeComponents = (
-  theme: any | { [key: string]: any }[],
-  overrides: OverridesProps
+  theme?: any | { [key: string]: any }[],
+  controls?: ControlsProps
 ) => {
   const components: { [key: string]: any } = {};
 
+  if (typeof theme === 'undefined') {
+    return;
+  }
+
   if (Array.isArray(theme)) {
     theme.forEach((item) => {
-      components[item.name] = buildThemeComponents(item.theme, overrides);
+      components[item.name] = buildThemeComponents(item.theme, controls);
     });
   } else {
-    components['Default Theme'] = buildThemeComponents(theme, overrides);
+    components['Default Theme'] = buildThemeComponents(theme, controls);
   }
 
   return components;
@@ -20,7 +24,7 @@ export const getThemeComponents = (
 
 const buildThemeComponents = (
   theme: any,
-  overrides: OverridesProps,
+  controls?: ControlsProps,
   arr: string[] = []
 ) => {
   const themeComponents = Object.keys(theme).reduce((acc, key) => {
@@ -28,21 +32,23 @@ const buildThemeComponents = (
     const pathArray = [...arr, key];
     const path = pathArray.join('.');
 
-    if (overrides[path] && overrides[path].hidden) {
-      return;
-    }
+    if (controls) {
+      if (controls[path] && controls[path].hidden) {
+        return;
+      }
 
-    if (overrides[path] && overrides[path].type) {
-      return {
-        ...acc,
-        [path]: { type: overrides[path].type, value },
-      };
+      if (controls[path] && controls[path].type) {
+        return {
+          ...acc,
+          [path]: { type: controls[path].type, value }
+        };
+      }
     }
 
     if (Array.isArray(value)) {
       return {
         ...acc,
-        ...buildThemeComponents(value, overrides, pathArray),
+        ...buildThemeComponents(value, controls, pathArray)
       };
     }
 
@@ -53,7 +59,7 @@ const buildThemeComponents = (
 
       return {
         ...acc,
-        ...buildThemeComponents(value, overrides, pathArray),
+        ...buildThemeComponents(value, controls, pathArray)
       };
     }
 
@@ -67,7 +73,7 @@ const buildThemeComponents = (
 
     if (typeof value === 'string') {
       if (is.color(value, key)) {
-        return { ...acc, [path]: { type: 'colorpicker', value } };
+        return { ...acc, [path]: { type: 'color', value } };
       }
 
       if (is.unit(value)) {

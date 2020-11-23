@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added override type `number` as a replacement for type `counter`
-- Added icon prop to overrides config
+- Added control type `number` and `color` as a replacement for type `counter` and `colorpicker`
+- Added icon prop to controls config
 
 ### Changed
 
@@ -19,12 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Removed `label` and `description` prop from all input components and moved it to parent component
+- Removed `label` and `description` prop from all input components and moved it to parent control component
 - Removed all custom input components in favor of core components from `@storybook/components`
 
 ### Deprecated
 
-- Override type `counter` will be deprecated in next major release, use type `number` instead
+- Control type `counter` and `colorpicker` will be deprecated in one of the next releases and replaced by type `number` and `color`
+- Overrides is deprecated and was replaced by controls object
 
 ## [1.3.4]- 2020-09-06
 

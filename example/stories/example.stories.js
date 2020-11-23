@@ -8,14 +8,14 @@ import {
   Headline,
   Copy,
   Spacing,
-  RectContainer,
+  RectContainer
 } from './example.style';
 
 export default {
-  title: 'Example',
+  title: 'Example'
 };
 
-export const index = () => {
+export const baseStory = () => {
   return (
     <>
       <Content>

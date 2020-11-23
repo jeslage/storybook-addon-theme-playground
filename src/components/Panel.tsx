@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { API, useAddonState } from '@storybook/api';
 import {
   Icons,
   SyntaxHighlighter,
   Tabs,
-  IconButton
+  IconButton,
+  Placeholder,
+  Link
 } from '@storybook/components';
 
 import { updateValueBasedOnPath } from '../helper';
@@ -32,26 +34,30 @@ const Panel = ({ api }: PanelProps) => {
   };
 
   useEffect(() => {
-    if (state.config.debounce) {
-      const timeout = setTimeout(() => {
-        setIsLoading(false);
-        api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
-      }, state.config.debounceRate);
+    if (state.theme.length > 0) {
+      if (state.config.debounce) {
+        const timeout = setTimeout(() => {
+          setIsLoading(false);
+          api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
+        }, state.config.debounceRate);
 
-      return () => {
-        setIsLoading(true);
-        clearTimeout(timeout);
-      };
-    } else {
-      if (isLoading) {
-        setIsLoading(false);
+        return () => {
+          setIsLoading(true);
+          clearTimeout(timeout);
+        };
+      } else {
+        if (isLoading) {
+          setIsLoading(false);
+        }
+        api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
       }
-      api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
     }
   }, [state.themeComponents]);
 
   useEffect(() => {
-    api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
+    if (state.theme.length > 0) {
+      api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
+    }
   }, [state.selected]);
 
   const updateTheme = (path: string, value: any) => {
@@ -86,6 +92,24 @@ const Panel = ({ api }: PanelProps) => {
     api.emit(THEME_PLAYGROUND_RESET, state.selected);
   };
 
+  if (state.theme.length === 0) {
+    return (
+      <Placeholder>
+        <Fragment key="title">You have not configured the addon yet</Fragment>
+
+        <Fragment key="desc">
+          Read more about how to configure&nbsp;
+          <Link
+            href="https://github.com/jeslage/storybook-addon-theme-playground#readme"
+            cancel={false}
+          >
+            the addon
+          </Link>
+        </Fragment>
+      </Placeholder>
+    );
+  }
+
   return (
     <>
       <Tabs
@@ -116,12 +140,12 @@ const Panel = ({ api }: PanelProps) => {
                 <React.Fragment key={t.name}>
                   <ThemeControls
                     themeComponents={state.themeComponents[t.name]}
-                    overrides={state.overrides}
+                    controls={state.controls}
                     config={state.config}
                     onUpdate={updateTheme}
                   />
 
-                  {state.config.showCode && (
+                  {state.config.showCode ? (
                     <SyntaxHighlighter
                       language="json"
                       copyable
@@ -131,7 +155,7 @@ const Panel = ({ api }: PanelProps) => {
                     >
                       {JSON.stringify(t.theme, null, 2)}
                     </SyntaxHighlighter>
-                  )}
+                  ) : null}
                 </React.Fragment>
               ) : null
             }

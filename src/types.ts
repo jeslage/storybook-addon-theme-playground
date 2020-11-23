@@ -19,18 +19,9 @@ export type ConfigProps = {
 };
 
 /*
-  Options
+  Controls
 */
-export type OptionsType = {
-  theme: any;
-  overrides?: OverridesProps;
-  config?: ConfigProps;
-};
-
-/*
-  Overrides
-*/
-export type OverridesConfig = {
+export type ControlsConfig = {
   type:
     | 'color'
     | 'counter'
@@ -53,8 +44,8 @@ export type OverridesConfig = {
   }[];
 };
 
-export type OverridesProps = {
-  [key: string]: OverridesConfig;
+export type ControlsProps = {
+  [key: string]: ControlsConfig;
 };
 
 export type ProviderState = { theme: ThemesArray };
@@ -63,6 +54,6 @@ export type PanelState = {
   selected: number;
   theme: ThemesArray;
   themeComponents: any;
-  overrides?: OverridesProps;
+  controls?: ControlsProps;
   config: ConfigProps;
 };

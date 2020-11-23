@@ -1,4 +1,4 @@
-import * as startCase from 'lodash.startcase';
+import startCase from 'lodash.startcase';
 import defaultCssColors from './defaultCssColors';
 
 import { LabelFormatFunction } from '../types';
@@ -9,9 +9,12 @@ export const getLabel = (
 ) => {
   const path = label.split('.');
 
-  if (typeof format === 'function') return format(path);
-  if (format === 'startCase') return startCase(label);
+  if (format === 'startCase') {
+    return startCase(label);
+  }
+
   if (format === 'path') return label;
+  if (typeof format === 'function') return format(path);
 
   return label;
 };
@@ -45,7 +48,7 @@ export const is = {
       keys.includes('right') &&
       keys.includes('left')
     );
-  },
+  }
 };
 
 export const updateValueBasedOnPath = (

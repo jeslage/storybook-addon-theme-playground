@@ -5,7 +5,25 @@
 `storybook-addon-theme-playground` is a theme addon for storybook. It provides a panel where theme values can be tweaked directly.
 
 ![Screenshot](./assets/screenshot.jpg)
-[Example](https://storybook-addon-theme-playground.now.sh)
+[🌍 Example](https://storybook-addon-theme-playground.now.sh)
+
+## Features
+
+- 🎛 Seperate panel with auto-generated controls for each theme value
+- 🧬 Customizable controls based on your needs
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Multiple themes](#multiple-themes)
+- [Parameters](#parameters)
+- [Config](#config)
+- [Controls](#controls)
+- [Control components](#Control-components)
+- [Default controls](#default-controls)
+- [Typescript](#typescript)
+- [Storybook Version](#storybook-version)
+- [Migration](#migration)
 
 ## Installation
 
@@ -17,68 +35,54 @@ npm install -D storybook-addon-theme-playground
 yarn add -D storybook-addon-theme-playground
 ```
 
-#### 2. Register the panel
+#### 2. Add the addon to your storybook config
 
 Add to `.storybook/main.js`
 
 ```js
 module.exports = {
-  addons: ['storybook-addon-theme-playground/dist/register']
+  addons: ['storybook-addon-theme-playground']
 };
 ```
 
-#### 3. Add decorator
+#### 3. Add parameters
 
 Add to `.storybook/preview.js`.
 
 ```js
 import { ThemeProvider } from 'styled-components';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
 
-export const decorators = [
-  withThemePlayground({
+export const parameters = {
+  themePlayground: {
     theme,
     provider: ThemeProvider
-  })
-];
+  }
+};
 ```
 
-... or to particular story
+## Multiple Themes
+
+To add multiple themes, add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
 
 ```js
 import { ThemeProvider } from 'styled-components';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
+import defaultTheme from 'path/to/default/theme';
+import anotherTheme from 'path/to/another/theme';
 
-import Button from './Button';
-
-import theme from 'path/to/theme';
-
-export default {
-  title: 'Button with theme',
-  decorators: [
-    withThemePlayground({
-      theme,
-      provider: ThemeProvider
-    })
-  ]
+const params = {
+  theme: [
+    { name: 'Theme', theme: defaultTheme },
+    { name: 'Another Theme', theme: anotherTheme }
+  ],
+  provider: ThemeProvider
 };
 
-export const Primary = () => <Button>Primary Button</Button>;
+export const parameters = { themePlayground: params };
 ```
 
-## Storybook Version
-
-`storybook-addon-theme-playground` needs at least Storybook 6. If you need to support a smaller version of Storybook, please install the addon version `1.3.4`. [Or read about how to migrate to Storybook 6](https://medium.com/storybookjs/storybook-6-migration-guide-200346241bb5).
-
-```sh
-# For Storybook versions < 6.0
-npm install -D storybook-addon-theme-playground@1.3.4
-yarn add -D storybook-addon-theme-playground@1.3.4
-```
-
-## Options
+## Parameters
 
 ### `theme`
 
@@ -92,11 +96,11 @@ The theme `object` or multiple themes as an `array` of `objects`. Look at the [M
 
 Any provider component which will accept a theme object prop and children. `storybook-addon-theme-playground` has no default provider due to extendability.
 
-### `overrides`
+### `controls`
 
 `object` | optional
 
-Optional [override components](#override-components) of [default components](#default-components). Look at the [Overrides](#overrides) section for detailed documentation.
+Optional [control components](#control-components) of [default controls](#default-controls). Look at the [controls](#controls) section for detailed documentation.
 
 ### `config`
 
@@ -124,26 +128,6 @@ Set to `false` updating the theme values will not be debounced.
 
 Set to `false` no code component will be rendered.
 
-## Multiple Themes
-
-To add multiple themes, add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
-
-```js
-import { ThemeProvider } from 'styled-components';
-import defaultTheme from 'path/to/default/theme';
-import anotherTheme from 'path/to/another/theme';
-
-const options = {
-  theme: [
-    { name: 'Theme', theme: defaultTheme },
-    { name: 'Another Theme', theme: anotherTheme }
-  ],
-  provider: ThemeProvider
-};
-
-export const decorators = [withThemePlayground(options)];
-```
-
 ## Config
 
 **Example**
@@ -151,8 +135,8 @@ export const decorators = [withThemePlayground(options)];
 ```js
 import { ThemeProvider } from 'styled-components';
 
-export const decorators = [
-  withThemePlayground({
+export const parameters = {
+  themePlayground: {
     theme: { button: { color: '#000' } },
     provider: ThemeProvider,
     config: {
@@ -169,28 +153,27 @@ export const decorators = [
       debounceRate: 500,
       showConfig: true || false
     }
-  })
-];
+  }
+};
 ```
 
-## Overrides
+## Controls
 
-`storybook-addon-theme-playground` will render a [default component](#default-components) based on the theme value. If you want to customize them, you can override the default components by adding an `overrides` object to the decorator.
+`storybook-addon-theme-playground` will render [default controls](#default-controls) based on the theme value. If you want to customize them, you can override the default controls by adding an `controls` object to the parameters.
 
 As a key use the theme object path, e.g `'button.spacing'`.
 
-All overrides except a `type`, `label`, `description` and `icon` prop.
+All controls accept a `type`, `label`, `description` and `icon` prop.
 You can use all icons from the [storybook styleguide](https://next--storybookjs.netlify.app/official-storybook/?path=/story/basics-icon--labels).
 
 **Example**
 
 ```js
 import { ThemeProvider } from 'styled-components';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
 
 import theme from 'path/to/theme';
 
-const overrides = {
+const controls = {
   'button.spacing': {
     type: 'number',
     icon: 'expand',
@@ -206,9 +189,9 @@ const overrides = {
   }
 };
 
-export const decorators = [
-  withThemePlayground({ theme, overrides, provider: ThemeProvider })
-];
+export const parameters = {
+  themePlayground: { theme, controls, provider: ThemeProvider }
+};
 ```
 
 ### Hide specific theme values
@@ -216,7 +199,7 @@ export const decorators = [
 It is also possible to hide specific theme values or objects, e.g.:
 
 ```js
-const overrides = {
+const controls = {
   breakpoints: {
     hidden: true
   },
@@ -226,7 +209,7 @@ const overrides = {
 };
 ```
 
-## Override components
+## Control components
 
 ### Color
 
@@ -330,7 +313,7 @@ const overrides = {
 }
 ```
 
-## Default components
+## Default controls
 
 `storybook-addon-theme-playground` will render the following components based on the value.
 
@@ -374,14 +357,14 @@ import {
 
 import theme from 'path/to/theme';
 
-interface Options extends ThemePlaygroundProps {
+interface ThemePlaygroundParams extends ThemePlaygroundProps {
   theme: typeof theme;
 }
 
-const options: Options = {
+const params: ThemePlaygroundParams = {
   theme,
   provider: ThemeProvider,
-  overrides: {
+  controls: {
     'headline.fontWeight': {
       type: 'range',
       max: 900,
@@ -397,5 +380,88 @@ const options: Options = {
   }
 };
 
-export const decorators = [withThemePlayground(options)];
+export const parameters = { themePlayground: params };
+```
+
+## Migration
+
+### Storybook Version
+
+`storybook-addon-theme-playground` needs at least Storybook 6, because it uses some of the internal control components which came with the v6 release. If you need to support a smaller version of Storybook, please try to install the addon version `1.3.4`. [Or read about how to migrate to Storybook 6](https://medium.com/storybookjs/storybook-6-migration-guide-200346241bb5).
+
+```sh
+# For Storybook versions < 6.0
+npm install -D storybook-addon-theme-playground@1.3.4
+yarn add -D storybook-addon-theme-playground@1.3.4
+```
+
+### Addon version 2 migration
+
+If you want to migrate the addon to version 2 follow these steps.
+
+**1. Change the addons import inside `main.js`**
+
+```js
+// Before
+module.exports = {
+  addons: ['storybook-addon-theme-playground/dist/register']
+};
+
+// After
+module.exports = {
+  addons: ['storybook-addon-theme-playground']
+};
+```
+
+**2. Change from decorators to parameters inside `preview.js`**
+
+```js
+// Before
+import { ThemeProvider } from 'styled-components';
+import { withThemePlayground } from 'storybook-addon-theme-playground';
+
+import theme from 'path/to/theme';
+
+export const decorators = [
+  withThemePlayground({
+    theme,
+    provider: ThemeProvider
+  })
+];
+
+// After
+import { ThemeProvider } from 'styled-components';
+
+import theme from 'path/to/theme';
+
+export const parameters = {
+  themePlayground: {
+    theme,
+    provider: ThemeProvider
+  }
+};
+```
+
+**3. Change key from overrides to controls inside configuration**
+
+The overrides key was replaced by the controls key, if you customized the panel components rename the configuration key.
+
+```js
+// Before
+const options = {
+  theme,
+  provider: ThemeProvider,
+  overrides: {
+    // Your customized controls
+  }
+};
+
+// After
+const options = {
+  theme,
+  provider: ThemeProvider,
+  controls: {
+    // Your customized controls
+  }
+};
 ```

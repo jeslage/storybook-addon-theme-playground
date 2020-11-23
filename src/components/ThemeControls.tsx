@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from '@storybook/theming';
+import { logger } from '@storybook/client-logger';
 
 import {
   BooleanControl,
@@ -11,7 +12,7 @@ import {
   OptionsControl
 } from '@storybook/components';
 
-import { OverridesConfig } from '../types';
+import { ControlsConfig } from '../types';
 
 import { getLabel, objectify, rgb2hex, stripUnit } from '../helper';
 
@@ -22,7 +23,7 @@ type ThemeControlProps = {
   type: string;
   path: string;
   props: { label: string; value: any };
-  config: OverridesConfig;
+  config: ControlsConfig;
   update: (path: string, value: any) => void;
 };
 
@@ -55,7 +56,17 @@ const ThemeControl = React.memo(
     const [val, unit] = stripUnit(value);
 
     switch (type) {
+      case 'color':
       case 'colorpicker':
+        if (type === 'colorpicker') {
+          logger.warn(
+            "storybook-addon-theme-playground: Override type 'colorpicker' will be deprecated soon, please use type 'color' instead."
+          );
+          logger.warn(
+            'Learn more about all override components here: https://github.com/jeslage/storybook-addon-theme-playground#override-components'
+          );
+        }
+
         return (
           <ColorControl
             name={path}
@@ -66,11 +77,10 @@ const ThemeControl = React.memo(
       case 'counter':
       case 'number':
         if (type === 'counter') {
-          console.warn(
+          logger.warn(
             "storybook-addon-theme-playground: Override type 'counter' will be deprecated soon, please use type 'number' instead."
           );
-
-          console.warn(
+          logger.warn(
             'Learn more about all override components here: https://github.com/jeslage/storybook-addon-theme-playground#override-components'
           );
         }
@@ -162,7 +172,7 @@ const ThemeControl = React.memo(
 
 ThemeControl.displayName = 'ThemeControl';
 
-const ThemeControls = ({ themeComponents, overrides, config, onUpdate }) => {
+const ThemeControls = ({ themeComponents, controls, config, onUpdate }) => {
   return (
     <>
       {themeComponents &&
@@ -180,16 +190,16 @@ const ThemeControls = ({ themeComponents, overrides, config, onUpdate }) => {
             type,
             path,
             props,
-            config: overrides[path],
+            config: controls[path],
             update: onUpdate
           };
 
           return themeComponents[path] ? (
             <StyledThemeControls key={path}>
               <Label
-                label={overrides[path]?.label || props.label}
-                description={overrides[path]?.description}
-                icon={overrides[path]?.icon}
+                label={controls[path]?.label || props.label}
+                description={controls[path]?.description}
+                icon={controls[path]?.icon}
               />
 
               <ThemeControl {...themeControlProps} />
