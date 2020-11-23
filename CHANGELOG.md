@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0]- 2020-11-23
+
 ### Added
 
 - Added control type `number` and `color` as a replacement for type `counter` and `colorpicker`
@@ -130,7 +132,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...develop
+[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...develop
+[2.0.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...1.3.4
 [1.3.4]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...1.3.3
 [1.3.3]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.3...1.3.2
 [1.3.2]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.1...1.3.2
