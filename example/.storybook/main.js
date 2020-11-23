@@ -1,7 +1,7 @@
 module.exports = {
   stories: [
     '../stories/**/*.stories.mdx',
-    '../stories/**/*.stories.@(js|jsx|ts|tsx)',
+    '../stories/**/*.stories.@(js|jsx|ts|tsx)'
   ],
-  addons: ['../../dist/register'],
+  addons: ['storybook-addon-theme-playground']
 };

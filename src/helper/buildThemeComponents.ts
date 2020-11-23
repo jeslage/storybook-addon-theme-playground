@@ -1,56 +1,92 @@
-import { is } from './';
-import { OverridesProps } from '../types';
+import { is } from '.';
+import { ControlsProps } from '../types';
+
+export const getThemeComponents = (
+  theme?: any | { [key: string]: any }[],
+  controls?: ControlsProps
+) => {
+  const components: { [key: string]: any } = {};
+
+  if (typeof theme === 'undefined') {
+    return;
+  }
+
+  if (Array.isArray(theme)) {
+    theme.forEach((item) => {
+      components[item.name] = buildThemeComponents(item.theme, controls);
+    });
+  } else {
+    components['Default Theme'] = buildThemeComponents(theme, controls);
+  }
+
+  return components;
+};
 
 const buildThemeComponents = (
   theme: any,
-  overrides: OverridesProps,
+  controls?: ControlsProps,
   arr: string[] = []
 ) => {
-  let themeComponents = {};
-  const keys: string[] = Object.keys(theme);
-
-  keys.forEach((key) => {
+  const themeComponents = Object.keys(theme).reduce((acc, key) => {
     const value = theme[key];
-    const path = [...arr, key];
-    const pathString = path.join('.');
+    const pathArray = [...arr, key];
+    const path = pathArray.join('.');
 
-    // Return if component is hidden
-    if (overrides[pathString] && overrides[pathString].hidden) {
-      return;
-    }
+    if (controls) {
+      if (controls[path] && controls[path].hidden) {
+        return;
+      }
 
-    if (overrides[pathString] && overrides[pathString].type) {
-      themeComponents[pathString] = { type: overrides[pathString].type, value };
-    } else if (is.object(value)) {
-      if (is.shorthand(value)) {
-        themeComponents[pathString] = { type: 'shorthand', value };
-      } else {
-        themeComponents = {
-          ...themeComponents,
-          ...buildThemeComponents(value, overrides, path),
+      if (controls[path] && controls[path].type) {
+        return {
+          ...acc,
+          [path]: { type: controls[path].type, value }
         };
       }
-    } else if (is.array(value)) {
-      themeComponents = {
-        ...themeComponents,
-        ...buildThemeComponents(value, overrides, path),
-      };
-    } else if (is.boolean(value)) {
-      themeComponents[pathString] = { type: 'switch', value };
-    } else if (is.number(value)) {
-      themeComponents[pathString] = { type: 'counter', value };
-    } else if (is.string(value)) {
-      if (is.color(value, key)) {
-        themeComponents[pathString] = { type: 'colorpicker', value };
-      } else if (is.unit(value)) {
-        themeComponents[pathString] = { type: 'range', value };
-      } else if (is.text(value)) {
-        themeComponents[pathString] = { type: 'textarea', value };
-      } else {
-        themeComponents[pathString] = { type: 'input', value };
-      }
     }
-  });
+
+    if (Array.isArray(value)) {
+      return {
+        ...acc,
+        ...buildThemeComponents(value, controls, pathArray)
+      };
+    }
+
+    if (is.object(value)) {
+      if (is.shorthand(value)) {
+        return { ...acc, [path]: { type: 'shorthand', value } };
+      }
+
+      return {
+        ...acc,
+        ...buildThemeComponents(value, controls, pathArray)
+      };
+    }
+
+    if (is.boolean(value)) {
+      return { ...acc, [path]: { type: 'switch', value } };
+    }
+
+    if (typeof value === 'number') {
+      return { ...acc, [path]: { type: 'number', value } };
+    }
+
+    if (typeof value === 'string') {
+      if (is.color(value, key)) {
+        return { ...acc, [path]: { type: 'color', value } };
+      }
+
+      if (is.unit(value)) {
+        return { ...acc, [path]: { type: 'range', value } };
+      }
+
+      if (is.text(value)) {
+        return { ...acc, [path]: { type: 'textarea', value } };
+      }
+
+      return { ...acc, [path]: { type: 'input', value } };
+    }
+  }, {});
 
   return themeComponents;
 };

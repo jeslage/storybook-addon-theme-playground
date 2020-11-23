@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "esnext",
+    "module": "commonjs",
     "sourceMap": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "declaration": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["es5", "es6", "dom"],
+    "lib": ["es2017", "dom"],
     "jsx": "react",
     "types": ["node"],
     "declarationDir": "dist",
@@ -16,7 +17,9 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "moduleResolution": "node",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "incremental": false,
+    "skipDefaultLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

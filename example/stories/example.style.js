@@ -1,49 +1,68 @@
 import styled from 'styled-components';
 
-export const Content = styled.div`
-  border-top: 1px solid #f4f4f4;
-  padding: 0.5rem 1.5rem;
+export const Content = styled.fieldset`
+  padding: 1.5rem;
+  border: 1px solid #f4f4f4;
+  margin-bottom: 2rem;
+  position: relative;
+
+  legend {
+    display: block;
+    padding: 0 0.25rem;
+    color: lightgray;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
 `;
 
 export const Color = styled.div`
   position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  margin: 1rem 1rem 2.5rem;
+  width: 200px;
+  height: 150px;
+  margin: 0rem 1rem 0rem 0rem;
   display: inline-block;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
 
-  &:before {
+  &:after {
     position: absolute;
-    bottom: -1.5rem;
+    bottom: 0;
+    display: block;
     text-align: center;
     text-transform: uppercase;
     font-family: sans-serif;
-    width: 100%;
+    padding: 5px;
+    background: rgba(0, 0, 0, 0.25);
+    color: white;
+    font-size: 12px;
+    border-top-right-radius: 0.25rem;
   }
 `;
 
 export const ColorPrimary = styled(Color)`
   background: ${({ theme }) => theme.color.primary};
 
-  &:before {
-    content: "${({ theme }) => theme.color.primary}";
+  &:after {
+    content: '${({ theme }) => theme.color.primary}';
   }
 `;
 
 export const ColorSecondary = styled(Color)`
   background: ${({ theme }) => theme.color.secondary};
 
-  &:before {
-    content: "${({ theme }) => theme.color.secondary}";
+  &:after {
+    content: '${({ theme }) => theme.color.secondary}';
   }
 `;
 
 export const ColorTertiary = styled(Color)`
   background: ${({ theme }) => theme.color.tertiary};
 
-  &:before {
-    content: "${({ theme }) => theme.color.tertiary}";
+  &:after {
+    content: '${({ theme }) => theme.color.tertiary}';
   }
 `;
 
@@ -57,9 +76,15 @@ const getRectStyles = ({ theme }) => `
 `;
 
 export const Rect = styled.div`
-  display: inline-block;
-  background: #323232;
+  background: #333;
   ${getRectStyles};
+`;
+
+export const RectContainer = styled.div`
+  display: inline-block;
+  margin-right: 0.5rem;
+  border: 1px solid palevioletred;
+  background: lightpink;
 `;
 
 export const Headline = styled.h1`
@@ -79,6 +104,7 @@ export const Spacing = styled.div`
   width: 50px;
   margin: 1rem;
   background: lightpink;
+  display: inline-block;
   height: ${({ theme }) => theme.spacings[0]}px;
 
   &:after {
@@ -87,29 +113,29 @@ export const Spacing = styled.div`
     transform: translateY(-50%);
     width: 100%;
     text-align: center;
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
     font-size: 12px;
-    content: "${({ theme }) => theme.spacings[0]}";
+    content: '${({ theme }) => theme.spacings[0]}';
   }
 
   &:nth-of-type(2) {
     height: ${({ theme }) => theme.spacings[1]}px;
     &:after {
-      content: "${({ theme }) => theme.spacings[1]}";
+      content: '${({ theme }) => theme.spacings[1]}';
     }
   }
 
   &:nth-of-type(3) {
     height: ${({ theme }) => theme.spacings[2]}px;
     &:after {
-      content: "${({ theme }) => theme.spacings[2]}";
+      content: '${({ theme }) => theme.spacings[2]}';
     }
   }
 
   &:nth-of-type(4) {
     height: ${({ theme }) => theme.spacings[3]}px;
     &:after {
-      content: "${({ theme }) => theme.spacings[3]}";
+      content: '${({ theme }) => theme.spacings[3]}';
     }
   }
 `;

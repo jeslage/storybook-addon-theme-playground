@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0]- 2020-11-23
+
+### Added
+
+- Added control type `number` and `color` as a replacement for type `counter` and `colorpicker`
+- Added icon prop to controls config
+
+### Changed
+
+- [Issue #19](https://github.com/jeslage/storybook-addon-theme-playground/issues/19): Moved state to storybooks `useAddonState` hook to persist current state between story changes
+- Updated `withThemePlayground` to storybooks `makeDecorator` method instead of class component
+
+### Removed
+
+- Removed `label` and `description` prop from all input components and moved it to parent control component
+- Removed all custom input components in favor of core components from `@storybook/components`
+
+### Deprecated
+
+- Control type `counter` and `colorpicker` will be deprecated in one of the next releases and replaced by type `number` and `color`
+- Overrides is deprecated and was replaced by controls object
+
 ## [1.3.4]- 2020-09-06
 
 ### Added
@@ -110,7 +132,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...develop
+[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...develop
+[2.0.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...1.3.4
 [1.3.4]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...1.3.3
 [1.3.3]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.3...1.3.2
 [1.3.2]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.1...1.3.2

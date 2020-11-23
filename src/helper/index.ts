@@ -1,4 +1,4 @@
-import * as startCase from 'lodash.startcase';
+import startCase from 'lodash.startcase';
 import defaultCssColors from './defaultCssColors';
 
 import { LabelFormatFunction } from '../types';
@@ -9,17 +9,12 @@ export const getLabel = (
 ) => {
   const path = label.split('.');
 
-  if (typeof format === 'function') {
-    return format(path);
-  }
-
   if (format === 'startCase') {
     return startCase(label);
   }
 
-  if (format === 'path') {
-    return label;
-  }
+  if (format === 'path') return label;
+  if (typeof format === 'function') return format(path);
 
   return label;
 };
@@ -53,13 +48,13 @@ export const is = {
       keys.includes('right') &&
       keys.includes('left')
     );
-  },
+  }
 };
 
 export const updateValueBasedOnPath = (
   propertyPath: string,
   value: any,
-  obj: object
+  obj: any
 ) => {
   const newObj = obj;
 
@@ -82,30 +77,44 @@ export const updateValueBasedOnPath = (
     // This is the last property - the one where to set the value
   }
 
-  // We set the value to the last property
   newObj[properties[0]] = value;
 
-  return true; // this is the end
+  return true;
 };
 
-export const getPrimaryColor = ({ theme }: { theme?: any }) => {
-  return theme?.base === 'dark'
-    ? theme?.color?.lightest
-    : theme?.color?.darkest;
+export const stripUnit = (value: string | number): any => {
+  if (typeof value !== 'string') return [value, undefined];
+  const matchedValue = value.match(/^([+-]?(?:\d+|\d*\.\d+))([a-z]*|%)$/);
+
+  if (matchedValue) return [parseFloat(value), matchedValue[2]];
+  return [value, undefined];
 };
 
-export const getSecondaryColor = ({ theme }: { theme?: any }) => {
-  return theme?.color?.mediumdark;
+export const objectify = (options: any[] = []) => {
+  const obj = {};
+
+  options.forEach((option) => {
+    Object.assign(obj, { [option.label]: option.value });
+  });
+
+  return obj;
 };
 
-export const getTextColor = (theme) => {
-  return theme?.color?.defaultText;
-};
+export const rgb2hex = (rgb: string): string => {
+  const rgbMatch = rgb.match(
+    /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
+  );
 
-export const getInverseTextColor = ({ theme }: { theme?: any }) => {
-  return theme?.color?.inverseText;
-};
+  if (!rgbMatch || rgbMatch.length < 5) return rgb;
 
-export const getBorderColor = ({ theme }: { theme?: any }) => {
-  return theme?.base === 'dark' ? theme?.color?.light : theme?.color?.dark;
+  if (parseFloat(rgbMatch[4]) < 1) {
+    return rgb;
+  }
+
+  return (
+    '#' +
+    ('0' + parseInt(rgbMatch[1], 10).toString(16)).slice(-2) +
+    ('0' + parseInt(rgbMatch[2], 10).toString(16)).slice(-2) +
+    ('0' + parseInt(rgbMatch[3], 10).toString(16)).slice(-2)
+  );
 };

@@ -1,76 +1,133 @@
-/* eslint-disable react/display-name */
-import React from 'react';
-import addons from '@storybook/addons';
+import React, { useMemo } from 'react';
+import addons, {
+  makeDecorator,
+  useCallback,
+  useEffect,
+  useState
+} from '@storybook/addons';
+import { useAddonState } from '@storybook/client-api';
+import { logger } from '@storybook/client-logger';
 
-import { ConfigProps, OverridesProps } from './types';
-import events from './events';
+import { ConfigProps, ControlsProps, PanelState } from './types';
+import {
+  THEME_PLAYGROUND_RESET,
+  THEME_PLAYGROUND_STATE,
+  THEME_PLAYGROUND_UPDATE
+} from './constants';
+
+import { getThemeComponents } from './helper/buildThemeComponents';
 
 export interface ThemePlaygroundProps {
   theme: any;
   provider: any;
-  overrides?: OverridesProps;
+  overrides?: ControlsProps;
+  controls?: ControlsProps;
   config?: ConfigProps;
 }
 
-type ThemePlaygroundState = any;
-
-export class WithThemePlayground extends React.Component<
-  ThemePlaygroundProps,
-  ThemePlaygroundState
-> {
-  state = Array.isArray(this.props.theme)
-    ? this.props.theme[0].theme
-    : this.props.theme;
-
-  channel = addons.getChannel();
-
-  handleReset = () => {
-    const { theme, config, overrides } = this.props;
-    return this.channel.emit(events.resetOptions, { theme, config, overrides });
-  };
-
-  componentDidMount() {
-    const { theme, config, overrides } = this.props;
-
-    this.channel.on(events.updateTheme, (t) => this.setState(t));
-    this.channel.on(events.reset, this.handleReset);
-
-    this.channel.emit(events.receiveOptions, { theme, config, overrides });
-  }
-
-  componentWillUnmount() {
-    this.channel.removeListener(events.updateTheme, (t) => this.setState(t));
-    this.channel.removeListener(events.reset, this.handleReset);
-  }
-
-  render() {
-    const ThemeProvider = this.props.provider;
-
-    return (
-      <ThemeProvider theme={this.state}>{this.props.children}</ThemeProvider>
-    );
-  }
-}
-
-export const withThemePlayground = (props: ThemePlaygroundProps) => {
-  if (!props.provider) {
-    throw Error(
-      'Missing ThemeProvider in withThemePlayground decorator options.'
-    );
-  }
-
-  if (!props.theme) {
-    throw Error('Missing theme key in withThemePlayground decorator options.');
-  }
-
-  return (storyFn) => (
-    <WithThemePlayground
-      theme={props.theme}
-      provider={props.provider}
-      config={props.config}
-      overrides={props.overrides}
-    >
-      {storyFn()}
-    </WithThemePlayground>
-  );
+const defaultOptions: ThemePlaygroundProps = {
+  theme: undefined,
+  controls: undefined,
+  config: undefined,
+  provider: ({ children }) => children
 };
+
+const getThemeArray = (theme) => {
+  if (typeof theme === 'undefined') {
+    return [];
+  }
+
+  return Array.isArray(theme) ? theme : [{ name: 'Default Theme', theme }];
+};
+
+export const withThemePlayground = makeDecorator({
+  name: 'withThemePlayground',
+  parameterName: 'themePlayground',
+  skipIfNoParametersOrOptions: true,
+  wrapper: (storyFn, context, { parameters, options }) => {
+    const initialConfig = parameters || options;
+
+    if (!parameters && options.theme) {
+      logger.warn(
+        'storybook-addon-theme-playground: Seems that you passed the options directly to the decorator, please use the themePlayground parameter instead. Using decorator options will be deprecated soon.'
+      );
+      logger.warn(
+        'Learn more about how to configure the addon: https://github.com/jeslage/storybook-addon-theme-playground#readme'
+      );
+    }
+
+    if (initialConfig.overrides) {
+      logger.warn(
+        'storybook-addon-theme-playground: Using the overrides key inside parameters is deprecated and will be removed in future releases. Please use controls key instead.'
+      );
+      logger.warn(
+        'Learn more about how to configure controls: https://github.com/jeslage/storybook-addon-theme-playground#controls'
+      );
+    }
+
+    const { theme, controls, overrides, config, provider } = {
+      ...defaultOptions,
+      ...initialConfig
+    };
+
+    const channel = addons.getChannel();
+
+    if (!provider) {
+      logger.warn(
+        'storybook-addon-theme-playground: Missing ThemeProvider in themePlayground parameters.'
+      );
+    }
+
+    if (!theme) {
+      logger.warn(
+        'storybook-addon-theme-playground: Missing theme key in themePlayground parameters.'
+      );
+    }
+
+    const initialState: PanelState = {
+      selected: 0,
+      theme: getThemeArray(theme),
+      themeComponents: useMemo(() => getThemeComponents(theme, controls), []),
+      controls: controls || overrides,
+      config: {
+        labelFormat: 'startCase',
+        debounce: true,
+        debounceRate: 500,
+        showCode: true,
+        ...config
+      }
+    };
+
+    const [state, setState] = useAddonState<PanelState>(
+      THEME_PLAYGROUND_STATE,
+      { ...initialState }
+    );
+
+    const [providerTheme, setProviderTheme] = useState(
+      state.theme.length > 0 ? state.theme[state.selected].theme : undefined
+    );
+
+    const handleReset = useCallback((i) => {
+      setState({
+        ...initialState,
+        selected: i
+      });
+    }, []);
+
+    const handleUpdate = (newTheme) => setProviderTheme(newTheme);
+
+    useEffect(() => {
+      channel.on(THEME_PLAYGROUND_RESET, handleReset);
+      channel.on(THEME_PLAYGROUND_UPDATE, handleUpdate);
+
+      return () => {
+        channel.off(THEME_PLAYGROUND_RESET, handleReset);
+        channel.off(THEME_PLAYGROUND_UPDATE, handleUpdate);
+      };
+    }, []);
+
+    const Provider = provider;
+
+    return <Provider theme={providerTheme}>{storyFn(context)}</Provider>;
+  }
+});
