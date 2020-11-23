@@ -463,3 +463,37 @@ const options = {
   }
 };
 ```
+
+**4. Change deprecated control type colorpicker and counter**
+
+If you used the deprecated control type counter or colorpicker, replace it by number or color.
+
+```js
+// Before
+const options = {
+  theme,
+  provider: ThemeProvider,
+  overrides: {
+    'button.spacing': {
+      type: 'counter'
+    },
+    'button.color': {
+      type: 'colorpicker'
+    }
+  }
+};
+
+// After
+const options = {
+  theme,
+  provider: ThemeProvider,
+  overrides: {
+    'button.spacing': {
+      type: 'number'
+    },
+    'button.color': {
+      type: 'color'
+    }
+  }
+};
+```
