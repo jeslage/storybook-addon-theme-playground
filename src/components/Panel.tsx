@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { API, useAddonState } from '@storybook/api';
+import { API, useAddonState, useParameter } from '@storybook/api';
 import {
   Icons,
   SyntaxHighlighter,
@@ -21,11 +21,13 @@ import { PanelState } from '../types';
 
 import ThemeControls from './ThemeControls';
 import Loading from './Loading';
+import { ThemePlaygroundProps } from '../withThemePlayground';
 
 type PanelProps = { api: API };
 
 const Panel = ({ api }: PanelProps) => {
   const [state, setState] = useAddonState<PanelState>(THEME_PLAYGROUND_STATE);
+  const parameters = useParameter<ThemePlaygroundProps>('themePlayground');
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -97,6 +99,25 @@ const Panel = ({ api }: PanelProps) => {
       <Placeholder>
         <Fragment key="title">You have not configured the addon yet</Fragment>
 
+        <Fragment key="desc">
+          Read more about how to configure&nbsp;
+          <Link
+            href="https://github.com/jeslage/storybook-addon-theme-playground#readme"
+            cancel={false}
+          >
+            the addon
+          </Link>
+        </Fragment>
+      </Placeholder>
+    );
+  }
+
+  if (parameters.disabled) {
+    return (
+      <Placeholder>
+        <Fragment key="title">
+          Theme Playground is disabled for this story
+        </Fragment>
         <Fragment key="desc">
           Read more about how to configure&nbsp;
           <Link

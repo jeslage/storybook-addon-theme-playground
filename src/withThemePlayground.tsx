@@ -23,6 +23,7 @@ export interface ThemePlaygroundProps {
   overrides?: ControlsProps;
   controls?: ControlsProps;
   config?: ConfigProps;
+  disabled?: boolean;
 }
 
 const defaultOptions: ThemePlaygroundProps = {
