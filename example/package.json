@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@storybook/react": "^6.1.2",
-    "babel-loader": "^8.2.1",
+    "@babel/core": "^7.12.10",
+    "@storybook/react": "^6.1.15",
+    "babel-loader": "^8.2.2",
     "react-is": "^17.0.1",
     "storybook-addon-theme-playground": "^2.0.0"
   },
