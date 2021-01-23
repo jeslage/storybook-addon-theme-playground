@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0]- 2021-01-23
+
+### Added
+
+- Added `disabled` option to disable panel for single stories
+
+### Changed
+
+- [PR](https://github.com/jeslage/storybook-addon-theme-playground/pull/25): Upgrade all dependencies using npm-check-updates
+- [PR](https://github.com/jeslage/storybook-addon-theme-playground/pull/21): Bump ini from 1.3.5 to 1.3.8
+
+### Fixed
+
+- [PR](https://github.com/jeslage/storybook-addon-theme-playground/pull/24): Fix crash when no 'controls' property is specified
+- [Issue #23](https://github.com/jeslage/storybook-addon-theme-playground/issues/23): Fixed missing controls object inside ThemeControls component
+
 ## [2.0.0]- 2020-11-23
 
 ### Added
@@ -132,13 +148,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release
 
-[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...develop
-[2.0.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...1.3.4
-[1.3.4]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...1.3.3
-[1.3.3]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.3...1.3.2
-[1.3.2]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.1...1.3.2
-[1.3.1]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.0...1.3.1
-[1.3.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.2...1.3.0
+[unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.1.0...develop
+[2.1.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.1.0...v2.0.0
+[2.0.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...v1.3.4
+[1.3.4]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...v1.3.3
+[1.3.3]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.3...v1.3.2
+[1.3.2]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.1...v1.3.2
+[1.3.1]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.2...v1.3.0
 [1.2.2]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.1.0...v1.2.0

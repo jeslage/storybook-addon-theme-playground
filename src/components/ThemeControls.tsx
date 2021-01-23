@@ -12,18 +12,25 @@ import {
   OptionsControl
 } from '@storybook/components';
 
-import { ControlsConfig } from '../types';
+import { ControlsConfig, ConfigProps, ControlsProps } from '../types';
 
 import { getLabel, objectify, rgb2hex, stripUnit } from '../helper';
 
 import Shorthand from './Shorthand';
 import Label from './Label';
 
+type ThemeControlsProps = {
+  themeComponents: any;
+  controls?: ControlsProps;
+  config: ConfigProps;
+  onUpdate: (path: string, value: any) => void;
+};
+
 type ThemeControlProps = {
   type: string;
   path: string;
   props: { label: string; value: any };
-  config: ControlsConfig;
+  config?: ControlsConfig;
   update: (path: string, value: any) => void;
 };
 
@@ -142,7 +149,7 @@ const ThemeControl = React.memo(
             name={path}
             value={value}
             defaultValue={value}
-            options={objectify(config.options)}
+            options={objectify(config?.options)}
             onChange={(val) => {
               update(path, val);
             }}
@@ -154,7 +161,7 @@ const ThemeControl = React.memo(
             type="radio"
             name={path}
             value={value}
-            options={objectify(config.options)}
+            options={objectify(config?.options)}
             onChange={(val) => update(path, val)}
           />
         );
@@ -174,37 +181,38 @@ ThemeControl.displayName = 'ThemeControl';
 
 const ThemeControls = ({
   themeComponents,
-  controls = {},
+  controls,
   config,
   onUpdate
-}) => {
+}: ThemeControlsProps) => {
   return (
     <>
       {themeComponents &&
         Object.keys(themeComponents).map((path) => {
           const { value, type } = themeComponents[path];
+          const control = controls ? controls[path] : undefined;
 
-          const label = getLabel(path, config.labelFormat);
+          const label = getLabel(path, config?.labelFormat);
 
           const props = {
             value,
             label
           };
 
-          const themeControlProps = {
+          const themeControlProps: ThemeControlProps = {
             type,
             path,
             props,
-            config: controls[path],
+            config: control,
             update: onUpdate
           };
 
           return themeComponents[path] ? (
             <StyledThemeControls key={path}>
               <Label
-                label={controls[path]?.label || props.label}
-                description={controls[path]?.description}
-                icon={controls[path]?.icon}
+                label={control?.label || props.label}
+                description={control?.description}
+                icon={control?.icon}
               />
 
               <ThemeControl {...themeControlProps} />

@@ -23,12 +23,14 @@ export interface ThemePlaygroundProps {
   overrides?: ControlsProps;
   controls?: ControlsProps;
   config?: ConfigProps;
+  disabled?: boolean;
 }
 
 const defaultOptions: ThemePlaygroundProps = {
   theme: undefined,
   controls: undefined,
   config: undefined,
+  disabled: false,
   provider: ({ children }) => children
 };
 

@@ -126,6 +126,21 @@ Set to `false` updating the theme values will not be debounced.
 
 Set to `false` no code component will be rendered.
 
+### `disabled`
+
+`boolean` | default: `false`
+
+Set to `true` to disable addon panel for single stories.
+
+```js
+export default {
+  title: 'Disabled story',
+  parameters: {
+    themePlayground: { disabled: true }
+  }
+};
+```
+
 ## Config
 
 **Example**
