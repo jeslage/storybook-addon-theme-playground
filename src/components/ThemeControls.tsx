@@ -172,7 +172,12 @@ const ThemeControl = React.memo(
 
 ThemeControl.displayName = 'ThemeControl';
 
-const ThemeControls = ({ themeComponents, controls, config, onUpdate }) => {
+const ThemeControls = ({
+  themeComponents,
+  controls = {},
+  config,
+  onUpdate
+}) => {
   return (
     <>
       {themeComponents &&
