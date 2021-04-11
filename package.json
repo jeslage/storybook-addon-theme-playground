@@ -8,7 +8,9 @@
     "theme",
     "playground",
     "react",
-    "typescript"
+    "typescript",
+    "storybook-addon",
+    "style"
   ],
   "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
   "repository": "jeslage/storybook-addon-theme-playground",
