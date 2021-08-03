@@ -9,20 +9,25 @@
     "playground",
     "react",
     "typescript",
-    "storybook-addon",
+    "storybook-addons",
     "style"
   ],
-  "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
-  "repository": "jeslage/storybook-addon-theme-playground",
+  "storybook": {
+    "displayName": "Theme Playground",
+    "supportedFrameworks": ["React"]
+  },
+  "bugs": {
+    "url": "https://github.com/jeslage/storybook-addon-theme-playground/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "jeslage/storybook-addon-theme-playground"
+  },
   "license": "MIT",
   "author": "Johannes Eslage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "register.js",
-    "preset.js"
-  ],
+  "files": ["dist", "register.js", "preset.js"],
   "scripts": {
     "build": "npm run clean && tsc -p .",
     "build:watch": "npm run clean && tsc -p . -w",
@@ -41,10 +46,7 @@
     }
   },
   "lint-staged": {
-    "*.@(ts|tsx)": [
-      "yarn lint",
-      "yarn prettier-write"
-    ]
+    "*.@(ts|tsx)": ["yarn lint", "yarn prettier-write"]
   },
   "prettier": {
     "printWidth": 80,
