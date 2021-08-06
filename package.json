@@ -22,7 +22,7 @@
   "author": "Johannes Eslage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "register.js", "preset.js"],
+  "files": ["dist", "README.md", "register.js", "preset.js"],
   "scripts": {
     "build": "npm run clean && tsc -p .",
     "build:watch": "npm run clean && tsc -p . -w",
