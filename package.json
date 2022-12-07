@@ -4,15 +4,21 @@
   "description": "Select between themes and tweak them directly in a panel.",
   "keywords": [
     "storybook-addons",
+    "storybook-addon",
     "storybook",
     "addon",
     "theme",
     "playground",
     "react",
     "typescript",
-    "storybook-addon",
     "style"
   ],
+  "storybook": {
+    "displayName": "Theme Playground",
+    "supportedFrameworks": [
+      "React"
+    ]
+  },
   "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
   "repository": "jeslage/storybook-addon-theme-playground",
   "license": "MIT",
@@ -21,6 +27,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "README.md",
     "register.js",
     "preset.js"
   ],
