@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "description": "Select between themes and tweak them directly in a panel.",
   "keywords": [
+    "storybook-addons",
     "storybook",
     "addon",
     "theme",
