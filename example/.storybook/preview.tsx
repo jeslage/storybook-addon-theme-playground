@@ -4,7 +4,7 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   body {
-    background: #fff;
+    background: #ffffff;
     margin:0;
     font-family: Helvetica, sans-serif;
   }
@@ -75,13 +75,12 @@ const uiThemes = [
   }
 ];
 
-interface Options extends ThemePlaygroundProps {
-  theme: typeof uiThemes;
-}
-
-const options: Options = {
+const options: ThemePlaygroundProps<typeof uiThemes> = {
   theme: uiThemes,
-  provider: ThemeProvider,
+  provider: ({ children, theme, name }) => {
+    console.log('Current theme is: ', name);
+    return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  },
   controls: {
     'headline.fontWeight': {
       type: 'range',
@@ -114,13 +113,17 @@ const options: Options = {
   }
 };
 
-export const parameters = { themePlayground: options };
+export const parameters = {
+  themePlayground: options
+};
 
 export const decorators = [
-  (storyFn) => (
-    <>
-      <GlobalStyles />
-      {storyFn()}
-    </>
-  )
+  (storyFn) => {
+    return (
+      <>
+        <GlobalStyles />
+        {storyFn()}
+      </>
+    );
+  }
 ];

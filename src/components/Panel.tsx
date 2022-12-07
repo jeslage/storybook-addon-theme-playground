@@ -40,7 +40,7 @@ const Panel = ({ api }: PanelProps) => {
       if (state.config.debounce) {
         const timeout = setTimeout(() => {
           setIsLoading(false);
-          api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
+          api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
         }, state.config.debounceRate);
 
         return () => {
@@ -51,14 +51,14 @@ const Panel = ({ api }: PanelProps) => {
         if (isLoading) {
           setIsLoading(false);
         }
-        api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
+        api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
       }
     }
   }, [state.themeComponents]);
 
   useEffect(() => {
     if (state.theme.length > 0) {
-      api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected].theme);
+      api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
     }
   }, [state.selected]);
 
@@ -112,7 +112,7 @@ const Panel = ({ api }: PanelProps) => {
     );
   }
 
-  if (parameters.disabled) {
+  if (parameters && parameters.disabled) {
     return (
       <Placeholder>
         <Fragment key="title">

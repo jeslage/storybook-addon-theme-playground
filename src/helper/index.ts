@@ -31,6 +31,7 @@ export const is = {
   number: (v) => typeof v === 'number',
   string: (v) => typeof v === 'string',
   object: (v) => typeof v === 'object',
+  function: (v) => typeof v === 'function',
   array: (v) => Array.isArray(v),
   boolean: (v) => typeof v === 'boolean' || v === 'true' || v === 'false',
   unit: (v) =>

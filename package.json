@@ -1,20 +1,23 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Select between themes and tweak them directly in a panel.",
   "keywords": [
+    "storybook-addons",
+    "storybook-addon",
     "storybook",
     "addon",
     "theme",
     "playground",
     "react",
     "typescript",
-    "storybook-addons",
     "style"
   ],
   "storybook": {
     "displayName": "Theme Playground",
-    "supportedFrameworks": ["React"]
+    "supportedFrameworks": [
+      "React"
+    ]
   },
   "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
   "repository": "jeslage/storybook-addon-theme-playground",
@@ -22,7 +25,12 @@
   "author": "Johannes Eslage",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "README.md", "register.js", "preset.js"],
+  "files": [
+    "dist",
+    "README.md",
+    "register.js",
+    "preset.js"
+  ],
   "scripts": {
     "build": "npm run clean && tsc -p .",
     "build:watch": "npm run clean && tsc -p . -w",
@@ -41,7 +49,10 @@
     }
   },
   "lint-staged": {
-    "*.@(ts|tsx)": ["yarn lint", "yarn prettier-write"]
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn prettier-write"
+    ]
   },
   "prettier": {
     "printWidth": 80,

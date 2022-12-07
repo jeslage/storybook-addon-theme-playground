@@ -52,6 +52,10 @@ const buildThemeComponents = (
       };
     }
 
+    if (is.function(value)) {
+      return acc;
+    }
+
     if (is.object(value)) {
       if (is.shorthand(value)) {
         return { ...acc, [path]: { type: 'shorthand', value } };

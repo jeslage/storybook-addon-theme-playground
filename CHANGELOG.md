@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0]- 2022-12-07
+
+### Added
+
+- [Issue #32](https://github.com/jeslage/storybook-addon-theme-playground/issues/32): Added `name` to provider function
+
+### Changed
+
+- Changed `ThemePlaygroundProps` to make use of typescript generic
+
 ## [2.1.0]- 2021-01-23
 
 ### Added
@@ -149,6 +159,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 
 [unreleased]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.1.0...develop
+[2.2.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.2.0...v2.1.0
 [2.1.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.1.0...v2.0.0
 [2.0.0]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.0.0...v1.3.4
 [1.3.4]: https://github.com/jeslage/storybook-addon-theme-playground/compare/v1.3.4...v1.3.3

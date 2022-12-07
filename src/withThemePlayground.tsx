@@ -17,16 +17,16 @@ import {
 
 import { getThemeComponents } from './helper/buildThemeComponents';
 
-export interface ThemePlaygroundProps {
-  theme: any;
-  provider: any;
+export interface ThemePlaygroundProps<T = undefined> {
+  theme: T;
+  provider: (props: { children: any; name?: string; theme?: any }) => any;
   overrides?: ControlsProps;
   controls?: ControlsProps;
   config?: ConfigProps;
   disabled?: boolean;
 }
 
-const defaultOptions: ThemePlaygroundProps = {
+const defaultOptions: ThemePlaygroundProps<undefined> = {
   theme: undefined,
   controls: undefined,
   config: undefined,
@@ -106,7 +106,7 @@ export const withThemePlayground = makeDecorator({
     );
 
     const [providerTheme, setProviderTheme] = useState(
-      state.theme.length > 0 ? state.theme[state.selected].theme : undefined
+      state.theme.length > 0 ? state.theme[state.selected] : undefined
     );
 
     const handleReset = useCallback((i) => {
@@ -130,6 +130,10 @@ export const withThemePlayground = makeDecorator({
 
     const Provider = provider;
 
-    return <Provider theme={providerTheme}>{storyFn(context)}</Provider>;
+    return (
+      <Provider theme={providerTheme?.theme} name={providerTheme?.name}>
+        {storyFn(context)}
+      </Provider>
+    );
   }
 });
