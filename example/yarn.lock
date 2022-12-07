@@ -9019,10 +9019,10 @@ store2@^2.12.0, store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
 
-storybook-addon-theme-playground@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-theme-playground/-/storybook-addon-theme-playground-2.1.0.tgz#5667163d11b904cfbcdee292ccf7e8dcf59a9ece"
-  integrity sha512-8qOvw+C+zFn7p23Z8cxgoNBwd9m98qWFCK09iydoaSAWALqbwDXruj/hoFYYgs1888wO1GxuCjAnxj1ZuPCpnA==
+storybook-addon-theme-playground@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-theme-playground/-/storybook-addon-theme-playground-2.2.0.tgz#3123e7f5f9d68a0db32beeac53624a0ddd0ee74e"
+  integrity sha512-JhinPLKwy1Uume68vNF6cE6ZjFXW9C+8thz7mu65/zyY3JB5iiFAg23fJJKjW8doAoKxJlZXc0Sh/Ka5UvQrWw==
   dependencies:
     "@storybook/addons" "6.1.15"
     "@storybook/api" "6.1.15"
