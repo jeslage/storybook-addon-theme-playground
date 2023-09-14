@@ -33,15 +33,13 @@
     "!src/**/*"
   ],
   "scripts": {
-    "build": "npm run clean && tsc -p .",
     "commit": "cz",
+    "build": "npm run clean && tsc -p .",
     "build:watch": "npm run clean && tsc -p . -w",
     "clean": "rimraf dist",
     "deploy-example": "cd example && npm run deploy",
     "lint": "eslint ./src --ext ts --ext tsx",
-    "prepare": "npm run build",
     "prettier-write": "prettier --write \"src/**/*.tsx\"",
-    "prepublish": "npm run prettier-write && npm run lint && npm run type-check",
     "test": "echo \"No test specified\"",
     "type-check": "tsc --pretty --noEmit"
   },
