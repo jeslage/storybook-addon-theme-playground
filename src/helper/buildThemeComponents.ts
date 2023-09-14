@@ -78,11 +78,7 @@ const buildThemeComponents = (
         return { ...acc, [path]: { type: 'range', value } };
       }
 
-      if (is.text(value)) {
-        return { ...acc, [path]: { type: 'textarea', value } };
-      }
-
-      return { ...acc, [path]: { type: 'input', value } };
+      return { ...acc, [path]: { type: 'text', value } };
     }
   }, {});
 

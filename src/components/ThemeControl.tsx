@@ -16,7 +16,7 @@ import { stripUnit } from '../helper';
 import Shorthand from './Shorthand';
 
 type ThemeControlProps = {
-  type: string;
+  type: ControlsConfig['type'];
   path: string;
   props: { label: string; value: any };
   config?: ControlsConfig;
@@ -92,7 +92,7 @@ const ThemeControl = ({
     );
   }
 
-  if (type === 'textarea' || type === 'input') {
+  if (type === 'text') {
     return (
       <TextControl
         name={path}

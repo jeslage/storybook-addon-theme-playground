@@ -39,7 +39,6 @@ export const is = {
     v.endsWith('rem') ||
     v.endsWith('em') ||
     v.endsWith('%'),
-  text: (v) => v.length >= 40,
   shorthand: (v) => {
     const keys = Object.keys(v);
     return (

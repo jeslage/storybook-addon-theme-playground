@@ -23,8 +23,7 @@ export type ConfigProps = {
 */
 export type ControlsConfig = {
   type:
-    | 'input'
-    | 'textarea'
+    | 'text'
     | 'color'
     | 'counter'
     | 'number'
