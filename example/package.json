@@ -28,7 +28,7 @@
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build": "storybook -o public",
+    "build": "storybook build -o public",
     "deploy": "vercel --prod",
     "build-storybook": "storybook build"
   }
