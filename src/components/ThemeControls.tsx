@@ -12,7 +12,7 @@ import Label from './Label';
 import ThemeControl from './ThemeControl';
 
 type ThemeControlProps = {
-  type: string;
+  type: ControlsConfig['type'];
   path: string;
   props: { label: string; value: any };
   config?: ControlsConfig;
