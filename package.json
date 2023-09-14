@@ -61,18 +61,18 @@
     "trailingComma": "none"
   },
   "dependencies": {
-    "@storybook/api": "7.4.1",
-    "@storybook/blocks": "^7.4.1",
-    "@storybook/client-api": "7.4.1",
-    "@storybook/client-logger": "7.4.1",
-    "@storybook/components": "7.4.1",
-    "@storybook/manager-api": "^7.4.1",
-    "@storybook/preview-api": "^7.4.1",
-    "@storybook/theming": "7.4.1",
+    "@storybook/api": "^7.0.2",
+    "@storybook/blocks": "^7.0.2",
+    "@storybook/client-api": "^7.0.2",
+    "@storybook/client-logger": "^7.0.2",
+    "@storybook/components": "^7.0.2",
+    "@storybook/manager-api": "^7.0.2",
+    "@storybook/preview-api": "^7.0.2",
+    "@storybook/theming": "^7.0.2",
     "lodash.startcase": "^4.4.0"
   },
   "devDependencies": {
-    "@storybook/react": "^7.4.1",
+    "@storybook/react": "^7.0.2",
     "@types/node": "^20.6.0",
     "@types/react": "18.2.21",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
@@ -91,8 +91,8 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@storybook/react": "^7.0.20",
-    "react": "^18.0.1",
-    "react-dom": "^18.0.1"
+    "@storybook/react": "^7.0.2",
+    "react": ">=17.0.1",
+    "react-dom": ">=17.0.1"
   }
 }
