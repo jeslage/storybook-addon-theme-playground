@@ -1,22 +1,15 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Select between themes and tweak them directly in a panel.",
   "keywords": [
     "storybook-addons",
-    "storybook-addon",
-    "storybook",
-    "addon",
-    "theme",
-    "playground",
-    "react",
-    "typescript",
     "style"
   ],
   "storybook": {
     "displayName": "Theme Playground",
     "supportedFrameworks": [
-      "React"
+      "react"
     ]
   },
   "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
