@@ -1,30 +1,15 @@
 import React from 'react';
 import { styled } from '@storybook/theming';
-import { logger } from '@storybook/client-logger';
+import { useAddonState } from '@storybook/manager-api';
 
-import {
-  BooleanControl,
-  ColorControl,
-  TextControl,
-  NumberControl,
-  Form,
-  RangeControl,
-  OptionsControl
-} from '@storybook/components';
+import { ControlsConfig, PanelState } from '../types';
+import { THEME_PLAYGROUND_STATE } from '../constants';
 
-import { ControlsConfig, ConfigProps, ControlsProps } from '../types';
+import { getThemeComponents } from '../helper/buildThemeComponents';
+import { getLabel, updateValueBasedOnPath } from '../helper';
 
-import { getLabel, objectify, rgb2hex, stripUnit } from '../helper';
-
-import Shorthand from './Shorthand';
 import Label from './Label';
-
-type ThemeControlsProps = {
-  themeComponents: any;
-  controls?: ControlsProps;
-  config: ConfigProps;
-  onUpdate: (path: string, value: any) => void;
-};
+import ThemeControl from './ThemeControl';
 
 type ThemeControlProps = {
   type: string;
@@ -57,157 +42,50 @@ export const StyledThemeControls = styled.div`
   }
 `;
 
-const ThemeControl = React.memo(
-  ({ type, path, config, props, update }: ThemeControlProps) => {
-    const { value } = props;
-    const [val, unit] = stripUnit(value);
+const ThemeControls = () => {
+  const [state, setState] = useAddonState<PanelState>(THEME_PLAYGROUND_STATE);
+  const components = getThemeComponents(
+    state.theme[state.selected].theme,
+    state.controls
+  );
 
-    switch (type) {
-      case 'color':
-      case 'colorpicker':
-        if (type === 'colorpicker') {
-          logger.warn(
-            "storybook-addon-theme-playground: Override type 'colorpicker' will be deprecated soon, please use type 'color' instead."
-          );
-          logger.warn(
-            'Learn more about all override components here: https://github.com/jeslage/storybook-addon-theme-playground#override-components'
-          );
-        }
+  const updateTheme = (path: string, value: any) => {
+    const { theme: currentTheme } = state.theme[state.selected];
 
-        return (
-          <ColorControl
-            name={path}
-            value={value}
-            onChange={(val) => update(path, rgb2hex(val))}
-          />
-        );
-      case 'counter':
-      case 'number':
-        if (type === 'counter') {
-          logger.warn(
-            "storybook-addon-theme-playground: Override type 'counter' will be deprecated soon, please use type 'number' instead."
-          );
-          logger.warn(
-            'Learn more about all override components here: https://github.com/jeslage/storybook-addon-theme-playground#override-components'
-          );
-        }
+    const theme = currentTheme;
+    updateValueBasedOnPath(path, value, theme);
 
-        return (
-          <NumberControl
-            name={path}
-            value={parseFloat(val)}
-            onChange={(val) => update(path, unit ? `${val}${unit}` : val)}
-            max={config?.max}
-            min={config?.min}
-            step={config?.steps}
-          />
-        );
-      case 'range':
-        return (
-          <RangeControl
-            name={props.label}
-            value={parseFloat(val)}
-            onChange={(val) => update(path, unit ? `${val}${unit}` : val)}
-            max={config?.max}
-            min={config?.min}
-            step={config?.steps}
-          />
-        );
-      case 'input':
-        return (
-          <TextControl
-            name={path}
-            value={value}
-            onChange={(val) => update(path, val)}
-          />
-        );
-      case 'shorthand':
-        return (
-          <Shorthand value={value} onChange={(val) => update(path, val)} />
-        );
-      case 'switch':
-        return (
-          <BooleanControl
-            name={path}
-            value={value}
-            onChange={(val) => update(path, val)}
-          />
-        );
-      case 'textarea':
-        return (
-          <Form.Textarea
-            height={50}
-            name={path}
-            value={value}
-            onChange={(val) => update(path, val)}
-          />
-        );
-      case 'select':
-        return (
-          <OptionsControl
-            type="select"
-            name={path}
-            value={value}
-            defaultValue={value}
-            options={objectify(config?.options)}
-            onChange={(val) => {
-              update(path, val);
-            }}
-          />
-        );
-      case 'radio':
-        return (
-          <OptionsControl
-            type="radio"
-            name={path}
-            value={value}
-            options={objectify(config?.options)}
-            onChange={(val) => update(path, val)}
-          />
-        );
-      default:
-        return (
-          <TextControl
-            name={path}
-            value={value}
-            onChange={(val) => update(path, val)}
-          />
-        );
-    }
-  }
-);
+    setState((prev) => ({
+      ...prev,
+      theme: prev.theme.map((t, i) =>
+        i === prev.selected ? { ...t, theme } : t
+      )
+    }));
+  };
 
-ThemeControl.displayName = 'ThemeControl';
-
-const ThemeControls = ({
-  themeComponents,
-  controls,
-  config,
-  onUpdate
-}: ThemeControlsProps) => {
   return (
     <>
-      {themeComponents &&
-        Object.keys(themeComponents).map((path) => {
-          const { value, type } = themeComponents[path];
-          const control = controls ? controls[path] : undefined;
+      {components &&
+        Object.keys(components).map((path) => {
+          const { value, type } = components[path];
+          const control = state.controls ? state.controls[path] : undefined;
 
-          const label = getLabel(path, config?.labelFormat);
+          const label = getLabel(path, state.config?.labelFormat);
 
           const props = {
             value,
             label
           };
 
-          const themeControlProps: ThemeControlProps = {
+          const controlProps: ThemeControlProps = {
             type,
             path,
             props,
             config: control,
-            update: onUpdate
+            update: updateTheme
           };
 
-          return themeComponents[path] ? (
+          return components[path] ? (
             <StyledThemeControls key={path}>
               <Label
                 label={control?.label || props.label}
@@ -215,7 +93,7 @@ const ThemeControls = ({
                 icon={control?.icon}
               />
 
-              <ThemeControl {...themeControlProps} />
+              <ThemeControl {...controlProps} />
             </StyledThemeControls>
           ) : null;
         })}
@@ -223,4 +101,4 @@ const ThemeControls = ({
   );
 };
 
-export default React.memo(ThemeControls);
+export default ThemeControls;

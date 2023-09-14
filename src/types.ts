@@ -1,4 +1,4 @@
-import { IconKey } from '@storybook/components/dist/icon/icons';
+import { IconsProps } from '@storybook/components';
 
 /*
   Theme
@@ -23,6 +23,7 @@ export type ConfigProps = {
 */
 export type ControlsConfig = {
   type:
+    | 'text'
     | 'color'
     | 'counter'
     | 'number'
@@ -31,7 +32,7 @@ export type ControlsConfig = {
     | 'switch'
     | 'radio'
     | 'range';
-  icon?: IconKey;
+  icon?: IconsProps['icon'];
   hidden?: boolean;
   label?: string;
   description?: string;
@@ -53,7 +54,7 @@ export type ProviderState = { theme: ThemesArray };
 export type PanelState = {
   selected: number;
   theme: ThemesArray;
-  themeComponents: any;
   controls?: ControlsProps;
   config: ConfigProps;
+  loading: boolean;
 };

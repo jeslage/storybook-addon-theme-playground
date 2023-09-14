@@ -6,7 +6,6 @@
 
 ![Screenshot](./assets/screenshot.jpg)
 [🌍 Example](https://storybook-addon-theme-playground.now.sh)
-[📖 Migration](#migration)
 
 ## Features
 
@@ -22,7 +21,6 @@
 - [Control components](#Control-components)
 - [Default controls](#default-controls)
 - [Typescript](#typescript)
-- [Migration](#migration)
 
 ## Installation
 
@@ -338,13 +336,9 @@ const controls = {
 
 > `number`
 
-### `Input`
+### `Text`
 
 > `string`
-
-### `Textarea`
-
-> `string` && `string.length >= 40`
 
 ### `Range`
 
@@ -394,121 +388,4 @@ const params: ThemePlaygroundParams = {
 };
 
 export const parameters = { themePlayground: params };
-```
-
-## Migration
-
-### Storybook Version
-
-`storybook-addon-theme-playground` needs at least Storybook 6, because it uses some of the internal control components which came with the v6 release. If you need to support a smaller version of Storybook, please try to install the addon version `1.3.4`. [Or read about how to migrate to Storybook 6](https://medium.com/storybookjs/storybook-6-migration-guide-200346241bb5).
-
-```sh
-# For Storybook versions < 6.0
-npm install -D storybook-addon-theme-playground@1.3.4
-yarn add -D storybook-addon-theme-playground@1.3.4
-```
-
-### Addon version 2 migration
-
-If you want to migrate the addon to version 2 follow these steps.
-
-**1. Change the addons import inside `main.js`**
-
-```js
-// Before
-module.exports = {
-  addons: ['storybook-addon-theme-playground/dist/register']
-};
-
-// After
-module.exports = {
-  addons: ['storybook-addon-theme-playground']
-};
-```
-
-**2. Change from decorators to parameters inside `preview.js`**
-
-```js
-// Before
-import { ThemeProvider } from 'styled-components';
-import { withThemePlayground } from 'storybook-addon-theme-playground';
-
-import theme from 'path/to/theme';
-
-export const decorators = [
-  withThemePlayground({
-    theme,
-    provider: ThemeProvider
-  })
-];
-
-// After
-import { ThemeProvider } from 'styled-components';
-
-import theme from 'path/to/theme';
-
-export const parameters = {
-  themePlayground: {
-    theme,
-    provider: ThemeProvider
-  }
-};
-```
-
-**3. Change key from overrides to controls inside configuration**
-
-The overrides key was replaced by the controls key, if you customized the panel components rename the configuration key.
-
-```js
-// Before
-const options = {
-  theme,
-  provider: ThemeProvider,
-  overrides: {
-    // Your customized controls
-  }
-};
-
-// After
-const options = {
-  theme,
-  provider: ThemeProvider,
-  controls: {
-    // Your customized controls
-  }
-};
-```
-
-**4. Change deprecated control type colorpicker and counter**
-
-If you used the deprecated control type counter or colorpicker, replace it by number or color.
-
-```js
-// Before
-const options = {
-  theme,
-  provider: ThemeProvider,
-  overrides: {
-    'button.spacing': {
-      type: 'counter'
-    },
-    'button.color': {
-      type: 'colorpicker'
-    }
-  }
-};
-
-// After
-const options = {
-  theme,
-  provider: ThemeProvider,
-  overrides: {
-    'button.spacing': {
-      type: 'number'
-    },
-    'button.color': {
-      type: 'color'
-    }
-  }
-};
 ```

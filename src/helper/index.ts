@@ -39,7 +39,6 @@ export const is = {
     v.endsWith('rem') ||
     v.endsWith('em') ||
     v.endsWith('%'),
-  text: (v) => v.length >= 40,
   shorthand: (v) => {
     const keys = Object.keys(v);
     return (
@@ -52,10 +51,24 @@ export const is = {
   }
 };
 
+export const updateObject = (
+  path: string,
+  value: any,
+  object: Record<any, any>
+) => {
+  const stack = path.split('>');
+
+  while (stack.length > 1) {
+    object = object[stack.shift() as string];
+  }
+
+  object[stack.shift() as string] = value;
+};
+
 export const updateValueBasedOnPath = (
   propertyPath: string,
   value: any,
-  obj: any
+  obj: Record<any, any>
 ) => {
   const newObj = obj;
 
@@ -99,23 +112,4 @@ export const objectify = (options: any[] = []) => {
   });
 
   return obj;
-};
-
-export const rgb2hex = (rgb: string): string => {
-  const rgbMatch = rgb.match(
-    /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
-  );
-
-  if (!rgbMatch || rgbMatch.length < 5) return rgb;
-
-  if (parseFloat(rgbMatch[4]) < 1) {
-    return rgb;
-  }
-
-  return (
-    '#' +
-    ('0' + parseInt(rgbMatch[1], 10).toString(16)).slice(-2) +
-    ('0' + parseInt(rgbMatch[2], 10).toString(16)).slice(-2) +
-    ('0' + parseInt(rgbMatch[3], 10).toString(16)).slice(-2)
-  );
 };
