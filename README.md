@@ -6,7 +6,6 @@
 
 ![Screenshot](./assets/screenshot.jpg)
 [🌍 Example](https://storybook-addon-theme-playground.now.sh)
-[📖 Migration](#migration)
 
 ## Features
 
@@ -22,7 +21,6 @@
 - [Control components](#Control-components)
 - [Default controls](#default-controls)
 - [Typescript](#typescript)
-- [Migration](#migration)
 
 ## Installation
 
