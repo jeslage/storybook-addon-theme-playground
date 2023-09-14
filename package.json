@@ -1,6 +1,6 @@
 {
   "name": "storybook-addon-theme-playground",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "Select between themes and tweak them directly in a panel.",
   "keywords": [
     "storybook-addons",
