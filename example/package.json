@@ -3,23 +3,33 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "engines": {
-    "node": "14.x"
-  },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@storybook/html": "^6.4.9",
-    "@storybook/react": "^6.4.9",
-    "babel-loader": "^8.2.2",
-    "react-is": "^17.0.1",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
+    "@storybook/addon-essentials": "^7.4.1",
+    "@storybook/addon-interactions": "^7.4.1",
+    "@storybook/addon-links": "^7.4.1",
+    "@storybook/blocks": "^7.4.1",
+    "@storybook/react": "^7.4.1",
+    "@storybook/react-webpack5": "^7.4.1",
+    "@storybook/testing-library": "^0.2.0",
+    "babel-loader": "^9.1.2",
+    "prop-types": "^15.8.1",
+    "react-is": "^18.2.0",
+    "storybook": "^7.4.1",
     "storybook-addon-theme-playground": "^2.2.0"
   },
   "dependencies": {
-    "styled-components": "^5.2.1"
+    "@babel/preset-typescript": "^7.22.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.0.0-rc.3"
   },
   "scripts": {
-    "storybook": "start-storybook -p 6006",
-    "build": "build-storybook -o public",
-    "deploy": "vercel --prod"
+    "storybook": "storybook dev -p 6006",
+    "build": "storybook -o public",
+    "deploy": "vercel --prod",
+    "build-storybook": "storybook build"
   }
 }

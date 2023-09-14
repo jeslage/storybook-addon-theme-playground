@@ -15,12 +15,11 @@ export default {
   title: 'Example'
 };
 
-export const baseStory = () => {
-  return (
+export const Default = {
+  render: () => (
     <>
       <Content>
         <legend>Colors</legend>
-
         <ColorPrimary />
         <ColorSecondary />
         <ColorTertiary />
@@ -55,5 +54,5 @@ export const baseStory = () => {
         </RectContainer>
       </Content>
     </>
-  );
+  )
 };

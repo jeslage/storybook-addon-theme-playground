@@ -1,5 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { API, useAddonState, useParameter } from '@storybook/api';
+import {
+  useAddonState,
+  useChannel,
+  useParameter
+} from '@storybook/manager-api';
+
 import {
   Icons,
   SyntaxHighlighter,
@@ -9,9 +14,8 @@ import {
   Link
 } from '@storybook/components';
 
-import { updateValueBasedOnPath } from '../helper';
-
 import {
+  THEME_PLAYGROUND_PARAMETER_KEY,
   THEME_PLAYGROUND_RESET,
   THEME_PLAYGROUND_STATE,
   THEME_PLAYGROUND_UPDATE
@@ -23,13 +27,14 @@ import ThemeControls from './ThemeControls';
 import Loading from './Loading';
 import { ThemePlaygroundProps } from '../withThemePlayground';
 
-type PanelProps = { api: API };
-
-const Panel = ({ api }: PanelProps) => {
+const Panel = () => {
   const [state, setState] = useAddonState<PanelState>(THEME_PLAYGROUND_STATE);
-  const parameters = useParameter<ThemePlaygroundProps>('themePlayground');
+  const parameters = useParameter<ThemePlaygroundProps>(
+    THEME_PLAYGROUND_PARAMETER_KEY
+  );
 
   const [isLoading, setIsLoading] = useState(false);
+  const emit = useChannel({});
 
   const updateSelectedTheme = (i: number) => {
     setState({ ...(state || {}), selected: i });
@@ -40,7 +45,7 @@ const Panel = ({ api }: PanelProps) => {
       if (state.config.debounce) {
         const timeout = setTimeout(() => {
           setIsLoading(false);
-          api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
+          emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
         }, state.config.debounceRate);
 
         return () => {
@@ -51,48 +56,12 @@ const Panel = ({ api }: PanelProps) => {
         if (isLoading) {
           setIsLoading(false);
         }
-        api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
+        emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
       }
     }
-  }, [state.themeComponents]);
+  }, [state.theme, state.selected]);
 
-  useEffect(() => {
-    if (state.theme.length > 0) {
-      api.emit(THEME_PLAYGROUND_UPDATE, state.theme[state.selected]);
-    }
-  }, [state.selected]);
-
-  const updateTheme = (path: string, value: any) => {
-    const { theme, name } = state.theme[state.selected];
-
-    const newTheme = theme;
-    updateValueBasedOnPath(path, value, newTheme);
-
-    setState({
-      ...(state || {}),
-      theme: state.theme.map((prev, index) => {
-        if (index === state.selected) {
-          return {
-            ...prev,
-            theme: newTheme
-          };
-        }
-
-        return prev;
-      }),
-      themeComponents: {
-        ...state.themeComponents,
-        [name]: {
-          ...state.themeComponents[name],
-          [path]: { ...state.themeComponents[name][path], value }
-        }
-      }
-    });
-  };
-
-  const resetThemes = () => {
-    api.emit(THEME_PLAYGROUND_RESET, state.selected);
-  };
+  const resetThemes = () => emit(THEME_PLAYGROUND_RESET, state.selected);
 
   if (state.theme.length === 0) {
     return (
@@ -140,13 +109,13 @@ const Panel = ({ api }: PanelProps) => {
           onSelect: (id) => updateSelectedTheme(parseFloat(id))
         }}
         tools={
-          <>
-            {isLoading && <Loading />}
-
+          isLoading ? (
+            <Loading />
+          ) : (
             <IconButton title="Reset theme" onClick={resetThemes}>
               <Icons icon="sync" />
             </IconButton>
-          </>
+          )
         }
       >
         {state.theme.map((t, i) => (
@@ -156,15 +125,11 @@ const Panel = ({ api }: PanelProps) => {
             title={state.theme.length > 1 ? t.name : ''}
             key={t.name}
           >
+            {/* @ts-ignore */}
             {({ active }) =>
               active ? (
                 <React.Fragment key={t.name}>
-                  <ThemeControls
-                    themeComponents={state.themeComponents[t.name]}
-                    controls={state.controls}
-                    config={state.config}
-                    onUpdate={updateTheme}
-                  />
+                  <ThemeControls />
 
                   {state.config.showCode ? (
                     <SyntaxHighlighter

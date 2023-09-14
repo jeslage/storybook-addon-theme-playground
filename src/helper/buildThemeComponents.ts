@@ -5,21 +5,15 @@ export const getThemeComponents = (
   theme?: any | { [key: string]: any }[],
   controls?: ControlsProps
 ) => {
-  const components: { [key: string]: any } = {};
-
   if (typeof theme === 'undefined') {
-    return;
+    return null;
   }
 
   if (Array.isArray(theme)) {
-    theme.forEach((item) => {
-      components[item.name] = buildThemeComponents(item.theme, controls);
-    });
+    return theme.map((item) => buildThemeComponents(item.theme, controls));
   } else {
-    components['Default Theme'] = buildThemeComponents(theme, controls);
+    return buildThemeComponents(theme, controls);
   }
-
-  return components;
 };
 
 const buildThemeComponents = (

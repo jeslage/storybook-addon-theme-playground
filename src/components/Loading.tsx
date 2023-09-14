@@ -3,33 +3,21 @@ import { styled } from '@storybook/theming';
 import { Loader } from '@storybook/components';
 
 const StyledLoading = styled.div`
-  pointer-events: none;
+  flex-grow: 2;
+  position: relative;
+  padding: 8px 7px;
+  height: 28px;
+  width: 28px;
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 0.75rem;
-  flex-grow: 2;
-  margin-right: 1rem;
-  z-index: 999;
-
-  & > div {
-    position: relative;
-    top: 3px;
-    left: 4px;
-  }
-
-  span {
-    text-transform: uppercase;
-    font-size: 13px;
-    font-weight: bold;
-    margin-right: 0.5rem;
-  }
+  margin-top: 6px;
+  justify-content: center;
 `;
 
 const Loading = () => {
   return (
     <StyledLoading>
-      <span>Updating</span>
-      <Loader size={12} />
+      <Loader size={14} />
     </StyledLoading>
   );
 };

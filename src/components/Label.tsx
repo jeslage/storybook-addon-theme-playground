@@ -1,8 +1,7 @@
 import React from 'react';
 import { styled } from '@storybook/theming';
 
-import { Icons } from '@storybook/components';
-import { IconKey } from '@storybook/components/dist/icon/icons';
+import { Icons, IconsProps } from '@storybook/components';
 
 const StyledLabel = styled.div`
   flex-grow: 2;
@@ -33,7 +32,7 @@ const StyledLabel = styled.div`
 `;
 
 type LabelProps = {
-  icon?: IconKey;
+  icon?: IconsProps['icon'];
   label?: string;
   description?: string;
 };

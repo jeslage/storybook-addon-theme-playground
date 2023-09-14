@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@storybook/theming';
-import { NumberControl } from '@storybook/components';
+import { NumberControl } from '@storybook/blocks';
 
 type ShorthandProps = {
   name?: string;
