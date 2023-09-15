@@ -1,6 +1,7 @@
-import React from 'react';
-import { styled } from '@storybook/theming';
-import { NumberControl } from '@storybook/blocks';
+import React from "react";
+import { styled } from "@storybook/theming";
+import { NumberControl } from "@storybook/blocks";
+import { stripUnit } from "src/lib/misc";
 
 type ShorthandProps = {
   name?: string;
@@ -31,21 +32,13 @@ const StyledShorthand = styled.div`
 const Shorthand = ({ value, onChange }: ShorthandProps) => {
   const { top, left, right, bottom } = value;
 
-  const updateValue = (key: string, val: number) => {
-    const newValue = {
-      ...value,
-      [key]: val
-    };
-
-    onChange(newValue);
-  };
-
   const handleChange = (name: string, val: number | null) => {
-    if (val) {
-      updateValue(name, val);
-    } else {
-      updateValue(name, 0);
-    }
+    const [_, unit] = stripUnit(value[name as keyof ShorthandObject]);
+
+    onChange({
+      ...value,
+      [name]: unit ? `${val || 0}${unit}` : val,
+    });
   };
 
   const handleBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,28 +51,28 @@ const Shorthand = ({ value, onChange }: ShorthandProps) => {
       <NumberControl
         value={parseInt(top as any)}
         name="top"
-        onChange={(v) => handleChange('top', v)}
+        onChange={(v) => handleChange("top", v)}
         onBlur={handleBlur}
       />
 
       <NumberControl
         value={parseInt(right as any)}
         name="right"
-        onChange={(v) => handleChange('right', v)}
+        onChange={(v) => handleChange("right", v)}
         onBlur={handleBlur}
       />
 
       <NumberControl
         value={parseInt(bottom as any)}
         name="bottom"
-        onChange={(v) => handleChange('bottom', v)}
+        onChange={(v) => handleChange("bottom", v)}
         onBlur={handleBlur}
       />
 
       <NumberControl
         value={parseInt(left as any)}
         name="left"
-        onChange={(v) => handleChange('left', v)}
+        onChange={(v) => handleChange("left", v)}
         onBlur={handleBlur}
       />
     </StyledShorthand>

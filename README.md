@@ -38,7 +38,7 @@ Add to `.storybook/main.js`
 
 ```js
 module.exports = {
-  addons: ['storybook-addon-theme-playground']
+  addons: ["storybook-addon-theme-playground"],
 };
 ```
 
@@ -48,33 +48,33 @@ Add to `.storybook/preview.js`.
 
 ```js
 // Import a theme provider of your choice
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from "styled-components";
 
-import theme from 'path/to/theme';
+import theme from "path/to/theme";
 
 export const parameters = {
   themePlayground: {
     theme,
-    provider: ThemeProvider
-  }
+    provider: ThemeProvider,
+  },
 };
 ```
 
 To add multiple themes, add an `Array` to the `theme` key. Each theme must have a `name` and a `theme` key.
 
 ```js
-import { ThemeProvider } from 'styled-components';
-import defaultTheme from 'path/to/default/theme';
-import anotherTheme from 'path/to/another/theme';
+import { ThemeProvider } from "styled-components";
+import defaultTheme from "path/to/default/theme";
+import anotherTheme from "path/to/another/theme";
 
 export const parameters = {
   themePlayground: {
     theme: [
-      { name: 'Default Theme', theme: defaultTheme },
-      { name: 'Another Theme', theme: anotherTheme }
+      { name: "Default Theme", theme: defaultTheme },
+      { name: "Another Theme", theme: anotherTheme },
     ],
-    provider: ThemeProvider
-  }
+    provider: ThemeProvider,
+  },
 };
 ```
 
@@ -132,10 +132,10 @@ Set to `true` to disable addon panel for single stories.
 
 ```js
 export default {
-  title: 'Disabled story',
+  title: "Disabled story",
   parameters: {
-    themePlayground: { disabled: true }
-  }
+    themePlayground: { disabled: true },
+  },
 };
 ```
 
@@ -144,27 +144,27 @@ export default {
 **Example**
 
 ```js
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from "styled-components";
 
 export const parameters = {
   themePlayground: {
-    theme: { button: { color: '#000' } },
+    theme: { button: { color: "#000" } },
     provider: ThemeProvider,
     config: {
       // One of "path"
-      labelFormat: 'path', // "button.color"
+      labelFormat: "path", // "button.color"
       // or "startCase"
-      labelFormat: 'startCase', // "Button Color"
+      labelFormat: "startCase", // "Button Color"
       // or a custom function
       labelFormat: (path) => {
         // path is equal to ["button", "color"]
-        return path.join('-'); // "button-color"
+        return path.join("-"); // "button-color"
       },
       debounce: true || false,
       debounceRate: 500,
-      showConfig: true || false
-    }
-  }
+      showConfig: true || false,
+    },
+  },
 };
 ```
 
@@ -180,28 +180,28 @@ You can use all icons from the [storybook styleguide](https://next--storybookjs.
 **Example**
 
 ```js
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from "styled-components";
 
-import theme from 'path/to/theme';
+import theme from "path/to/theme";
 
 const controls = {
-  'button.spacing': {
-    type: 'number',
-    icon: 'expand',
-    label: 'Button Spacing',
-    description: 'Spacing for all buttons',
+  "button.spacing": {
+    type: "number",
+    icon: "expand",
+    label: "Button Spacing",
+    description: "Spacing for all buttons",
     min: 1,
     max: 20,
-    steps: 1
+    steps: 1,
   },
-  'button.color.primary': {
-    type: 'color',
-    label: 'Button Primary Color'
-  }
+  "button.color.primary": {
+    type: "color",
+    label: "Button Primary Color",
+  },
 };
 
 export const parameters = {
-  themePlayground: { theme, controls, provider: ThemeProvider }
+  themePlayground: { theme, controls, provider: ThemeProvider },
 };
 ```
 
@@ -212,11 +212,11 @@ It is also possible to hide specific theme values or objects, e.g.:
 ```js
 const controls = {
   breakpoints: {
-    hidden: true
+    hidden: true,
   },
-  'button.spacing': {
-    hidden: true
-  }
+  "button.spacing": {
+    hidden: true,
+  },
 };
 ```
 
@@ -359,10 +359,10 @@ const controls = {
 
 import {
   withThemePlayground,
-  ThemePlaygroundProps
-} from 'storybook-addon-theme-playground';
+  ThemePlaygroundProps,
+} from "storybook-addon-theme-playground";
 
-import theme from 'path/to/theme';
+import theme from "path/to/theme";
 
 interface ThemePlaygroundParams extends ThemePlaygroundProps {
   theme: typeof theme;
@@ -372,19 +372,19 @@ const params: ThemePlaygroundParams = {
   theme,
   provider: ThemeProvider,
   controls: {
-    'headline.fontWeight': {
-      type: 'range',
+    "headline.fontWeight": {
+      type: "range",
       max: 900,
       min: 1,
-      description: 'Define the font weight of the variable font'
+      description: "Define the font weight of the variable font",
     },
-    'copy.fontWeight': {
-      type: 'range',
+    "copy.fontWeight": {
+      type: "range",
       max: 900,
       min: 1,
-      description: 'Define the font weight of the variable font'
-    }
-  }
+      description: "Define the font weight of the variable font",
+    },
+  },
 };
 
 export const parameters = { themePlayground: params };

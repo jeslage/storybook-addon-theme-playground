@@ -1,4 +1,1 @@
-export {
-  withThemePlayground,
-  type ThemePlaygroundProps
-} from './withThemePlayground';
+export { type ThemePlaygroundProps } from "./types";

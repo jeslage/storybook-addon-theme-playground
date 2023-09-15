@@ -1,19 +1,18 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Content = styled.fieldset`
   padding: 1.5rem;
-  border: 1px solid #f4f4f4;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   position: relative;
 
   legend {
     display: block;
     padding: 0 0.25rem;
-    color: lightgray;
-    font-weight: bold;
     font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.1rem;
+    font-weight: ${({ theme }) => theme.headline.fontWeight};
+    font-family: ${({ theme }) => theme.headline.fontFamily};
   }
 `;
 
@@ -25,7 +24,6 @@ export const Color = styled.div`
   display: inline-block;
   border-radius: 0.25rem;
   overflow: hidden;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
 
   &:after {
     position: absolute;
@@ -46,7 +44,7 @@ export const ColorPrimary = styled(Color)`
   background: ${({ theme }) => theme.color.primary};
 
   &:after {
-    content: '${({ theme }) => theme.color.primary}';
+    content: "${({ theme }) => theme.color.primary}";
   }
 `;
 
@@ -54,19 +52,11 @@ export const ColorSecondary = styled(Color)`
   background: ${({ theme }) => theme.color.secondary};
 
   &:after {
-    content: '${({ theme }) => theme.color.secondary}';
+    content: "${({ theme }) => theme.color.secondary}";
   }
 `;
 
-export const ColorTertiary = styled(Color)`
-  background: ${({ theme }) => theme.color.tertiary};
-
-  &:after {
-    content: '${({ theme }) => theme.color.tertiary}';
-  }
-`;
-
-const getRectStyles = ({ theme }) => `
+const getRectStyles = ({ theme }: any) => `
   width: ${theme.rectangle.width};
   height: ${theme.rectangle.height};
   margin-right: ${theme.rectangle.margin.right}px;
@@ -76,15 +66,14 @@ const getRectStyles = ({ theme }) => `
 `;
 
 export const Rect = styled.div`
-  background: #333;
+  background: ${(props) => props.theme.color.secondary};
   ${getRectStyles};
 `;
 
 export const RectContainer = styled.div`
   display: inline-block;
   margin-right: 0.5rem;
-  border: 1px solid palevioletred;
-  background: lightpink;
+  background: ${(props) => props.theme.color.primary};
 `;
 
 export const Headline = styled.h1`
@@ -103,7 +92,7 @@ export const Spacing = styled.div`
   position: relative;
   width: 50px;
   margin: 1rem;
-  background: lightpink;
+  background: ${(props) => props.theme.color.primary};
   display: inline-block;
   height: ${({ theme }) => theme.spacings[0]}px;
 
@@ -113,29 +102,30 @@ export const Spacing = styled.div`
     transform: translateY(-50%);
     width: 100%;
     text-align: center;
-    font-family: 'sans-serif';
+    font-family: "sans-serif";
     font-size: 12px;
-    content: '${({ theme }) => theme.spacings[0]}';
+    color: ${(props) => props.theme.color.secondary};
+    content: "${({ theme }) => theme.spacings[0]}";
   }
 
   &:nth-of-type(2) {
     height: ${({ theme }) => theme.spacings[1]}px;
     &:after {
-      content: '${({ theme }) => theme.spacings[1]}';
+      content: "${({ theme }) => theme.spacings[1]}";
     }
   }
 
   &:nth-of-type(3) {
     height: ${({ theme }) => theme.spacings[2]}px;
     &:after {
-      content: '${({ theme }) => theme.spacings[2]}';
+      content: "${({ theme }) => theme.spacings[2]}";
     }
   }
 
   &:nth-of-type(4) {
     height: ${({ theme }) => theme.spacings[3]}px;
     &:after {
-      content: '${({ theme }) => theme.spacings[3]}';
+      content: "${({ theme }) => theme.spacings[3]}";
     }
   }
 `;

@@ -6,98 +6,118 @@
     "storybook-addons",
     "style"
   ],
-  "storybook": {
-    "displayName": "Theme Playground",
-    "supportedFrameworks": [
-      "react"
-    ]
-  },
   "bugs": "https://github.com/jeslage/storybook-addon-theme-playground/issues",
-  "repository": "jeslage/storybook-addon-theme-playground",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeslage/storybook-addon-theme-playground"
+  },
+  "author": "Johannes Eslage <hello@johanneseslage.de>",
   "license": "MIT",
-  "author": "Johannes Eslage",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./manager": {
+      "require": "./dist/manager.js",
+      "import": "./dist/manager.mjs",
+      "types": "./dist/manager.d.ts"
+    },
+    "./preview": {
+      "require": "./dist/preview.js",
+      "import": "./dist/preview.mjs",
+      "types": "./dist/preview.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist/**/*",
     "README.md",
     "*.js",
-    "*.d.ts",
-    "!src/**/*"
+    "*.d.ts"
   ],
   "scripts": {
+    "clean": "rimraf ./dist",
     "commit": "cz",
-    "build": "npm run clean && tsc -p .",
-    "build:watch": "npm run clean && tsc -p . -w",
-    "clean": "rimraf dist",
-    "deploy-example": "cd example && npm run deploy",
-    "lint": "eslint ./src --ext ts --ext tsx",
-    "prettier-write": "prettier --write \"src/**/*.tsx\"",
-    "test": "echo \"No test specified\"",
-    "type-check": "tsc --pretty --noEmit"
+    "prebuild": "yarn clean",
+    "build": "tsup",
+    "build:watch": "yarn build --watch",
+    "start": "run-p build:watch 'storybook --quiet'",
+    "prerelease": "zx scripts/prepublish-checks.mjs",
+    "release": "yarn build && auto shipit",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build -o public",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "@storybook/blocks": "^7.0.0",
+    "@storybook/components": "^7.0.0",
+    "@storybook/core-events": "^7.0.0",
+    "@storybook/manager-api": "^7.0.0",
+    "@storybook/preview-api": "^7.0.0",
+    "@storybook/react": "^7.0.0",
+    "@storybook/react-vite": "^7.0.0",
+    "@storybook/theming": "^7.0.0",
+    "@storybook/types": "^7.0.0",
+    "@types/node": "^18.15.0",
+    "@types/react": "^18.0.34",
+    "@vitejs/plugin-react": "^3.1.0",
+    "auto": "^10.3.0",
+    "boxen": "^5.0.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "dedent": "^0.7.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.3.1",
+    "prop-types": "^15.8.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "rimraf": "^3.0.2",
+    "storybook": "^7.0.0",
+    "styled-components": "^6.0.8",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.4",
+    "zx": "^1.14.1"
+  },
+  "resolutions": {
+    "jackspeak": "2.1.1"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
+  "peerDependencies": {
+    "@storybook/blocks": "^7.0.0",
+    "@storybook/components": "^7.0.0",
+    "@storybook/core-events": "^7.0.0",
+    "@storybook/manager-api": "^7.0.0",
+    "@storybook/preview-api": "^7.0.0",
+    "@storybook/theming": "^7.0.0",
+    "@storybook/types": "^7.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
     }
   },
-  "lint-staged": {
-    "*.@(ts|tsx)": [
-      "npm rum lint",
-      "npm rum prettier-write"
+  "publishConfig": {
+    "access": "public"
+  },
+  "storybook": {
+    "displayName": "Theme Playground",
+    "supportedFrameworks": [
+      "react"
     ]
-  },
-  "prettier": {
-    "printWidth": 80,
-    "singleQuote": true,
-    "trailingComma": "none"
-  },
-  "dependencies": {
-    "@storybook/api": "^7.0.2",
-    "@storybook/blocks": "^7.0.2",
-    "@storybook/client-api": "^7.0.2",
-    "@storybook/client-logger": "^7.0.2",
-    "@storybook/components": "^7.0.2",
-    "@storybook/manager-api": "^7.0.2",
-    "@storybook/preview-api": "^7.0.2",
-    "@storybook/theming": "^7.0.2",
-    "lodash.startcase": "^4.4.0"
-  },
-  "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^9.0.3",
-    "@semantic-release/npm": "^10.0.4",
-    "@semantic-release/release-notes-generator": "^11.0.3",
-    "@storybook/react": "^7.0.2",
-    "@types/node": "^20.6.0",
-    "@types/react": "18.2.21",
-    "@typescript-eslint/eslint-plugin": "^6.7.0",
-    "@typescript-eslint/parser": "^6.7.0",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.49.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.33.2",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
-    "prettier": "^3.0.3",
-    "react": "^18.0.1",
-    "react-dom": "^18.0.1",
-    "rimraf": "^5.0.1",
-    "semantic-release": "^21.0.6",
-    "typescript": "^5.2.2"
-  },
-  "peerDependencies": {
-    "@storybook/react": "^7.0.2",
-    "react": ">=17.0.1",
-    "react-dom": ">=17.0.1"
   }
 }

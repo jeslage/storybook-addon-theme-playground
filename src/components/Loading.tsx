@@ -1,6 +1,6 @@
-import React from 'react';
-import { styled } from '@storybook/theming';
-import { Loader } from '@storybook/components';
+import React from "react";
+import { styled } from "@storybook/theming";
+import { Loader } from "@storybook/components";
 
 const StyledLoading = styled.div`
   flex-grow: 2;
@@ -14,12 +14,10 @@ const StyledLoading = styled.div`
   justify-content: center;
 `;
 
-const Loading = () => {
-  return (
-    <StyledLoading>
-      <Loader size={14} />
-    </StyledLoading>
-  );
-};
+const Loading = () => (
+  <StyledLoading>
+    <Loader size={14} />
+  </StyledLoading>
+);
 
 export default Loading;

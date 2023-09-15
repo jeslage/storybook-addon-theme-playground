@@ -1,5 +1,5 @@
-import React from 'react';
-import { styled } from '@storybook/theming';
+import React from "react";
+import { styled } from "@storybook/theming";
 
 import {
   BooleanControl,
@@ -7,56 +7,27 @@ import {
   ColorControl,
   OptionsControl,
   NumberControl,
-  RangeControl
-} from '@storybook/blocks';
+  RangeControl,
+} from "@storybook/blocks";
 
-import { ControlsConfig } from '../types';
-import { stripUnit } from '../helper';
+import { ControlsConfig } from "../types";
+import { stripUnit } from "../lib/misc";
 
-import Shorthand from './Shorthand';
+import Shorthand from "./Shorthand";
 
-type ThemeControlProps = {
-  type: ControlsConfig['type'];
+type ControlProps = {
+  type: ControlsConfig["type"];
   path: string;
   props: { label: string; value: any };
   config?: ControlsConfig;
   update: (path: string, value: any) => void;
 };
 
-export const StyledThemeControls = styled.div`
-  position: relative;
-  padding: 0.75em 1rem;
-  min-height: 65px;
-  display: flex;
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, auto));
-  grid-gap: 10px;
-  width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.appBorderColor};
-
-  & > div + * {
-    max-width: 240px;
-    justify-self: flex-end;
-    margin-bottom: 0;
-  }
-
-  &:nth-of-type(even) {
-    background: rgba(0, 0, 0, 0.004);
-  }
-`;
-
-const ThemeControl = ({
-  type,
-  path,
-  config,
-  props,
-  update
-}: ThemeControlProps) => {
+const Control = ({ type, path, config, props, update }: ControlProps) => {
   const { value } = props;
   const [val, unit] = stripUnit(value);
 
-  if (type === 'color') {
+  if (type === "color") {
     return (
       <ColorControl
         name={path}
@@ -66,7 +37,7 @@ const ThemeControl = ({
     );
   }
 
-  if (type === 'number') {
+  if (type === "number") {
     return (
       <NumberControl
         name={path}
@@ -79,7 +50,7 @@ const ThemeControl = ({
     );
   }
 
-  if (type === 'range') {
+  if (type === "range") {
     return (
       <RangeControl
         name={props.label}
@@ -92,7 +63,7 @@ const ThemeControl = ({
     );
   }
 
-  if (type === 'text') {
+  if (type === "text") {
     return (
       <TextControl
         name={path}
@@ -102,11 +73,11 @@ const ThemeControl = ({
     );
   }
 
-  if (type === 'shorthand') {
+  if (type === "shorthand") {
     return <Shorthand value={value} onChange={(val) => update(path, val)} />;
   }
 
-  if (type === 'switch') {
+  if (type === "switch") {
     return (
       <BooleanControl
         name={path}
@@ -116,7 +87,7 @@ const ThemeControl = ({
     );
   }
 
-  if (type === 'radio' || type === 'select') {
+  if (type === "radio" || type === "select") {
     return (
       <OptionsControl
         name={path}
@@ -144,6 +115,6 @@ const ThemeControl = ({
   );
 };
 
-ThemeControl.displayName = 'ThemeControl';
+Control.displayName = "Control";
 
-export default ThemeControl;
+export default Control;

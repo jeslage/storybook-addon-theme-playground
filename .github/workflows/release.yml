@@ -11,21 +11,30 @@ on:
 
 jobs:
   release:
-    permissions:
+    runs-on: ubuntu-latest
+     permissions:
       contents: write # to be able to publish a GitHub release
       issues: write # to be able to comment on released issues
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
-    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
-      - run: npm ci --legacy-peer-deps
-      - run: npm audit signatures
-      - run: npm run build
-      - run: npx semantic-release
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: yarn install --ignore-scripts
+
+      - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn release

@@ -1,25 +1,25 @@
-import React from 'react';
-import { styled } from '@storybook/theming';
-import { useAddonState } from '@storybook/manager-api';
+import React from "react";
+import { styled } from "@storybook/theming";
+import { useAddonState } from "@storybook/manager-api";
 
-import { ControlsConfig, PanelState } from '../types';
-import { THEME_PLAYGROUND_STATE } from '../constants';
+import { ControlsConfig, PanelState } from "../types";
+import { ADDON_ID } from "../constants";
 
-import { getThemeComponents } from '../helper/buildThemeComponents';
-import { getLabel, updateValueBasedOnPath } from '../helper';
+import buildControlsObject from "../lib/buildControlsObject";
+import { formatLabel, updateObjectAtKey } from "../lib/misc";
 
-import Label from './Label';
-import ThemeControl from './ThemeControl';
+import Label from "./Label";
+import Control from "./Control";
 
-type ThemeControlProps = {
-  type: ControlsConfig['type'];
+type ControlsProps = {
+  type: ControlsConfig["type"];
   path: string;
   props: { label: string; value: any };
   config?: ControlsConfig;
   update: (path: string, value: any) => void;
 };
 
-export const StyledThemeControls = styled.div`
+export const ControlsWrapper = styled.div`
   position: relative;
   padding: 0.75em 1rem;
   min-height: 65px;
@@ -42,9 +42,10 @@ export const StyledThemeControls = styled.div`
   }
 `;
 
-const ThemeControls = () => {
-  const [state, setState] = useAddonState<PanelState>(THEME_PLAYGROUND_STATE);
-  const components = getThemeComponents(
+const Controls = () => {
+  const [state, setState] = useAddonState<PanelState>(ADDON_ID);
+
+  const components = buildControlsObject(
     state.theme[state.selected].theme,
     state.controls
   );
@@ -53,13 +54,11 @@ const ThemeControls = () => {
     const { theme: currentTheme } = state.theme[state.selected];
 
     const theme = currentTheme;
-    updateValueBasedOnPath(path, value, theme);
+    updateObjectAtKey(path, value, theme);
 
-    setState((prev) => ({
-      ...prev,
-      theme: prev.theme.map((t, i) =>
-        i === prev.selected ? { ...t, theme } : t
-      )
+    setState((p) => ({
+      ...p,
+      theme: p.theme.map((t, i) => (i === p.selected ? { ...t, theme } : t)),
     }));
   };
 
@@ -70,35 +69,35 @@ const ThemeControls = () => {
           const { value, type } = components[path];
           const control = state.controls ? state.controls[path] : undefined;
 
-          const label = getLabel(path, state.config?.labelFormat);
+          const label = formatLabel(path, state.config?.labelFormat);
 
           const props = {
             value,
-            label
+            label,
           };
 
-          const controlProps: ThemeControlProps = {
+          const controlProps: ControlsProps = {
             type,
             path,
             props,
             config: control,
-            update: updateTheme
+            update: updateTheme,
           };
 
           return components[path] ? (
-            <StyledThemeControls key={path}>
+            <ControlsWrapper key={path}>
               <Label
                 label={control?.label || props.label}
                 description={control?.description}
                 icon={control?.icon}
               />
 
-              <ThemeControl {...controlProps} />
-            </StyledThemeControls>
+              <Control {...controlProps} />
+            </ControlsWrapper>
           ) : null;
         })}
     </>
   );
 };
 
-export default ThemeControls;
+export default Controls;
