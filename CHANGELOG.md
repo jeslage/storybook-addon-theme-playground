@@ -1,19 +1,21 @@
-# v3.0.1 (Mon Sep 18 2023)
+# [3.0.1](https://github.com/jeslage/storybook-addon-theme-playground/compare/v3.0.0...v3.0.1) (2023-09-18)
 
-#### ⚠️ Pushed to `main`
+### Features
 
-- ci: fix workflow ([@jeslage](https://github.com/jeslage))
-- feat: remove unused tool declarations ([@jeslage](https://github.com/jeslage))
-- feat(diff): add showDiff to config and render story twice if active ([@jeslage](https://github.com/jeslage))
-- feat: move addon to addon-kit ([@jeslage](https://github.com/jeslage))
-- ci: update workflow ([@jeslage](https://github.com/jeslage))
-- ci: readd github in releaserc ([@jeslage](https://github.com/jeslage))
-- chore: remove yarn.lock in favor of package-lock.json ([@jeslage](https://github.com/jeslage))
-- chore: remove github from releaserc, fix changelog ([@jeslage](https://github.com/jeslage))
+- remove unused tool declarations ([@jeslage](https://github.com/jeslage))
+- add showDiff to config and render story twice if active ([@jeslage](https://github.com/jeslage))
+- move addon to addon-kit ([@jeslage](https://github.com/jeslage))
 
-#### Authors: 1
+### CI
 
-- Johannes Eslage ([@jeslage](https://github.com/jeslage))
+- fix workflow ([@jeslage](https://github.com/jeslage))
+- update workflow ([@jeslage](https://github.com/jeslage))
+- readd github in releaserc ([@jeslage](https://github.com/jeslage))
+
+### Chore
+
+- remove yarn.lock in favor of package-lock.json ([@jeslage](https://github.com/jeslage))
+- remove github from releaserc, fix changelog ([@jeslage](https://github.com/jeslage))
 
 ---
 
