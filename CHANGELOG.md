@@ -1,3 +1,22 @@
+# v3.0.1 (Mon Sep 18 2023)
+
+#### ⚠️ Pushed to `main`
+
+- ci: fix workflow ([@jeslage](https://github.com/jeslage))
+- feat: remove unused tool declarations ([@jeslage](https://github.com/jeslage))
+- feat(diff): add showDiff to config and render story twice if active ([@jeslage](https://github.com/jeslage))
+- feat: move addon to addon-kit ([@jeslage](https://github.com/jeslage))
+- ci: update workflow ([@jeslage](https://github.com/jeslage))
+- ci: readd github in releaserc ([@jeslage](https://github.com/jeslage))
+- chore: remove yarn.lock in favor of package-lock.json ([@jeslage](https://github.com/jeslage))
+- chore: remove github from releaserc, fix changelog ([@jeslage](https://github.com/jeslage))
+
+#### Authors: 1
+
+- Johannes Eslage ([@jeslage](https://github.com/jeslage))
+
+---
+
 # [3.0.0](https://github.com/jeslage/storybook-addon-theme-playground/compare/v2.3.0...v3.0.0) (2023-09-14)
 
 ### Features
