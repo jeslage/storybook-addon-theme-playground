@@ -22,6 +22,7 @@ export type LabelFormatFunction = (path: string[]) => string;
 export type ConfigProps = {
   labelFormat?: "startCase" | "path" | LabelFormatFunction;
   showCode?: boolean;
+  showDiff?: boolean;
   debounce?: boolean;
   debounceRate?: number;
 };

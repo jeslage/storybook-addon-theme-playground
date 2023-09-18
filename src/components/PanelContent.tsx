@@ -24,7 +24,7 @@ export const PanelContent: React.FC<PanelContentProps> = () => {
       if (state.config.debounce) {
         const timeout = setTimeout(() => {
           setIsLoading(false);
-          emit(EVENTS.UPDATE, state.theme[state.selected]);
+          emit(EVENTS.UPDATE_THEME, state.theme[state.selected]);
         }, state.config.debounceRate);
 
         return () => {
@@ -33,13 +33,21 @@ export const PanelContent: React.FC<PanelContentProps> = () => {
         };
       } else {
         if (isLoading) setIsLoading(false);
-        emit(EVENTS.UPDATE, state.theme[state.selected]);
+        emit(EVENTS.UPDATE_THEME, state.theme[state.selected]);
       }
     }
   }, [state.theme, state.selected]);
 
   const updateTheme = (i: number) => setState((p) => ({ ...p, selected: i }));
   const resetThemes = () => emit(EVENTS.RESET, state.selected);
+
+  const toggleDiff = () => {
+    setState((p) => ({
+      ...p,
+      config: { ...p.config, showDiff: !p.config.showDiff },
+    }));
+    emit(EVENTS.UPDATE_CONFIG, { showDiff: !state.config.showDiff });
+  };
 
   return (
     <Tabs
@@ -49,13 +57,23 @@ export const PanelContent: React.FC<PanelContentProps> = () => {
         onSelect: (id) => updateTheme(parseFloat(id)),
       }}
       tools={
-        isLoading ? (
-          <Loading />
-        ) : (
-          <IconButton title="Reset theme" onClick={resetThemes}>
-            <Icons icon="sync" />
+        <>
+          <IconButton
+            active={state.config.showDiff}
+            title={state.config.showDiff ? "Hide diff" : "Show diff"}
+            onClick={toggleDiff}
+          >
+            <Icons icon="sidebyside" />
           </IconButton>
-        )
+
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <IconButton title="Reset theme" onClick={resetThemes}>
+              <Icons icon="sync" />
+            </IconButton>
+          )}
+        </>
       }
     >
       {state.theme.map((t, i) => (

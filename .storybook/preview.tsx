@@ -23,12 +23,12 @@ const themes = [
         foreground: "#000",
       },
       headline: {
-        fontFamily: "'Inter', serif",
+        fontFamily: "'Inter', sans-serif",
         fontWeight: 700,
         fontSize: "52px",
       },
       copy: {
-        fontFamily: "'Crimson Pro', sans-serif",
+        fontFamily: "'Crimson Pro', serif",
         fontWeight: 200,
         fontSize: "20px",
       },
@@ -81,10 +81,6 @@ const themes = [
 
 const preview: Preview = {
   parameters: {
-    backgrounds: {
-      default: "light",
-    },
-    actions: { argTypesRegex: "^on[A-Z].*" },
     themePlayground: {
       theme: themes,
       provider: ({ children, theme, name }) => {
@@ -125,12 +121,6 @@ const preview: Preview = {
           ],
           description: "Select the copy font family",
         },
-      },
-    },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
       },
     },
   },

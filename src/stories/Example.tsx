@@ -12,7 +12,7 @@ import {
 } from "./Example.style";
 
 const Example = () => (
-  <>
+  <div>
     <Content>
       <legend>Colors</legend>
       <ColorPrimary />
@@ -47,7 +47,7 @@ const Example = () => (
         <Rect />
       </RectContainer>
     </Content>
-  </>
+  </div>
 );
 
 export default Example;

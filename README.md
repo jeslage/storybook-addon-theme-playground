@@ -124,6 +124,12 @@ Set to `false` updating the theme values will not be debounced.
 
 Set to `false` no code component will be rendered.
 
+### `config.showDiff`
+
+`boolean` | default: `false`
+
+Shows the difference between initial theme and modified theme. Currently in an experimental state. Rendering multiple global styles for example override each other.
+
 ### `disabled`
 
 `boolean` | default: `false`

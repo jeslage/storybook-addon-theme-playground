@@ -6,6 +6,7 @@ import {
   useState,
   useCallback,
   useEffect,
+  useStoryContext,
 } from "@storybook/preview-api";
 
 import type {
@@ -16,7 +17,8 @@ import type {
 import { logger } from "@storybook/client-logger";
 
 import { EVENTS, PARAM_KEY } from "./constants";
-import { PanelState, ThemePlaygroundProps } from "./types";
+import { ConfigProps, PanelState, ThemePlaygroundProps } from "./types";
+import { log } from "console";
 
 export const defaultOptions: ThemePlaygroundProps = {
   theme: undefined,
@@ -60,6 +62,7 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
       debounce: true,
       debounceRate: 500,
       showCode: true,
+      showDiff: false,
       ...config,
     },
   };
@@ -75,9 +78,14 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
     []
   );
 
+  const handleConfigUpdate = useCallback((config: Partial<ConfigProps>) => {
+    setState((prev) => ({ ...prev, config: { ...prev.config, ...config } }));
+  });
+
   const emit = useChannel({
     [EVENTS.RESET]: handleReset,
-    [EVENTS.UPDATE]: setCurrentTheme,
+    [EVENTS.UPDATE_THEME]: setCurrentTheme,
+    [EVENTS.UPDATE_CONFIG]: handleConfigUpdate,
   });
 
   useEffect(() => {
@@ -87,8 +95,19 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
   const Provider = provider;
 
   return (
-    <Provider theme={currentTheme?.theme} name={currentTheme?.name}>
-      {storyFn()}
-    </Provider>
+    <div style={{ display: "flex", gap: "10px", flexDirection: "row-reverse" }}>
+      {state.config.showDiff && (
+        <Provider
+          theme={initialState.theme[state.selected]?.theme}
+          name={initialState.theme[state.selected]?.name}
+        >
+          {storyFn()}
+        </Provider>
+      )}
+
+      <Provider theme={currentTheme?.theme} name={currentTheme?.name}>
+        {storyFn()}
+      </Provider>
+    </div>
   );
 };
