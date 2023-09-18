@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/jeslage/storybook-addon-theme-playground/compare/v3.0.1...v3.0.2) (2023-09-18)
+
+
+### Bug Fixes
+
+* fix color value not showing picker on hsla value ([eb288fc](https://github.com/jeslage/storybook-addon-theme-playground/commit/eb288fc63b075374e21c99f9d27971d080c23f82))
+
 # [3.0.1](https://github.com/jeslage/storybook-addon-theme-playground/compare/v3.0.0...v3.0.1) (2023-09-18)
 
 ### Features
