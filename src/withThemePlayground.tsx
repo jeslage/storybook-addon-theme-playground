@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 
 import {
   useChannel,
@@ -19,6 +19,7 @@ import { logger } from "@storybook/client-logger";
 import { EVENTS, PARAM_KEY } from "./constants";
 import { ConfigProps, PanelState, ThemePlaygroundProps } from "./types";
 import { log } from "console";
+import { background, color, styled } from "@storybook/theming";
 
 export const defaultOptions: ThemePlaygroundProps = {
   theme: undefined,
@@ -32,6 +33,12 @@ const getThemeArray = (theme?: any | any[]) => {
   if (typeof theme === "undefined") return [];
   return Array.isArray(theme) ? theme : [{ name: "Default Theme", theme }];
 };
+
+const Wrapper = styled.div<{ showDiff: boolean }>`
+  display: ${(props) => (props.showDiff ? "grid" : "block")};
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+`;
 
 export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
   const { theme, controls, config, provider } = useParameter(
@@ -95,7 +102,11 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
   const Provider = provider;
 
   return (
-    <div style={{ display: "flex", gap: "10px", flexDirection: "row-reverse" }}>
+    <Wrapper showDiff={state.config.showDiff}>
+      <Provider theme={currentTheme?.theme} name={currentTheme?.name}>
+        {storyFn()}
+      </Provider>
+
       {state.config.showDiff && (
         <Provider
           theme={initialState.theme[state.selected]?.theme}
@@ -104,10 +115,6 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
           {storyFn()}
         </Provider>
       )}
-
-      <Provider theme={currentTheme?.theme} name={currentTheme?.name}>
-        {storyFn()}
-      </Provider>
-    </div>
+    </Wrapper>
   );
 };
