@@ -1,5 +1,5 @@
 import { addons, types } from "@storybook/manager-api";
-import { ADDON_ID, ADDON_TITLE, PANEL_ID, TOOL_ID } from "./constants";
+import { ADDON_ID, ADDON_TITLE, PANEL_ID } from "./constants";
 
 import { Panel } from "./Panel";
 
@@ -10,13 +10,6 @@ import { Panel } from "./Panel";
 
 // Register the addon
 addons.register(ADDON_ID, () => {
-  // // Register the tool
-  // addons.add(TOOL_ID, {
-  //   type: types.TOOL,
-  //   title: ADDON_TITLE,
-  //   match: ({ viewMode }) => !!(viewMode && viewMode.match(/^(story|docs)$/)),
-  //   render: Tool,
-  // });
   // Register the panel
   addons.add(PANEL_ID, {
     type: types.PANEL,
