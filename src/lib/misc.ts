@@ -29,6 +29,7 @@ export const is = {
       v.startsWith("rgb(") ||
       v.startsWith("rgba(") ||
       v.startsWith("hsl(") ||
+      v.startsWith("hsla(") ||
       defaultCssColors.includes(v.toLowerCase()) ||
       l.toLowerCase().includes("color")),
 
