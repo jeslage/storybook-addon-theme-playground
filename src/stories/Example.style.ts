@@ -1,28 +1,19 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Content = styled.fieldset`
-  padding: 1.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+export const Content = styled.div`
   position: relative;
-
-  legend {
-    display: block;
-    padding: 0 0.25rem;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: ${({ theme }) => theme.headline.fontWeight};
-    font-family: ${({ theme }) => theme.headline.fontFamily};
-  }
+  margin-bottom: 40px;
 `;
 
-export const Color = styled.div`
+export const Color = styled.div<{ index?: number; color?: string }>`
   position: relative;
-  width: 200px;
-  height: 150px;
-  margin: 0rem 1rem 0rem 0rem;
+  width: 180px;
+  aspect-ratio: 3/2;
+  margin: 0rem 1rem 1rem 0rem;
   display: inline-block;
   border-radius: 0.25rem;
+  background: ${({ theme, color }) => theme.color[color]};
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
   &:after {
@@ -37,22 +28,15 @@ export const Color = styled.div`
     color: white;
     font-size: 12px;
     border-top-right-radius: 0.25rem;
+    content: "${({ theme, color }) => theme.color[color]}";
   }
 `;
 
-export const ColorPrimary = styled(Color)`
-  background: ${({ theme }) => theme.color.primary};
+export const ColorShade = styled(Color)`
+  background: ${({ theme, index }) => theme.color.shades[index || 0]};
 
   &:after {
-    content: "${({ theme }) => theme.color.primary}";
-  }
-`;
-
-export const ColorSecondary = styled(Color)`
-  background: ${({ theme }) => theme.color.secondary};
-
-  &:after {
-    content: "${({ theme }) => theme.color.secondary}";
+    content: "${({ theme, index }) => theme.color.shades[index || 0]}";
   }
 `;
 
@@ -66,14 +50,16 @@ const getRectStyles = ({ theme }: any) => `
 `;
 
 export const Rect = styled.div`
-  background: ${(props) => props.theme.color.secondary};
+  background: ${(props) => props.theme.color.shades[4]};
+  border-radius: ${(props) => props.theme.borderRadius};
   ${getRectStyles};
 `;
 
 export const RectContainer = styled.div`
   display: inline-block;
   margin-right: 0.5rem;
-  background: ${(props) => props.theme.color.primary};
+  background: ${(props) => props.theme.color.shades[0]};
+  border-radius: ${(props) => props.theme.borderRadius};
 `;
 
 export const Headline = styled.h1`
@@ -90,11 +76,10 @@ export const Copy = styled.p`
 
 export const Spacing = styled.div`
   position: relative;
-  width: 50px;
-  margin: 1rem;
-  background: ${(props) => props.theme.color.primary};
+  margin-right: 1rem;
+  background: ${(props) => props.theme.color.shades[0]};
   display: inline-block;
-  height: ${({ theme }) => theme.spacings[0]}px;
+  border-radius: ${(props) => props.theme.borderRadius};
 
   &:after {
     position: absolute;
@@ -102,30 +87,23 @@ export const Spacing = styled.div`
     transform: translateY(-50%);
     width: 100%;
     text-align: center;
-    font-family: "sans-serif";
-    font-size: 12px;
-    color: ${(props) => props.theme.color.secondary};
-    content: "${({ theme }) => theme.spacings[0]}";
+    font-family: ${({ theme }) => theme.copy.fontFamily};
+    font-size: 14px;
+    font-weight: ${({ theme }) => theme.copy.fontWeight};
+    color: ${(props) => props.theme.color.shades[4]};
   }
 
-  &:nth-of-type(2) {
-    height: ${({ theme }) => theme.spacings[1]}px;
-    &:after {
-      content: "${({ theme }) => theme.spacings[1]}";
-    }
-  }
+  ${(props) =>
+    props.theme.spacings.map(
+      (spacing: number, i: number) => css`
+        &:nth-of-type(${i + 1}) {
+          height: ${spacing}px;
+          width: ${spacing}px;
 
-  &:nth-of-type(3) {
-    height: ${({ theme }) => theme.spacings[2]}px;
-    &:after {
-      content: "${({ theme }) => theme.spacings[2]}";
-    }
-  }
-
-  &:nth-of-type(4) {
-    height: ${({ theme }) => theme.spacings[3]}px;
-    &:after {
-      content: "${({ theme }) => theme.spacings[3]}";
-    }
-  }
+          &:after {
+            content: "${spacing}";
+          }
+        }
+      `
+    )}
 `;

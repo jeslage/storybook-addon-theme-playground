@@ -12,16 +12,16 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-const themes = [
+export const themes = [
   {
-    name: "Default Theme",
+    name: "Forest Theme",
     theme: {
       color: {
-        primary: "#00ffa2",
-        secondary: "#004466",
+        shades: ["#cad2c5", "#84a98c", "#52796f", "#354f52", "#2f3e46"],
         background: "#fff",
         foreground: "#000",
       },
+
       headline: {
         fontFamily: "'Inter', sans-serif",
         fontWeight: 700,
@@ -32,25 +32,25 @@ const themes = [
         fontWeight: 200,
         fontSize: "20px",
       },
-      spacings: [40, 80, 120, 160],
+      borderRadius: "4px",
+      spacings: [40, 80, 120, 160, 180],
       rectangle: {
-        width: "40px",
-        height: "20px",
+        width: "80px",
+        height: "80px",
         margin: {
           top: 60,
           bottom: 60,
-          left: 20,
-          right: 20,
+          left: 60,
+          right: 60,
         },
       },
     },
   },
   {
-    name: "Another Theme",
+    name: "Ocean Theme",
     theme: {
       color: {
-        primary: "indigo",
-        secondary: "honeydew",
+        shades: ["#0d1b2a", "#1b263b", "#415a77", "#778da9", "#e0e1dd"],
         background: "#fff",
         foreground: "#000",
       },
@@ -64,15 +64,16 @@ const themes = [
         fontWeight: 400,
         fontSize: "14px",
       },
-      spacings: [20, 40, 60, 90],
+      borderRadius: "100px",
+      spacings: [20, 40, 60, 90, 120],
       rectangle: {
         width: "100px",
         height: "100px",
         margin: {
-          top: 20,
-          bottom: 20,
-          left: 20,
-          right: 20,
+          top: 40,
+          bottom: 40,
+          left: 40,
+          right: 40,
         },
       },
     },
@@ -120,6 +121,12 @@ const preview: Preview = {
             { value: "'Inter', sans-serif", label: "Inter" },
           ],
           description: "Select the copy font family",
+        },
+        borderRadius: {
+          type: "range",
+          max: 120,
+          min: 0,
+          description: "Define the border radius",
         },
       },
     },

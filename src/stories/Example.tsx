@@ -2,26 +2,28 @@ import React from "react";
 
 import {
   Content,
-  ColorPrimary,
-  ColorSecondary,
   Rect,
   Headline,
   Copy,
   Spacing,
   RectContainer,
+  ColorShade,
+  Color,
 } from "./Example.style";
 
 const Example = () => (
   <div>
     <Content>
-      <legend>Colors</legend>
-      <ColorPrimary />
-      <ColorSecondary />
+      <ColorShade index={0} />
+      <ColorShade index={1} />
+      <ColorShade index={2} />
+      <ColorShade index={3} />
+      <ColorShade index={4} />
+      <Color color="foreground" />
+      <Color color="background" />
     </Content>
 
     <Content>
-      <legend>Typography</legend>
-
       <Headline>
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr
       </Headline>
@@ -29,8 +31,7 @@ const Example = () => (
     </Content>
 
     <Content>
-      <legend>Spacings</legend>
-
+      <Spacing />
       <Spacing />
       <Spacing />
       <Spacing />
@@ -38,8 +39,9 @@ const Example = () => (
     </Content>
 
     <Content>
-      <legend>Margins</legend>
-
+      <RectContainer>
+        <Rect />
+      </RectContainer>
       <RectContainer>
         <Rect />
       </RectContainer>

@@ -24,7 +24,10 @@ export const PanelContent: React.FC<PanelContentProps> = () => {
       if (state.config.debounce) {
         const timeout = setTimeout(() => {
           setIsLoading(false);
-          emit(EVENTS.UPDATE_THEME, state.theme[state.selected]);
+          emit(EVENTS.UPDATE_THEME, {
+            index: state.selected,
+            theme: state.theme[state.selected],
+          });
         }, state.config.debounceRate);
 
         return () => {
@@ -33,7 +36,10 @@ export const PanelContent: React.FC<PanelContentProps> = () => {
         };
       } else {
         if (isLoading) setIsLoading(false);
-        emit(EVENTS.UPDATE_THEME, state.theme[state.selected]);
+        emit(EVENTS.UPDATE_THEME, {
+          index: state.selected,
+          theme: state.theme[state.selected],
+        });
       }
     }
   }, [state.theme, state.selected]);

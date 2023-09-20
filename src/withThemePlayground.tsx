@@ -1,4 +1,5 @@
-import React, { CSSProperties } from "react";
+import React from "react";
+import { styled } from "@storybook/theming";
 
 import {
   useChannel,
@@ -6,7 +7,6 @@ import {
   useState,
   useCallback,
   useEffect,
-  useStoryContext,
 } from "@storybook/preview-api";
 
 import type {
@@ -18,8 +18,6 @@ import { logger } from "@storybook/client-logger";
 
 import { EVENTS, PARAM_KEY } from "./constants";
 import { ConfigProps, PanelState, ThemePlaygroundProps } from "./types";
-import { log } from "console";
-import { background, color, styled } from "@storybook/theming";
 
 export const defaultOptions: ThemePlaygroundProps = {
   theme: undefined,
@@ -80,6 +78,10 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
     state.theme.length > 0 ? state.theme[state.selected] : undefined
   );
 
+  const [currentIndex, setCurrentIndex] = useState(
+    state.theme.length > 0 ? 0 : undefined
+  );
+
   const handleReset = useCallback(
     (i: number) => setState({ ...initialState, selected: i }),
     []
@@ -89,9 +91,20 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
     setState((prev) => ({ ...prev, config: { ...prev.config, ...config } }));
   });
 
+  const handleThemeUpdate = ({
+    theme,
+    index,
+  }: {
+    theme: any;
+    index: number;
+  }) => {
+    setCurrentIndex(index);
+    setCurrentTheme(theme);
+  };
+
   const emit = useChannel({
     [EVENTS.RESET]: handleReset,
-    [EVENTS.UPDATE_THEME]: setCurrentTheme,
+    [EVENTS.UPDATE_THEME]: handleThemeUpdate,
     [EVENTS.UPDATE_CONFIG]: handleConfigUpdate,
   });
 
@@ -109,8 +122,8 @@ export const withThemePlayground = (storyFn: StoryFunction<Renderer>) => {
 
       {state.config.showDiff && (
         <Provider
-          theme={initialState.theme[state.selected]?.theme}
-          name={initialState.theme[state.selected]?.name}
+          theme={initialState.theme[currentIndex]?.theme}
+          name={initialState.theme[currentIndex]?.name}
         >
           {storyFn()}
         </Provider>
