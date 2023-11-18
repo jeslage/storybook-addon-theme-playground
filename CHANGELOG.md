@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/jeslage/storybook-addon-theme-playground/compare/v3.0.2...v3.1.0) (2023-09-20)
+
+
+### Bug Fixes
+
+* **diff:** fix grid for theme diffs ([1b5f162](https://github.com/jeslage/storybook-addon-theme-playground/commit/1b5f1623bfd152e639a4df706de4dd2c48524b31))
+
+
+### Features
+
+* **diff:** update diff styles and fix diff current theme ([e486dc1](https://github.com/jeslage/storybook-addon-theme-playground/commit/e486dc1e091b6c82fafb459ad65f870734170091))
+
 ## [3.0.2](https://github.com/jeslage/storybook-addon-theme-playground/compare/v3.0.1...v3.0.2) (2023-09-18)
 
 
