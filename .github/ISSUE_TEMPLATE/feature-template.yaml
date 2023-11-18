@@ -1,0 +1,12 @@
+name: "Feature Request"
+description: Suggest new feature for storybook-addon-theme-playground
+title: "[FEATURE]:"
+labels: ["enhancement"]
+
+body:
+  - type: textarea
+    attributes:
+      label: Describe what you want
+      description: What is the problem? What do you want to change or add?
+    validations:
+      required: true
